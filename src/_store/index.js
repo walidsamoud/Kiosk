@@ -64,7 +64,6 @@ export const store = new Vuex.Store({
             const newEvent = Object.assign({}, event);
             state.calendarEvents.push(newEvent);
         },
-
     },
     actions: {
         updateSidebarWidth({ commit }, width) {
