@@ -1,5 +1,5 @@
 <template>
-  <div class="theme">
+  <div :class="theme">
     <router-view></router-view>
   </div>
 </template>
@@ -24,6 +24,10 @@
             return "kiosk_layout_orangina";
           case "light":
             return "kiosk_layout_light";
+          case "greena":
+            return "kiosk_layout_greena";
+          case "lemon":
+            return "kiosk_layout_lemon";
         }
         return "kiosk_layout";
       }
@@ -52,6 +56,14 @@
   }
   .kiosk_layout_light {
     background-image: url(../../assets/images/background/kiosk-light.jpg);
+    background-size: 100% 100%;
+  }
+  .kiosk_layout_greena {
+    background-image: url(../../assets/images/background/kiosk-green.jpg);
+    background-size: 100% 100%;
+  }
+  .kiosk_layout_lemon {
+    background-image: url(../../assets/images/background/kiosk-yellow.svg);
     background-size: 100% 100%;
   }
   .kiosk-input {

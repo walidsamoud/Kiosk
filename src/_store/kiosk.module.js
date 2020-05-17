@@ -13,7 +13,22 @@ const actions = {
             .then(
                 kiosk => {
                     commit('loginSuccess', kiosk);
-                    router.push('/kiosk/checkin');
+                    router.push('/checkin');
+                },
+                error => {
+                    commit('loginFailure', error);
+                    dispatch('alert/error', error, { root: true });
+                    throw new Error("Key and Secret do not match our records")
+                }
+            );
+    },
+    async autoLogin({ dispatch, commit }, { key, token }) {
+        commit('loginRequest');
+        await kioskService.autoLogin(key, token)
+            .then(
+                kiosk => {
+                    commit('loginSuccess', kiosk);
+                    router.push('/checkin');
                 },
                 error => {
                     commit('loginFailure', error);

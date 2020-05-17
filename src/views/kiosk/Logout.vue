@@ -42,7 +42,7 @@ export default {
     ...mapActions('Kiosk', ['login', 'logout']),
       logoutAndLeave(){
           this.logout().then(function () {
-              this.$router.push('/kiosk/login')
+              this.$router.push('/login')
           }.bind(this))
       }
   },  
@@ -54,7 +54,7 @@ export default {
   },
   created () {
     // reset login status
-    if(!this.kiosk_info) this.$router.push('/kiosk/login')
+    if(!this.kiosk_info) this.$router.push('/login')
   },
   components:{
       LanguageSelector
