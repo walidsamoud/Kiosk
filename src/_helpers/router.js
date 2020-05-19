@@ -19,14 +19,24 @@ export const router = new Router({
             // ======================
             // Theme routes / pages
             // ======================
-            children: [{
+            children: [
+            {
                 path: '/',
                 redirect: '/login',
                 meta:{
                     authRequired: false,
                     authorize: ['*']
                 }
-            }, {
+            },
+            {
+                path: '/auth/:key/:token',
+                meta:{
+                    authRequired: false,
+                    authorize: ['*']
+                },
+                component: () => import('../views/kiosk/Login.vue')
+            },
+            {
                 path: '/login',
                 name: 'KioskLogin',
                 meta:{

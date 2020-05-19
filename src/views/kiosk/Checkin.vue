@@ -160,10 +160,11 @@
 
 
         <div id="ticketPrint" style="text-align: center">
-            <img :src="require('@/assets/images/logo/liberrex-grayscale.png')" style="width: 50%; margin-bottom: 1cm"/>
+            <img :src="kioskConfig.photo != '' ? kioskConfig.photo : require('@/assets/images/logo/liberrex-grayscale.png')" style="width: 50%; margin-bottom: 1cm"/>
             <br>
             <span style="font-size: 18px">{{$t('Kiosk.Ticket.Welcome')}}</span><br>
-            <span style="font-size: 28px; font-weight: bold">{{kiosk_info.business.name}}</span>
+            <span style="font-size: 22px; font-weight: bold">{{kiosk_info.business.name}}</span><br>
+            <span style="font-size: 18px;">{{selectedQueue ? selectedQueue.queue.title : ''}}</span>
             <hr>
             <table style="width: 100%">
                 <tr>
@@ -172,29 +173,29 @@
                 </tr>
             </table>
             <div class="seperator"></div>
-            <span style="font-size: 74px; font-weight: bold">{{ticket.public_identifier}}</span>
+            <span style="font-size: 54px; font-weight: bold">{{ticket.public_identifier}}</span>
             <div class="seperator"></div>
             <hr>
             <table style="width: 100%">
                 <tr>
                     <td style="text-align: center; width: 50%">
-                        <span style="font-size: 48px; font-weight: bold">{{ticket.total_waiting}}</span><br>
+                        <span style="font-size: 32px; font-weight: bold">{{ticket.total_waiting}}</span><br>
                         <span style="font-size: 15px">{{$t('Kiosk.Ticket.Rank')}}</span>
                     </td>
                     <td style="text-align: center;  width: 50%">
-                        <span style="font-size: 48px; font-weight: bold">{{ticketWaitingTimeFormatted}}</span><br>
+                        <span style="font-size: 32px; font-weight: bold">{{ticketWaitingTimeFormatted}}</span><br>
                         <span style="font-size: 15px">{{$t('Kiosk.Ticket.WaitingTime')}}</span>
                     </td>
                 </tr>
             </table>
             <hr>
-            <span style="font-size: 32px; font-weight: bold">{{$t('Kiosk.Ticket.Services')}}</span><br>
-            <span v-for="(item,index) in ticket.services" :key="index" style="font-size: 22px">
+            <span style="font-size: 24px; font-weight: bold">{{$t('Kiosk.Ticket.Services')}}</span><br>
+            <span v-for="(item,index) in ticket.services" :key="index" style="font-size: 18px">
                 {{item.title}} <br>
             </span>
             <footer id="footer">
-                <qrcode-vue :value="qrCode"></qrcode-vue>
-                <span style="font-size: 12px">{{$t('Kiosk.Ticket.ScanQR')}}</span><br>
+                <qrcode-vue renderAs="svg" :value="qrCode" style="margin-bottom: 10px"></qrcode-vue>
+                <span style="font-size: 12px;">{{$t('Kiosk.Ticket.ScanQR')}}</span><br>
                 <span style="font-size: 14px">{{$t('Kiosk.Ticket.ThankYou')}}</span>
             </footer>
         </div>
@@ -203,6 +204,7 @@
 </template>
 
 <script>
+var keyboard = null;
 import { mapState } from 'vuex'
 import LanguageSelector from '../../components/language/LanguageSelector'
 import {kioskService} from "../../_services";
@@ -222,6 +224,7 @@ export default {
       step: 1,
       customer: {},
       queues: [],
+      kioskConfig: {},
       ticket: {
           business: 1,
           checkinDate: "2020-05-12",
@@ -230,8 +233,8 @@ export default {
           estimatedTimeToSpend: "25",
           id: 54,
           member_id: 1,
-          rank: 3,
-          public_identifier: "P-004",
+          total_waiting: 0,
+          public_identifier: "001",
           queue_line_id: 45,
           services: "4",
           status: "waiting",
@@ -272,7 +275,6 @@ export default {
           switch (this.step) {
               case 1:
                   if(this.phone_number.length >= 6) {
-
                       this.findCustomerByPhoneNumber();
                   } else{
                       this.errors.phone = true;
@@ -335,6 +337,10 @@ export default {
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
             if(data.customer != null) {
                 this.step = 3;
+                if(this.queues.length == 1){
+                    this.selectedQueue = this.queues[0];
+                    this.step = 4;
+                }
                 this.customer = data.customer;
             } else{
                 if(!this.kiosk_info.kiosk.collect_details){
@@ -368,6 +374,10 @@ export default {
           kioskService.createCustomer(payload).then(function (data) {
               if(data.customer != null) {
                   this.step = 3;
+                  if(this.queues.length == 1){
+                      this.selectedQueue = this.queues[0];
+                      this.step = 4;
+                  }
                   this.customer = data.customer;
               }
           }.bind(this)).catch(function () {
@@ -398,14 +408,28 @@ export default {
           }
           kioskService.joinQueue(payload).then(function (data) {
               this.ticket = data.ticket;
-              this.qrCode = "https://app.liberrex.com/t/"+this.ticket.unique_id;
+              this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
-          }.bind(this)).catch(function (ex) {
 
+              /*
+              setTimeout(function (){
+                  // Print
+                  var w = window.open('', "_blank", "fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=-10000, top=-10000,width=10, height=10,visible=none");
+                  window.focus();
+                  var html = document.getElementById("ticketPrint").outerHTML;
+                  w.document.write("<html><head>" +
+                      "<style>@media print{@page{margin:.2cm;size:8cm 16cm}#checkin-box{display:none}*{background:#fff;color:#000}#ticketPrint{display:block;width:10.5cm}.seperator{margin-top:0.5cm}hr{border-color:#000!important;border-collapse:collapse;line-height:1px;border-style: inset;}#footer{width:100%;height:4cm; margin-top:20px}}</style>" +
+                      "</head><body>"+html+"</body></html>");
+                  w.print();
+                  //w.close();
+              }, 500); // How long do you want the delay to be (in milliseconds)?
+               */
+              window.print();
+
+          }.bind(this)).catch(function (ex) {
                   this.errors.push = true;
           }.bind(this)).finally(function () {
               this.hideLoading();
-              window.print();
           }.bind(this))
       },
       startAgain(){
@@ -432,7 +456,7 @@ export default {
       },
       onKeyPress(button, fieldName) {
           switch (button) {
-              case '{bksp}':
+              case '<':
                   switch (fieldName) {
                       case 'phone':
                           this.phone_number = this.phone_number.slice(0, -1);
@@ -448,7 +472,7 @@ export default {
                           break;
                   }
                   break;
-              case 'close':
+              case 'X':
                   this.hideKeyboardNumerical();
                   break;
               default:
@@ -472,12 +496,11 @@ export default {
           this.input = input.target.value;
       },
       showKeyboardNumerical(fieldName){
-          window.keyboard = new Keyboard({
+          keyboard = new Keyboard({
               onChange: input => this.onChange(input, fieldName),
               onKeyPress: button => this.onKeyPress(button, fieldName),
               layout: {
-                  default: ["1 2 3", "4 5 6", "7 8 9", "{shift} 0 _", "{bksp} close"],
-                  shift: ["! / #", "$ % ^", "& * (", "{shift} ) +", "{bksp} close"]
+                  default: ["1 2 3", "4 5 6", "7 8 9", "< 0 X"]
               },
               theme: "hg-theme-default hg-layout-numeric numeric-theme",
               inputPattern: /^\d+$/,
@@ -486,7 +509,7 @@ export default {
           this.showNumericalKeyboard = true;
       },
       showKeyboardAlphaNumerical(fieldName){
-          window.keyboard = new Keyboard({
+          keyboard = new Keyboard({
               onChange: input => this.onChange(input, fieldName),
               onKeyPress: button => this.onKeyPress(button, fieldName),
               layout: {
@@ -513,11 +536,11 @@ export default {
       },
       hideKeyboardNumerical(){
           this.showNumericalKeyboard = false;
-          window.keyboard.destroy();
+          keyboard.destroy();
       },
       hideKeyboardAlphaNumerical(){
           this.showNumericalKeyboard = false;
-          window.keyboard.destroy();
+          keyboard.destroy();
       }
   },  
   computed: {
@@ -584,7 +607,7 @@ export default {
       return this.$moment().startOf('day').add(this.ticket.estimatedTimeToSpend, 'minutes').format('HH:mm');
     },
     checkinDateFormatted: function () {
-      return this.$moment(this.ticket.checkinDate+' '+this.ticket.checkinTime).format('MM/DD/YYYY');
+      return this.$moment(this.ticket.checkinDate+' '+this.ticket.checkinTime).format('DD/MM/YYYY');
     },
     checkinTimeFormatted: function () {
       return this.$moment(this.ticket.checkinDate+' '+this.ticket.checkinTime).format('HH:mm');
@@ -592,6 +615,7 @@ export default {
   },
     mounted(){
         this.getKioskQueues();
+        this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);
     },
   components:{
       LanguageSelector,
@@ -650,6 +674,7 @@ export default {
     }
     * {
         background: white;
+        color: #000000;
     }
     #ticketPrint {
         display: block;
@@ -657,18 +682,19 @@ export default {
 
     }
     .seperator{
-        margin-top: 1cm;
+        margin-top: 0.3cm;
     }
     hr {
-        border: 0.1px solid black;
+        border: 0.5px solid black;
+        border-style: inset;
         border-collapse:collapse;
         line-height: 1px;
     }
     #footer {
-        position: absolute;
-        bottom: 0;
         width: 100%;
-        height: 4cm;            /* Footer height */
+        height: 4cm;
+        margin-top: 10px;
+        /* Footer height */
     }
 }
 </style>

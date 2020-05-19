@@ -10,6 +10,7 @@ export const kioskService = {
     resetPassword,
     delete: _delete,
     login,
+    autoLogin,
     logout,
     findCustomerByPhoneNumber,
     createCustomer,
@@ -142,6 +143,25 @@ function login(key, secret) {
         }
         return kiosk;
     });
+}
+
+function autoLogin(key, token) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    };
+
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.kiosks.autoLogin
+        .replace(':key', key).replace(':token', token)}`, requestOptions)
+        .then(handleResponse)
+        .then(kiosk => {
+            // login successful if there's a jwt token in the response
+            if (kiosk.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('kiosk', JSON.stringify(kiosk));
+            }
+            return kiosk;
+        });
 }
 
 function logout() {

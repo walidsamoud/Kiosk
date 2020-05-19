@@ -1,6 +1,18 @@
 <template>
-  <div id="lang-box">
-    <vs-dropdown vs-trigger-click class="cursor-pointer ml-md-4">
+  <div id="lang-box" style="position: fixed; right: 0px; top: 10px;">
+    <ul style="display: inline-flex; list-style: none;">
+      <li class="mr-4" @click="changeLanguage('ar')">
+          <img :src="require('@/assets/images/flags/flag-tn.png')" style="max-height: 48px"/>
+      </li>
+      <li class="mr-4" @click="changeLanguage('fr')">
+        <img :src="require('@/assets/images/flags/flag-fr.png')" style="max-height: 48px"/>
+      </li>
+      <li class="mr-4" @click="changeLanguage('en')">
+        <img :src="require('@/assets/images/flags/flag-uk.png')" style="max-height: 48px"/>
+      </li>
+
+    </ul>
+    <vs-dropdown vs-trigger-click class="cursor-pointer ml-md-4" v-if="false">
       <a class="small-icon font-weight-light font-12" :class="textStyle" href="#">
         <i class="mdi mdi-earth"></i> {{getCurrentLanguage.lang}}
         <vs-icon icon="expand_more"></vs-icon>
@@ -29,17 +41,10 @@ export default {
   },
   methods: {
     changeLanguage(locale) {
-      this.showLoading();
       this.$i18n.locale = locale;
       localStorage.setItem('Language', locale);
       location.reload(true);
     },
-    showLoading(){
-      this.$vs.loading({
-        container: '#lang-box',
-        scale: 0.6
-      });
-    }
   },
   computed: {
     getCurrentLanguage() {
@@ -51,7 +56,6 @@ export default {
       else if (locale == "de") return { lang: "Deutsche" };
       else if (locale == "ru") return { lang: "Русский" };
       else if (locale == "ar") return { lang: "العريية" };
-      else if (locale == "he") return { lang: "עברי" };
       return this.locale;
     },
     textStyle(){
