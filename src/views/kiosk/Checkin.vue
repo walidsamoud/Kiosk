@@ -434,7 +434,7 @@ export default {
                   if(this.step == 7){
                       this.step = 1;
                   }
-              }, 5000);
+              }.bind(this), 5000);
 
           }.bind(this)).catch(function (ex) {
                   this.errors.push = true;
