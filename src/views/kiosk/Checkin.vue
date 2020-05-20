@@ -424,7 +424,17 @@ export default {
                   //w.close();
               }, 500); // How long do you want the delay to be (in milliseconds)?
                */
-              window.print();
+              setTimeout(function (){
+                  // Print
+                  window.print();
+              }, 1000);
+
+              setTimeout(function (){
+                  // Go back to first page after 5 seconds
+                  if(this.step == 7){
+                      this.step = 1;
+                  }
+              }, 5000);
 
           }.bind(this)).catch(function (ex) {
                   this.errors.push = true;
