@@ -432,7 +432,7 @@ export default {
               setTimeout(function (){
                   // Go back to first page after 5 seconds
                   if(this.step == 7){
-                      this.step = 1;
+                      this.startAgain();
                   }
               }.bind(this), 5000);
 
