@@ -17,6 +17,12 @@
                            :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
                             @focus="showKeyboardNumerical('phone')" ref="phone"
                     />
+
+                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
+                    <input v-if="kiosk_info.kiosk.require_internal_id == 1" class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.internal_id ? 'kiosk-input-error' : ''"
+                           placeholder="IID/001" v-model="internal_id" type="text"
+                           @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
+                    />
                 </div>
 
                 <div id="step_2" v-if="step == 2">
@@ -143,6 +149,19 @@
 
                 </div>
 
+
+                <div id="step_8" v-if="step == 8">
+                    <h2 class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
+                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
+                    <vs-row class="mt-4">
+                        <vs-col vs-w="12" class="mt-4">
+                            <button class="btn btn-lg btn-light mt-2 w-100 footer-button" @click="startAgain">
+                                {{$t('Kiosk.App.StartAgainButton')}}
+                            </button>
+                        </vs-col>
+                    </vs-row>
+                </div>
+
             </div>
             <div slot="footer" class="p-2">
                 <button class="btn btn-lg btn-outline-light mb-2 float-right footer-button" v-if="step < 6" @click="goToNextStep">
@@ -216,6 +235,7 @@ export default {
   data:()=>({
     msg: "Checkin",
       phone_number: "",
+      internal_id: "",
       country_prefix: "",
       fname: "",
       lname: "",
@@ -250,6 +270,7 @@ export default {
       },
       errors: {
         phone: false,
+        internal_id: false,
         queue: false,
         join: false
       },
@@ -270,20 +291,25 @@ export default {
       goToNextStep(){
           this.errors = {
               phone: false,
+              internal_id: false,
               push: false,
           };
           switch (this.step) {
               case 1:
                   if(this.phone_number.length >= 6) {
-                      this.findCustomerByPhoneNumber();
-                  } else{
-                      this.errors.phone = true;
+                      if(this.kiosk_info.kiosk.require_internal_id == 1){
+                          if(this.internal_id.length > 3){
+                              // do it
+                              this.findCustomerByPhoneNumber();
+                          }
+                          else{ this.errors.internal_id = true; }
+                      }
+                      else { this.findCustomerByPhoneNumber(); }
                   }
+                  else { this.errors.phone = true; }
                   break;
               case 2:
-                  if(this.fname.length && this.lname.length) {
-                      this.createNewCustomer();
-                  }
+                  if(this.fname.length && this.lname.length) { this.createNewCustomer(); 1}
                   break;
               case 3:
                   if(this.selectedQueue != null){
@@ -332,17 +358,23 @@ export default {
           this.showLoading();
           let payload = {
               phone_number: this.phone_number.replace(/\s/g,''),
+              internal_id: this.internal_id,
               country_prefix: this.countryPrefix
           }
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
             if(data.customer != null) {
-                this.step = 3;
-                if(this.queues.length == 1){
-                    this.selectedQueue = this.queues[0];
-                    this.step = 4;
+                if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
+                    this.step = 8;
+                }else {
+                    this.step = 3;
+                    if(this.queues.length == 1){
+                        this.selectedQueue = this.queues[0];
+                        this.step = 4;
+                    }
+                    this.customer = data.customer;
                 }
-                this.customer = data.customer;
-            } else{
+            }
+            else{
                 if(!this.kiosk_info.kiosk.collect_details){
                     this.fname = '';
                     this.lname = '';
@@ -350,7 +382,11 @@ export default {
                     this.createNewCustomer();
                 }
                 else {
-                    this.step = 2;
+                    if(this.kiosk_info.kiosk.require_internal_id == 1){
+                        this.step = 8;
+                    } else {
+                        this.step = 2;
+                    }
                 }
 
             }
@@ -369,14 +405,19 @@ export default {
               country: this.countryIso,
               fname: this.fname,
               lname: this.lname,
-              email: this.email
+              email: this.email,
+              internal_id: this.internal_id,
           }
           kioskService.createCustomer(payload).then(function (data) {
               if(data.customer != null) {
-                  this.step = 3;
-                  if(this.queues.length == 1){
-                      this.selectedQueue = this.queues[0];
-                      this.step = 4;
+                  if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
+                      this.step = 8;
+                  }else {
+                      this.step = 3;
+                      if (this.queues.length == 1) {
+                          this.selectedQueue = this.queues[0];
+                          this.step = 4;
+                      }
                   }
                   this.customer = data.customer;
               }
@@ -443,6 +484,7 @@ export default {
           }.bind(this))
       },
       startAgain(){
+          this.internal_id = "";
           this.phone_number = "";
           this.country_prefix = "";
           this.fname = "";
@@ -471,6 +513,9 @@ export default {
                       case 'phone':
                           this.phone_number = this.phone_number.slice(0, -1);
                           break;
+                      case 'internal_id':
+                          this.internal_id = this.internal_id.slice(0, -1);
+                          break;
                       case 'fname':
                           this.fname = this.fname.slice(0, -1);
                           break;
@@ -486,7 +531,11 @@ export default {
                   this.hideKeyboardNumerical();
                   break;
               default:
+                  if(button=="{space}") button = " ";
                   switch (fieldName) {
+                      case 'internal_id':
+                          this.internal_id = this.internal_id+button;
+                          break;
                       case 'phone':
                           this.phone_number = this.phone_number+button;
                           break;
@@ -524,18 +573,11 @@ export default {
               onKeyPress: button => this.onKeyPress(button, fieldName),
               layout: {
                   'default': [
-                      '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
-                      '{tab} q w e r t y u i o p [ ] \\',
-                      '{lock} a s d f g h j k l ; \' {enter}',
-                      '{shift} z x c v b n m , . / {shift}',
-                      '.com @ {space}'
-                  ],
-                  'shift': [
-                      '~ ! @ # $ % ^ & * ( ) _ + {bksp}',
-                      '{tab} Q W E R T Y U I O P { } |',
-                      '{lock} A S D F G H J K L : " {enter}',
-                      '{shift} Z X C V B N M < > ? {shift}',
-                      '.com @ {space}'
+                      '1 2 3 4 5 6 7 8 9 0 - / X',
+                      'A Z E R T Y U I O P',
+                      'Q S D F G H J K L',
+                      'W X C V B N M <',
+                      '{space}'
                   ]
               },
               theme: "hg-theme-default hg-layout-numeric numeric-theme",
