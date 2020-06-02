@@ -465,10 +465,10 @@ export default {
                   //w.close();
               }, 500); // How long do you want the delay to be (in milliseconds)?
                */
-              setTimeout(function (){
-                  // Print
-                  window.print();
-              }, 1000);
+              if(this.kiosk_info.kiosk.should_print){
+                  setTimeout(function (){ window.print(); }, 500);
+              }
+
 
               setTimeout(function (){
                   // Go back to first page after 5 seconds
