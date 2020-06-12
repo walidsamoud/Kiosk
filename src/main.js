@@ -19,6 +19,13 @@ import Vuebar from 'vuebar';
 //import promise
 import 'es6-promise/auto';
 
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginVue from '@bugsnag/plugin-vue'
+
+Bugsnag.start({
+    apiKey: 'a8dde7f55dab42f680479a97a0a41d78',
+    plugins: [new BugsnagPluginVue()]
+})
 
 Vue.use(Vuesax);
 Vue.use(Vuebar);
@@ -63,3 +70,4 @@ Vue.prototype.$pusher = new Pusher(process.env.VUE_APP_PUSHER_ID, {
     }
 });
 
+Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)
