@@ -555,36 +555,40 @@ export default {
           this.input = input.target.value;
       },
       showKeyboardNumerical(fieldName){
-          keyboard = new Keyboard({
-              onChange: input => this.onChange(input, fieldName),
-              onKeyPress: button => this.onKeyPress(button, fieldName),
-              layout: {
-                  default: ["1 2 3", "4 5 6", "7 8 9", "< 0 X"]
-              },
-              theme: "hg-theme-default hg-layout-numeric numeric-theme",
-              inputPattern: /^\d+$/,
-              autoUseTouchEvents: true
-          });
-          this.showNumericalKeyboard = true;
+          if(this.kiosk_info.kiosk.show_keyboard){
+              keyboard = new Keyboard({
+                  onChange: input => this.onChange(input, fieldName),
+                  onKeyPress: button => this.onKeyPress(button, fieldName),
+                  layout: {
+                      default: ["1 2 3", "4 5 6", "7 8 9", "< 0 X"]
+                  },
+                  theme: "hg-theme-default hg-layout-numeric numeric-theme",
+                  inputPattern: /^\d+$/,
+                  autoUseTouchEvents: true
+              });
+              this.showNumericalKeyboard = true;
+          }
       },
       showKeyboardAlphaNumerical(fieldName){
-          keyboard = new Keyboard({
-              onChange: input => this.onChange(input, fieldName),
-              onKeyPress: button => this.onKeyPress(button, fieldName),
-              layout: {
-                  'default': [
-                      '1 2 3 4 5 6 7 8 9 0 - / X',
-                      'A Z E R T Y U I O P',
-                      'Q S D F G H J K L',
-                      'W X C V B N M <',
-                      '{space}'
-                  ]
-              },
-              theme: "hg-theme-default hg-layout-numeric numeric-theme",
-              inputPattern: /^\d+$/,
-              autoUseTouchEvents: true
-          });
-          this.showNumericalKeyboard = true;
+          if(this.kiosk_info.kiosk.show_keyboard){
+              keyboard = new Keyboard({
+                  onChange: input => this.onChange(input, fieldName),
+                  onKeyPress: button => this.onKeyPress(button, fieldName),
+                  layout: {
+                      'default': [
+                          '1 2 3 4 5 6 7 8 9 0 - / X',
+                          'A Z E R T Y U I O P',
+                          'Q S D F G H J K L',
+                          'W X C V B N M <',
+                          '{space}'
+                      ]
+                  },
+                  theme: "hg-theme-default hg-layout-numeric numeric-theme",
+                  inputPattern: /^\d+$/,
+                  autoUseTouchEvents: true
+              });
+              this.showNumericalKeyboard = true;
+          }
       },
       hideKeyboardNumerical(){
           this.showNumericalKeyboard = false;
