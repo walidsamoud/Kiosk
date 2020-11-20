@@ -658,7 +658,11 @@
 			"StartAgainButton": "Start Again",
 			"TicketSentText": "We have sent a digital ticket to your phone number, please use it to track the progress of your spot in the queue in real-time.",
 			"VerifyData": "please verify the information bellow and click on confirm",
-			"WaitingList": "Waiting List"
+			"WaitingList": "Waiting List",
+			"GuestButton" :"Guest",
+			"JoinGuest" : "Join queue as guest",
+			"PrintTicket": "Print ticket",
+			"SendTicketSms": "Send ticket by sms"
 		},
 		"Content": [
 			"Click here to open Add <strong>Kiosks</strong> form!",
@@ -710,6 +714,11 @@
 			"ThankYou": "Thank you for your visit today",
 			"WaitingTime": "Waiting Time",
 			"Welcome": "Welcome to"
+		},
+		"Pseudos" : {
+			"Customer": "Customer",
+			"Patient" : "Patient",
+			"User": "User"
 		}
 	},
 	"Membership": {

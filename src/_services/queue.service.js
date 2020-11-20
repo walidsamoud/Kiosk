@@ -34,7 +34,7 @@ function getAll() {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.getAll}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.getAll}`, requestOptions).then(handleResponse);
 }
 
 
@@ -43,7 +43,7 @@ function getAllWithSummary() {
         method: 'GET',
         headers: authHeader()
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.getAllWithSummary}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.getAllWithSummary}`, requestOptions).then(handleResponse);
 }
 
 
@@ -72,7 +72,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
 
@@ -82,7 +82,7 @@ function getByIdWithSummary(id) {
         headers: authHeader()
     };
 
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.getWithSummary.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.getWithSummary.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
 
@@ -92,7 +92,7 @@ function getWaitingList(id) {
         headers: authHeader()
     };
 
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.getWaitingList.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.getWaitingList.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
 

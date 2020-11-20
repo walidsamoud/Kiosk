@@ -184,7 +184,7 @@ function getQueueById(id) {
         headers: authKioskHeader()
     };
 
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
 function refresh() {

@@ -1,32 +1,74 @@
 <template>
     <div>
-
-        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight >
+        
+          
+        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight>
             <div slot="header">
-                <h3 class="mb-1">{{kiosk_info.business.name}}
+                <h3 class="mb-1" style="color: black;">{{kiosk_info.business.name}}
                     <div class="float-right">
                         <LanguageSelector></LanguageSelector>
                     </div>
                 </h3>
             </div>
-            <div class="p-5">
+            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 0">
+                <div class="step row no-gutters col justify-content-center align-items-center"
+                        v-for="(s, index) in steps"
+                        v-bind:class="{ disabled: index > stepper }"
+                        :key="s">
+                    <div class="bullet row justify-content-center align-items-center">
+                        <vs-icon icon="done" v-if="index < stepper || stepper === s.length - 1"
+                                    size="1x"
+                                    class="check-icon"></vs-icon>
+                        <div v-else>{{ index + 1 }}</div>
+                    </div>
+                    <div class="title col-12">
+                        {{ s }}
+                    </div>
+                    <div class="line"
+                        v-if="index < steps.length - 1"
+                        v-bind:class="{ disabled: index === stepper }">
+                    </div>
+                </div>
+            </div>
+            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 1">
+                <div class="step row no-gutters col justify-content-center align-items-center"
+                        v-for="(s, index) in stepsLogin"
+                        v-bind:class="{ disabled: index > step - 1 }"
+                        :key="s">
+                    <div class="bullet row justify-content-center align-items-center">
+                        <vs-icon icon="done" v-if="index < step - 1 || step - 1 === s.length - 1"
+                                    size="1x"
+                                    class="check-icon"></vs-icon>
+                        <div v-else>{{ index + 1 }}</div>
+                    </div>
+                    <div class="title col-12">
+                        {{ s }}
+                    </div>
+                    <div class="line"
+                        v-if="index < steps.length + 1"
+                        v-bind:class="{ disabled: index === step - 1 }">
+                    </div>
+                </div>
+            </div>
+            
 
+            <div class="p-5" style="background-color: #fff">
                 <div id="step_1" v-if="step == 1">
-                    <h2 class="font-weight-light text-light text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
+                    <h2 class="font-weight-light text-dark text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
                     <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
                            :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
                             @focus="showKeyboardNumerical('phone')" ref="phone"
                     />
 
-                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
+                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
                     <input v-if="kiosk_info.kiosk.require_internal_id == 1" class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.internal_id ? 'kiosk-input-error' : ''"
                            placeholder="IID/001" v-model="internal_id" type="text"
                            @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
                     />
                 </div>
 
-                <div id="step_2" v-if="step == 2">
-                    <h1 class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.MoreDetailsText')}}</h1>
+                <div id="step_2" v-if="step == 2" style="background-color: #fff">
+                    <h1 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.MoreDetailsText')}}</h1>
                     <vs-row>
                         <vs-col vs-w="6">
                             <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" @focus="showKeyboardAlphaNumerical('fname')"
@@ -43,9 +85,9 @@
                     </vs-row>
                 </div>
 
-                <div id="step_3" v-if="step == 3">
-                    <h2 v-if="customer.fname" class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.ChooseWaitingList')}}</h3>
+                <div id="step_3" v-if="step == 3" style="background-color: #fff">
+                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.ChooseWaitingList')}}</h3>
                     <vs-row class="mt-5">
 
 
@@ -62,9 +104,9 @@
                     </vs-row>
                 </div>
 
-                <div id="step_4" v-if="step == 4">
-                    <h2 v-if="customer.fname" class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.SelectServices')}}</h3>
+                <div id="step_4" v-if="step == 4" style="background-color: #fff">
+                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.SelectServices')}}</h3>
                     <vs-row class="mt-5" vs-type="flex">
 
                         <div v-for="(item,index) in selectedQueue.services" :key="'service_'+index" class="d-flex mt-4">
@@ -76,9 +118,9 @@
                     </vs-row>
                 </div>
 
-                <div id="step_5" v-if="step == 5">
-                    <h2 v-if="customer.fname" class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.SelectEmployee')}}</h3>
+                <div id="step_5" v-if="step == 5" style="background-color: #fff">
+                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.SelectEmployee')}}</h3>
                     <vs-row class="mt-3" vs-type="flex">
 
                         <div v-for="(item,index) in selectedQueue.queue.members" :key="'member_'+index" class="d-flex mt-4" style="position: relative">
@@ -98,76 +140,117 @@
                     </vs-row>
                 </div>
 
-                <div id="step_6" v-if="step == 6">
-                    <h2 class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.AlmostDone')}}</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.VerifyData')}}</h3>
+                <div id="step_6" v-if="step == 6" style="background-color: #fff">
+                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AlmostDone')}}</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.VerifyData')}}</h3>
                     <vs-row class="mt-4 border border-light p-4">
 
                         <vs-col vs-w="12" v-if="customer.fname">
-                            <h4 class="text-light">{{$t('Kiosk.App.FullName')}}: <span class="font-weight-light">{{customer.fname}} {{customer.lname}}</span></h4>
+                            <h4 class="text-dark">{{$t('Kiosk.App.FullName')}}: <span class="font-weight-light">{{customer.fname}} {{customer.lname}}</span></h4>
+                        </vs-col>
+                        <vs-col vs-w="12" class="mt-4" v-if="kiosk_info.kiosk.login_required == 1">
+                            <h4 class="text-dark">{{$t('Kiosk.App.PhoneNumber')}}: <span class="font-weight-light">{{phone_number}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4">
-                            <h4 class="text-light">{{$t('Kiosk.App.PhoneNumber')}}: <span class="font-weight-light">{{phone_number}}</span></h4>
+                            <h4 class="text-dark">{{$t('Kiosk.App.WaitingList')}}: <span class="font-weight-light">{{selectedQueue.queue.title}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4">
-                            <h4 class="text-light">{{$t('Kiosk.App.WaitingList')}}: <span class="font-weight-light">{{selectedQueue.queue.title}}</span></h4>
-                        </vs-col>
-                        <vs-col vs-w="12" class="mt-4">
-                            <h4 class="text-light">{{$t('Kiosk.App.SelectedServices')}}: <span class="font-weight-light">{{selectedServicesNames}}</span></h4>
+                            <h4 class="text-dark">{{$t('Kiosk.App.SelectedServices')}}: <span class="font-weight-light">{{selectedServicesNames}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4" v-if="selectedMember">
-                            <h4 class="text-light">{{$t('Kiosk.App.SelectedMember')}}: <span class="font-weight-light">{{selectedMember.fname}} {{selectedMember.lname}}</span></h4>
+                            <h4 class="text-dark">{{$t('Kiosk.App.SelectedMember')}}: <span class="font-weight-light">{{selectedMember.fname}} {{selectedMember.lname}}</span></h4>
                         </vs-col>
 
-                        <vs-col vs-w="12" v-if="errors.push" class="mt-4 p-2 text-light error-message">
+                        <vs-col vs-w="12" v-if="errors.push" class="mt-4 p-2 text-dark error-message">
                             <h4>{{$t('Kiosk.App.PushError')}}</h4>
                         </vs-col>
 
-                        <vs-col vs-w="12" class="mt-4">
-                            <button class="btn btn-lg btn-light mt-2 w-100 footer-button" @click="joinQueue">
+                        <vs-col vs-w="12" class="mt-4" v-if="customer.id">
+                            <button class="btn btn-lg btn-success mt-2 w-100 footer-button" @click="joinQueue">
                                 {{$t('Kiosk.App.ConfirmButton')}}
                             </button>
                         </vs-col>
-                    </vs-row>
 
+                        <vs-col vs-w="6" class="mt-4" v-if="!customer.id">
+                            <button class="btn btn-lg btn-success mt-2 w-100 footer-button" @click="joinQueue">
+                                {{$t('Kiosk.App.JoinGuest')}}
+                            </button>
+                        </vs-col>
+
+                        <vs-col vs-w="6" class="mt-4" v-if="!customer.id">
+                            <button class="btn btn-lg btn-danger mt-2 w-100 footer-button" @click="step = 9">
+                                {{$t('Auth.Login')}}
+                            </button>
+                        </vs-col>
+
+                    </vs-row>
                 </div>
 
 
-                <div id="step_7" v-if="step == 7">
-                    <h2 class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.AllDone')}}</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">
+                <div id="step_7" v-if="step == 7" style="background-color: #fff">
+                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AllDone')}}</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">
                         {{$t('Kiosk.App.TicketSentText')}}
                     </h3>
                     <vs-row class="mt-4">
 
                         <vs-col vs-w="12" class="mt-4">
-                            <button class="btn btn-lg btn-light mt-2 w-100 footer-button" @click="startAgain">
+                            <button class="btn btn-lg btn-success mt-2 w-100 footer-button" @click="startAgain">
                                 {{$t('Kiosk.App.StartAgainButton')}}
                             </button>
                         </vs-col>
                     </vs-row>
-
                 </div>
 
 
-                <div id="step_8" v-if="step == 8">
-                    <h2 class="font-weight-light text-light text-uppercase mt-4">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
-                    <h3 class="font-weight-light text-light text-uppercase mt-1">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
+                <div id="step_8" v-if="step == 8" style="background-color: #fff">
+                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
+                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
                     <vs-row class="mt-4">
                         <vs-col vs-w="12" class="mt-4">
-                            <button class="btn btn-lg btn-light mt-2 w-100 footer-button" @click="startAgain">
+                            <button class="btn btn-lg btn-success mt-2 w-100 footer-button" @click="startAgain">
                                 {{$t('Kiosk.App.StartAgainButton')}}
                             </button>
                         </vs-col>
                     </vs-row>
                 </div>
+
+                <div id="step_9" v-if="step == 9" style="background-color: #fff">
+                    <h2 class="font-weight-light text-dark text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
+                        <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
+                            :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
+                                @focus="showKeyboardNumerical('phone')" ref="phone"
+                        />
+
+                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
+                    <input v-if="kiosk_info.kiosk.require_internal_id == 1" class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.internal_id ? 'kiosk-input-error' : ''"
+                           placeholder="IID/001" v-model="internal_id" type="text"
+                           @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
+                    />
+                </div>
+
+                <!-- <div id="step_10" v-if="step == 10" style="background-color: #fff">
+                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AllDone')}}</h2>
+                    <vs-row class="mt-4 border border-light p-4">
+                        <vs-col vs-w="6" class="mt-4">
+                                <button class="btn btn-lg btn-success mt-2 w-100" @click="printTicket">
+                                    {{$t('Kiosk.App.PrintTicket')}}
+                                </button>
+                            </vs-col>
+                            <vs-col vs-w="6" class="mt-4">
+                                <button class="btn btn-lg btn-success mt-2 w-100" @click="sendSms">
+                                    {{$t('Kiosk.App.SendTicketSms')}}
+                                </button>
+                        </vs-col>
+                    </vs-row>
+                </div> -->
 
             </div>
             <div slot="footer" class="p-2">
-                <button class="btn btn-lg btn-outline-light mb-2 float-right footer-button" v-if="step < 6" @click="goToNextStep">
+                <button class="btn btn-lg btn-outline-light btn-danger mb-2 float-right footer-button" v-if="step < 10" @click="goToNextStep">
                     {{$t('Kiosk.App.ContinueButton')}}
                 </button>
-                <button class="btn btn-lg btn-outline-light mb-2 float-left footer-button" v-if="step > 1 && step < 7" @click="goToPrevStep">
+                <button class="btn btn-lg btn-outline-light btn-primary mb-2 float-left footer-button" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
                     {{$t('Kiosk.App.ReturnButton')}}
                 </button>
             </div>
@@ -276,7 +359,14 @@ export default {
       },
       qrCode: "",
       showNumericalKeyboard: false,
-      showAlphaNumericalKeyboard: false
+      showAlphaNumericalKeyboard: false,
+      steps : ['','','',''],
+      stepsLogin :['','','','','',''],
+      stepper : 1,
+      currentStep: 1,
+      services : [],
+      guest_mode : 1,
+      guestStep : 1
   }),
   methods:{
       showLoading(){
@@ -313,22 +403,54 @@ export default {
                   break;
               case 3:
                   if(this.selectedQueue != null){
-                      this.step++;
+                    if(this.selectedQueue.services.length == 1){
+                            this.selectedServices.push(this.selectedQueue.services[0])
+                            this.step = 6;
+                            this.stepper = 4;
+                    }
+                    else { this.step++; 
+                    this.stepper++; 
+                    }
                   }else{
                       this.errors.queue = true;
                   }
                   break;
               case 4:
                   if(this.selectedServices.length){
-                      if(this.selectedQueue.queue.choosable) this.step++;
-                      else this.step = this.step+2;
+                        if(this.selectedQueue.queue.choosable) 
+                        {
+                            this.step++; 
+                            this.stepper++;
+                        }
+                        else {
+                            this.step = this.step+2;
+                            this.stepper = this.stepper+2;
+                        }
+                      
                   }
                   break;
               case 5:
+                  this.stepper++;
                   this.step++;
                   break;
               case 6:
                   this.step++;
+                  this.stepper++;
+                  break;
+              case 9:
+                  if(this.phone_number.length >= 6) {
+                      if(this.kiosk_info.kiosk.require_internal_id == 1){
+                          if(this.internal_id.length > 3){
+                              // do it
+                              this.findCustomerByPhoneNumber();
+                          }
+                          else{ this.errors.internal_id = true; }
+                      }
+                      else { this.findCustomerByPhoneNumber(); }
+                  }
+                  else { this.errors.phone = true; }
+                  this.step = 6;
+                  this.stepper = 4; 
                   break;
           }
       },
@@ -338,19 +460,32 @@ export default {
                   this.step--;
                   break;
               case 3:
+                  this.stepper = 1;
                   this.step = 1;
                   break;
               case 4:
+                  this.stepper--;
                   this.step--;
                   break;
               case 5:
                   this.selectedServices = [];
+                  this.stepper--;
                   this.step--;
                   break;
               case 6:
                   this.selectedMember = null;
-                  if(this.selectedQueue.queue.choosable) this.step--;
-                  else this.step = this.step-2;
+                  if(this.selectedQueue.queue.choosable) {this.step--; this.stepper--;}
+                  else {
+                    if(this.selectedQueue.services.length == 1){
+                        this.step = 3;
+                        this.stepper = 1;
+                    }
+                    else{
+                        this.selectedServices = [];
+                        this.step = this.step-2;
+                        this.stepper = this.stepper-2;
+                    } 
+                  }
                   break;
           }
       },
@@ -363,7 +498,12 @@ export default {
           }
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
             if(data.customer != null) {
-                if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
+                if(this.kiosk_info.kiosk.login_required == 0){
+                    this.step = 6;
+                    this.stepper = 4;
+                    this.customer = data.customer;
+                }
+                else if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
                     this.step = 8;
                 }else {
                     this.step = 3;
@@ -413,13 +553,20 @@ export default {
                   if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
                       this.step = 8;
                   }else {
-                      this.step = 3;
-                      if (this.queues.length == 1) {
+                      if(this.kiosk_info.kiosk.login_required == 1){
+                          this.step = 3;
+                          if (this.queues.length == 1) {
                           this.selectedQueue = this.queues[0];
                           this.step = 4;
                       }
+                      }
+                      else if (this.kiosk_info.kiosk.login_required == 0) {
+                          this.step = 6
+                      }
+                      
+                      
                   }
-                  this.customer = data.customer;
+                  this.customer = data.customer;    
               }
           }.bind(this)).catch(function () {
 
@@ -433,9 +580,28 @@ export default {
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
                   if(data.queue.status  == 1)
-                  this.queues.push(data)
+                  this.queues.push(data);
+                  if(this.kiosk_info.kiosk.login_required == 0){
+                    if(this.queues.length == 1){
+                        this.selectedQueue = this.queues[0];
+                        if(this.selectedQueue.services.length == 1){
+                            this.selectedServices.push(this.selectedQueue.services[0])
+                            this.step = 6;
+                            this.stepper = 3;
+                        }
+                        else{
+                            this.step = 4;
+                            this.stepper = 1;
+                        }
+                    }
+                    else {
+                        this.step = 3;
+                        this.stepper = 0;
+                    }
+                }
               }.bind(this))
           })
+          
       },
 
       joinQueue(){
@@ -447,6 +613,20 @@ export default {
               member_id: this.selectedMember ? this.selectedMember.id : -1,
               anonymous: this.kiosk_info.kiosk.collected_details,
           }
+          if(!this.customer.id){
+              switch(this.kiosk_info.kiosk.pseudo){
+                case "1":
+                    payload.pseudo = this.$t('Kiosk.Pseudos.Customer');
+                    break;
+                case "2":
+                    payload.pseudo = this.$t('Kiosk.Pseudos.Patient');
+                    break;
+                case "3":
+                    payload.pseudo = this.$t('Kiosk.Pseudos.User');
+                    break;
+              }
+          }
+          console.log(payload);
           kioskService.joinQueue(payload).then(function (data) {
               this.ticket = data.ticket;
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
@@ -465,7 +645,7 @@ export default {
                   //w.close();
               }, 500); // How long do you want the delay to be (in milliseconds)?
                */
-              if(this.kiosk_info.kiosk.should_print){
+              if(!this.customer.id){
                   setTimeout(function (){ window.print(); }, 500);
               }
 
@@ -477,24 +657,38 @@ export default {
                   }
               }.bind(this), 5000);
 
-          }.bind(this)).catch(function (ex) {
+          }.bind(this)).catch(function () {
                   this.errors.push = true;
           }.bind(this)).finally(function () {
               this.hideLoading();
           }.bind(this))
       },
+      printTicket(){
+          window.print();
+          setTimeout(function (){
+                  // Go back to first page after 5 seconds
+                  if(this.step == 10){
+                      this.startAgain();
+                  }
+            }.bind(this), 5000);
+      },
+      sendSms(){
+          if(this.customer.phone_number){
+
+          }
+      },
       startAgain(){
-          this.internal_id = "";
-          this.phone_number = "";
-          this.country_prefix = "";
-          this.fname = "";
-          this.lname = "";
-          this.email = "";
-          this.step = 1;
-          this.customer = null;
-          this.selectedQueue = null;
-          this.selectedMember = null;
-          this.selectedServices = []
+            this.internal_id = "";
+            this.phone_number = "";
+            this.country_prefix = "";
+            this.fname = "";
+            this.lname = "";
+            this.email = "";
+            this.customer = null;
+            this.selectedQueue = null;
+            this.selectedMember = null;
+            this.selectedServices = [];
+            location.reload();
       },
 
       unselectMember(){
@@ -503,9 +697,7 @@ export default {
       waitingTimeFormated (value) {
           return this.$moment().startOf('day').add(value, 'seconds').format('HH:mm');
       },
-      onChange(input) {
-          //console.log(input)
-      },
+
       onKeyPress(button, fieldName) {
           switch (button) {
               case '<':
@@ -598,6 +790,20 @@ export default {
           this.showNumericalKeyboard = false;
           keyboard.destroy();
       }
+    //   getServices(){
+    //       let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
+    //       queues.forEach(id => {
+    //           kioskService.getQueueById(id).then(function (data) {
+    //               if(data.queue.status  == 1)
+    //               for( var service of data.services){
+    //                   this.services.push(service);
+    //               }
+    //           }.bind(this))
+    //       })
+
+    //       console.log(this.services);
+
+    //   }
   },  
   computed: {
       ...mapState({
@@ -629,7 +835,7 @@ export default {
               prefix = '+216';
               break;
           case "United Kingdom":
-              prefix = '+44';
+              prefix = '+216';
               break;
       }
       return prefix;
@@ -670,8 +876,10 @@ export default {
     }
   },
     mounted(){
+        
         this.getKioskQueues();
-        this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);
+        this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);    
+        console.log(this.customer); 
     },
   components:{
       LanguageSelector,
@@ -752,6 +960,8 @@ export default {
         margin-top: 10px;
         /* Footer height */
     }
+    
+    
 }
 </style>
 
