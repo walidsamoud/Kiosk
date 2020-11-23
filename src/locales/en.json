@@ -1153,5 +1153,10 @@
 		"CancelButton": "Cancel",
 		"Error": "Sorry!",
 		"Successful": "Successful"
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"French" : "Français",
+		"English" : "English"
 	}
 }

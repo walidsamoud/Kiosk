@@ -56,7 +56,7 @@
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;">
                             <h2 style="text-align: center;">{{$t('Kiosk.Language')}}</h2>
                         </vs-row>
-                        <vs-row style="margin-left: auto;margin-right: auto;display: table;">
+                        <vs-row style="margin-left: auto;margin-right: auto;display: table;" v-if="!ipadVertical">
                             <ul class="ml-5 mt-5" style="display: inline-flex; list-style: none;">
                                 <li class="mr-5" @click="changeLanguage('ar')">
                                     <img :src="require('@/assets/images/flags/flag-tn.png')" style="max-height: 150px"/>
@@ -66,6 +66,25 @@
                                 </li>
                                 <li class="mr-5" @click="changeLanguage('en')">
                                     <img :src="require('@/assets/images/flags/flag-uk.png')" style="max-height: 150px"/>
+                                </li>
+                            </ul>
+                        </vs-row>
+                        <vs-row style="margin-left: auto;margin-right: auto;display: table;" v-if="ipadVertical">
+                            <ul class="ml-5 mt-5" style="list-style: none;">
+                                <li class="mr-5">
+                                    <button class="btn btn-lg btn-primary mb-2 mt-2 w-100 footer-button" @click="changeLanguage('ar')">
+                                        {{$t('Languages.Arabic')}}
+                                    </button>
+                                </li>
+                                <li class="mr-5">
+                                    <button class="btn btn-lg btn-primary mt-2 mb-2 w-100 footer-button" @click="changeLanguage('fr')">
+                                        {{$t('Languages.French')}}
+                                    </button>
+                                </li>
+                                <li class="mr-5">
+                                    <button class="btn btn-lg btn-primary mt-2 mb-2 w-100 footer-button" @click="changeLanguage('en')">
+                                        {{$t('Languages.English')}}
+                                    </button>
                                 </li>
                             </ul>
                         </vs-row>
@@ -258,6 +277,7 @@
                     />
                 </div>
             </div>
+            <img src="https://liberrex.com/wp-content/uploads/2020/09/logo-1.png" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
             <div slot="footer" class="p-2">
                 <button class="btn btn-lg btn-outline-light btn-danger mb-2 float-right footer-button" v-if="(step < 7 && step > 0) || step == 9 " @click="goToNextStep">
                     {{$t('Kiosk.App.ContinueButton')}}
@@ -313,6 +333,7 @@
                 <span style="font-size: 14px">{{$t('Kiosk.Ticket.ThankYou')}}</span>
             </footer>
         </div>
+        
     </div>
   
 </template>
@@ -378,7 +399,9 @@ export default {
       currentStep: 1,
       services : [],
       guest_mode : 1,
-      guestStep : 1
+      guestStep : 1,
+      chekinQrCode : "",
+      ipadVertical : false
   }),
   methods:{
       changeLanguage(locale) {
@@ -916,7 +939,9 @@ export default {
         this.getKioskQueues();
         this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config); 
         this.chekinQrCode = process.env.VUE_APP_CHECKIN_URL+this.kiosk_info.business.hashedid;
-
+        if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(window.navigator.userAgent) && window.screen.orientation.angle == 0) {
+            this.ipadVertical = true;
+        }
 
     },
   components:{
