@@ -160,12 +160,12 @@
     position: relative;
 
     .line {
-      width: 80%;
-      height: 2px;
+      width: 72%;
+      height: 4%;
       background-color: lighten(#00d992, 20%);
       position: absolute;
       top: 50%;
-      left: 60%;
+      left: 65%;
       z-index: 1;
       &.disabled {
         background-color: lighten(grey, 40%);

@@ -1,16 +1,14 @@
 <template>
     <div>
-        
-          
-        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight>
+        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight style="position: relative;">
             <div slot="header">
                 <h3 class="mb-1" style="color: black;">{{kiosk_info.business.name}}
-                    <div class="float-right">
+                    <div class="float-right" v-if="step > 0">
                         <LanguageSelector></LanguageSelector>
                     </div>
                 </h3>
             </div>
-            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 0">
+            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 0 && step > 0">
                 <div class="step row no-gutters col justify-content-center align-items-center"
                         v-for="(s, index) in steps"
                         v-bind:class="{ disabled: index > stepper }"
@@ -30,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 1">
+            <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="kiosk_info.kiosk.login_required == 1 && step > 0">
                 <div class="step row no-gutters col justify-content-center align-items-center"
                         v-for="(s, index) in stepsLogin"
                         v-bind:class="{ disabled: index > step - 1 }"
@@ -53,6 +51,37 @@
             
 
             <div class="p-5" style="background-color: #fff">
+                <div id="step_0" v-if="step == 0" style="margin-left: auto;margin-right: auto;display: table;">
+                    <div>
+                        <vs-row style="margin-left: auto;margin-right: auto;display: table;">
+                            <h2 style="text-align: center;">{{$t('Kiosk.Language')}}</h2>
+                        </vs-row>
+                        <vs-row style="margin-left: auto;margin-right: auto;display: table;">
+                            <ul class="ml-5 mt-5" style="display: inline-flex; list-style: none;">
+                                <li class="mr-5" @click="changeLanguage('ar')">
+                                    <img :src="require('@/assets/images/flags/flag-tn.png')" style="max-height: 150px"/>
+                                </li>
+                                <li class="mr-5" @click="changeLanguage('fr')">
+                                    <img :src="require('@/assets/images/flags/flag-fr.png')" style="max-height: 150px"/>
+                                </li>
+                                <li class="mr-5" @click="changeLanguage('en')">
+                                    <img :src="require('@/assets/images/flags/flag-uk.png')" style="max-height: 150px"/>
+                                </li>
+                            </ul>
+                        </vs-row>
+                    </div>
+                    <div>
+                        <vs-row class="mt-5 mb-4" >
+                            <h3>{{$t('Kiosk.Ticket.ScanQRCheckin')}}</h3>
+                        </vs-row> 
+                        <vs-row style="margin-left: auto;margin-right: auto;display: table;">
+                            <vs-col>
+                                <qrcode-vue renderAs="svg" :value="chekinQrCode" size="200"></qrcode-vue>
+                            </vs-col>
+                        </vs-row>
+                    </div>
+                </div>
+
                 <div id="step_1" v-if="step == 1">
                     <h2 class="font-weight-light text-dark text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
                     <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
@@ -228,26 +257,9 @@
                            @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
                     />
                 </div>
-
-                <!-- <div id="step_10" v-if="step == 10" style="background-color: #fff">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AllDone')}}</h2>
-                    <vs-row class="mt-4 border border-light p-4">
-                        <vs-col vs-w="6" class="mt-4">
-                                <button class="btn btn-lg btn-success mt-2 w-100" @click="printTicket">
-                                    {{$t('Kiosk.App.PrintTicket')}}
-                                </button>
-                            </vs-col>
-                            <vs-col vs-w="6" class="mt-4">
-                                <button class="btn btn-lg btn-success mt-2 w-100" @click="sendSms">
-                                    {{$t('Kiosk.App.SendTicketSms')}}
-                                </button>
-                        </vs-col>
-                    </vs-row>
-                </div> -->
-
             </div>
             <div slot="footer" class="p-2">
-                <button class="btn btn-lg btn-outline-light btn-danger mb-2 float-right footer-button" v-if="step < 10" @click="goToNextStep">
+                <button class="btn btn-lg btn-outline-light btn-danger mb-2 float-right footer-button" v-if="(step < 7 && step > 0) || step == 9 " @click="goToNextStep">
                     {{$t('Kiosk.App.ContinueButton')}}
                 </button>
                 <button class="btn btn-lg btn-outline-light btn-primary mb-2 float-left footer-button" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
@@ -324,7 +336,7 @@ export default {
       lname: "",
       email: "",
       keyboardInput: "",
-      step: 1,
+      step: 0,
       customer: {},
       queues: [],
       kioskConfig: {},
@@ -369,6 +381,30 @@ export default {
       guestStep : 1
   }),
   methods:{
+      changeLanguage(locale) {
+        this.$i18n.locale = locale;
+        localStorage.setItem('Language', locale);
+        
+        if(this.kiosk_info.kiosk.login_required == 0){
+            if(this.queues.length == 1){
+                if(this.selectedQueue.services.length == 1){
+                    this.step = 6;
+                    this.stepper = 3;
+                }
+                else{
+                    this.step = 4;
+                    this.stepper = 1;
+                }
+            }
+            else {
+                this.step = 3;
+                this.stepper = 0;
+            }
+        }
+        else {
+            this.step = 1;
+        }
+      },
       showLoading(){
           this.$vs.loading({
               container: '#checkin-box',
@@ -579,6 +615,7 @@ export default {
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
+                  console.log(data);
                   if(data.queue.status  == 1)
                   this.queues.push(data);
                   if(this.kiosk_info.kiosk.login_required == 0){
@@ -586,19 +623,9 @@ export default {
                         this.selectedQueue = this.queues[0];
                         if(this.selectedQueue.services.length == 1){
                             this.selectedServices.push(this.selectedQueue.services[0])
-                            this.step = 6;
-                            this.stepper = 3;
-                        }
-                        else{
-                            this.step = 4;
-                            this.stepper = 1;
                         }
                     }
-                    else {
-                        this.step = 3;
-                        this.stepper = 0;
-                    }
-                }
+                  }
               }.bind(this))
           })
           
@@ -626,7 +653,7 @@ export default {
                     break;
               }
           }
-          console.log(payload);
+        //   console.log(payload);
           kioskService.joinQueue(payload).then(function (data) {
               this.ticket = data.ticket;
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
@@ -671,11 +698,6 @@ export default {
                       this.startAgain();
                   }
             }.bind(this), 5000);
-      },
-      sendSms(){
-          if(this.customer.phone_number){
-
-          }
       },
       startAgain(){
             this.internal_id = "";
@@ -873,13 +895,29 @@ export default {
     },
     checkinTimeFormatted: function () {
       return this.$moment(this.ticket.checkinDate+' '+this.ticket.checkinTime).format('HH:mm');
+    },
+    getCurrentLanguage() {
+      const locale = this.$i18n.locale;
+      if (locale == "en") return { lang: "English" };
+      else if (locale == "fr") return { lang: "Français" };
+      else if (locale == "es") return { lang: "Española" };
+      else if (locale == "pt") return { lang: "Portugues" };
+      else if (locale == "de") return { lang: "Deutsche" };
+      else if (locale == "ru") return { lang: "Русский" };
+      else if (locale == "ar") return { lang: "العريية" };
+      return this.locale;
+    },
+    textStyle(){
+      return this.textstyle ? this.textstyle : 'text-dark';
     }
   },
     mounted(){
         
         this.getKioskQueues();
-        this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);    
-        console.log(this.customer); 
+        this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config); 
+        this.chekinQrCode = process.env.VUE_APP_CHECKIN_URL+this.kiosk_info.business.hashedid;
+
+
     },
   components:{
       LanguageSelector,

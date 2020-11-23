@@ -710,6 +710,7 @@
 		"Ticket": {
 			"Rank": "Customers Waiting",
 			"ScanQR": "Please scan the QR code above to track your ticket online",
+			"ScanQRCheckin": "Please scan the QR code below to check-in online",
 			"Services": "Services",
 			"ThankYou": "Thank you for your visit today",
 			"WaitingTime": "Waiting Time",
@@ -719,7 +720,8 @@
 			"Customer": "Customer",
 			"Patient" : "Patient",
 			"User": "User"
-		}
+		},
+		"Language" : "Choose your language"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Apply",
