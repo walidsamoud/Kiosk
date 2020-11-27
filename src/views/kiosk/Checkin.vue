@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight style="position: relative;">
+        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight :style="background">
             <div slot="header">
                 <h3 class="mb-1" style="color: black;">{{kiosk_info.business.name}}
                     <div class="float-right" v-if="step > 0">
@@ -54,7 +54,7 @@
                 <div id="step_0" v-if="step == 0" style="margin-left: auto;margin-right: auto;display: table;">
                     <div>
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;">
-                            <h2 style="text-align: center;">{{$t('Kiosk.Language')}}</h2>
+                            <h2 :style="text_color == '' ? 'text-align: center;color: black;': 'text-align: center;' +text_color">{{$t('Kiosk.Language')}}</h2>
                         </vs-row>
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;" v-if="!ipadVertical">
                             <ul class="ml-5 mt-5" style="display: inline-flex; list-style: none;">
@@ -70,7 +70,7 @@
                             </ul>
                         </vs-row>
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;" v-if="ipadVertical">
-                            <ul class="ml-5 mt-5" style="list-style: none;">
+                            <ul class="ml-5 mt-4" style="list-style: none;">
                                 <li class="mr-5">
                                     <button class="btn btn-lg btn-primary mb-2 mt-2 w-100 footer-button" @click="changeLanguage('ar')">
                                         {{$t('Languages.Arabic')}}
@@ -91,7 +91,7 @@
                     </div>
                     <div>
                         <vs-row class="mt-5 mb-4" >
-                            <h3>{{$t('Kiosk.Ticket.ScanQRCheckin')}}</h3>
+                            <h3 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.Ticket.ScanQRCheckin')}}</h3>
                         </vs-row> 
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;">
                             <vs-col>
@@ -102,13 +102,13 @@
                 </div>
 
                 <div id="step_1" v-if="step == 1">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
+                    <h2 class="font-weight-light text-uppercase mt-5" :style="text_color == '' ? 'color: black;': text_color">{{$t('Kiosk.App.EnterPhone')}}</h2>
                     <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
                            :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
                             @focus="showKeyboardNumerical('phone')" ref="phone"
                     />
 
-                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
+                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.EnterInternalId')}}</h2>
                     <input v-if="kiosk_info.kiosk.require_internal_id == 1" class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.internal_id ? 'kiosk-input-error' : ''"
                            placeholder="IID/001" v-model="internal_id" type="text"
                            @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
@@ -116,7 +116,7 @@
                 </div>
 
                 <div id="step_2" v-if="step == 2" style="background-color: #fff">
-                    <h1 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.MoreDetailsText')}}</h1>
+                    <h1 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.MoreDetailsText')}}</h1>
                     <vs-row>
                         <vs-col vs-w="6">
                             <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" @focus="showKeyboardAlphaNumerical('fname')"
@@ -134,8 +134,8 @@
                 </div>
 
                 <div id="step_3" v-if="step == 3" style="background-color: #fff">
-                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.ChooseWaitingList')}}</h3>
+                    <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.ChooseWaitingList')}}</h3>
                     <vs-row class="mt-5">
 
 
@@ -153,8 +153,8 @@
                 </div>
 
                 <div id="step_4" v-if="step == 4" style="background-color: #fff">
-                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.SelectServices')}}</h3>
+                    <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectServices')}}</h3>
                     <vs-row class="mt-5" vs-type="flex">
 
                         <div v-for="(item,index) in selectedQueue.services" :key="'service_'+index" class="d-flex mt-4">
@@ -167,8 +167,8 @@
                 </div>
 
                 <div id="step_5" v-if="step == 5" style="background-color: #fff">
-                    <h2 v-if="customer.fname" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.SelectEmployee')}}</h3>
+                    <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectEmployee')}}</h3>
                     <vs-row class="mt-3" vs-type="flex">
 
                         <div v-for="(item,index) in selectedQueue.queue.members" :key="'member_'+index" class="d-flex mt-4" style="position: relative">
@@ -189,27 +189,27 @@
                 </div>
 
                 <div id="step_6" v-if="step == 6" style="background-color: #fff">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AlmostDone')}}</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.VerifyData')}}</h3>
+                    <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.AlmostDone')}}</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.VerifyData')}}</h3>
                     <vs-row class="mt-4 border border-light p-4">
 
                         <vs-col vs-w="12" v-if="customer.fname">
-                            <h4 class="text-dark">{{$t('Kiosk.App.FullName')}}: <span class="font-weight-light">{{customer.fname}} {{customer.lname}}</span></h4>
+                            <h4 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.FullName')}}: <span class="font-weight-light">{{customer.fname}} {{customer.lname}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4" v-if="kiosk_info.kiosk.login_required == 1">
-                            <h4 class="text-dark">{{$t('Kiosk.App.PhoneNumber')}}: <span class="font-weight-light">{{phone_number}}</span></h4>
+                            <h4 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.PhoneNumber')}}: <span class="font-weight-light">{{phone_number}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4">
-                            <h4 class="text-dark">{{$t('Kiosk.App.WaitingList')}}: <span class="font-weight-light">{{selectedQueue.queue.title}}</span></h4>
+                            <h4 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.WaitingList')}}: <span class="font-weight-light">{{selectedQueue.queue.title}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4">
-                            <h4 class="text-dark">{{$t('Kiosk.App.SelectedServices')}}: <span class="font-weight-light">{{selectedServicesNames}}</span></h4>
+                            <h4 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectedServices')}}: <span class="font-weight-light">{{selectedServicesNames}}</span></h4>
                         </vs-col>
                         <vs-col vs-w="12" class="mt-4" v-if="selectedMember">
-                            <h4 class="text-dark">{{$t('Kiosk.App.SelectedMember')}}: <span class="font-weight-light">{{selectedMember.fname}} {{selectedMember.lname}}</span></h4>
+                            <h4 :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectedMember')}}: <span class="font-weight-light">{{selectedMember.fname}} {{selectedMember.lname}}</span></h4>
                         </vs-col>
 
-                        <vs-col vs-w="12" v-if="errors.push" class="mt-4 p-2 text-dark error-message">
+                        <vs-col vs-w="12" v-if="errors.push" class="mt-4 p-2 error-message" :style="text_color == '' ? 'color: black;':text_color">
                             <h4>{{$t('Kiosk.App.PushError')}}</h4>
                         </vs-col>
 
@@ -236,8 +236,8 @@
 
 
                 <div id="step_7" v-if="step == 7" style="background-color: #fff">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.AllDone')}}</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">
+                    <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.AllDone')}}</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">
                         {{$t('Kiosk.App.TicketSentText')}}
                     </h3>
                     <vs-row class="mt-4">
@@ -252,8 +252,8 @@
 
 
                 <div id="step_8" v-if="step == 8" style="background-color: #fff">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
-                    <h3 class="font-weight-light text-dark text-uppercase mt-1">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
+                    <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
+                    <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
                     <vs-row class="mt-4">
                         <vs-col vs-w="12" class="mt-4">
                             <button class="btn btn-lg btn-success mt-2 w-100 footer-button" @click="startAgain">
@@ -264,13 +264,13 @@
                 </div>
 
                 <div id="step_9" v-if="step == 9" style="background-color: #fff">
-                    <h2 class="font-weight-light text-dark text-uppercase mt-5">{{$t('Kiosk.App.EnterPhone')}}</h2>
+                    <h2 class="font-weight-light text-uppercase mt-5" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.EnterPhone')}}</h2>
                         <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
                             :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
                                 @focus="showKeyboardNumerical('phone')" ref="phone"
                         />
 
-                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-dark text-uppercase mt-4">{{$t('Kiosk.App.EnterInternalId')}}</h2>
+                    <h2 v-if="kiosk_info.kiosk.require_internal_id == 1" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.EnterInternalId')}}</h2>
                     <input v-if="kiosk_info.kiosk.require_internal_id == 1" class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.internal_id ? 'kiosk-input-error' : ''"
                            placeholder="IID/001" v-model="internal_id" type="text"
                            @focus="showKeyboardAlphaNumerical('internal_id')" ref="internal_id"
@@ -279,10 +279,10 @@
             </div>
             <img src="https://liberrex.com/wp-content/uploads/2020/09/logo-1.png" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
             <div slot="footer" class="p-2">
-                <button class="btn btn-lg btn-outline-light btn-danger mb-2 float-right footer-button" v-if="(step < 7 && step > 0) || step == 9 " @click="goToNextStep">
+                <button  :class="success_btn == '' ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="success_btn == '' ? '': success_btn" v-if="(step < 7 && step > 0) || step == 9 " @click="goToNextStep">
                     {{$t('Kiosk.App.ContinueButton')}}
                 </button>
-                <button class="btn btn-lg btn-outline-light btn-primary mb-2 float-left footer-button" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
+                <button :class="danger_btn == '' ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="danger_btn == '' ? '': danger_btn" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
                     {{$t('Kiosk.App.ReturnButton')}}
                 </button>
             </div>
@@ -346,6 +346,7 @@ import {kioskService} from "../../_services";
 import QrcodeVue from 'qrcode.vue';
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
+
 export default {
   name: 'Checkin',
   data:()=>({
@@ -401,7 +402,11 @@ export default {
       guest_mode : 1,
       guestStep : 1,
       chekinQrCode : "",
-      ipadVertical : false
+      ipadVertical : false,
+      background : "position: relative;",
+      text_color : "",
+      success_btn : "",
+      danger_btn : ""
   }),
   methods:{
       changeLanguage(locale) {
@@ -633,12 +638,10 @@ export default {
               this.hideLoading();
           }.bind(this))
       },
-
       getKioskQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
-                  console.log(data);
                   if(data.queue.status  == 1)
                   this.queues.push(data);
                   if(this.kiosk_info.kiosk.login_required == 0){
@@ -651,9 +654,7 @@ export default {
                   }
               }.bind(this))
           })
-          
       },
-
       joinQueue(){
           this.showLoading();
           let payload = {
@@ -853,6 +854,7 @@ export default {
   computed: {
       ...mapState({
           kiosk_info: state => state.Kiosk.kiosk,
+          theme_info : state => state
       }),
     inputValid(){
       if(this.key && this.secret && !this.requestFailed){
@@ -935,7 +937,22 @@ export default {
     }
   },
     mounted(){
-        
+        console.log(this.kiosk_info);
+        if(JSON.parse(this.kiosk_info.kiosk.config).primary != "undefined"){
+            this.background = "position: relative;background:"+JSON.parse(this.kiosk_info.kiosk.config).primary+";";
+        }
+        if(JSON.parse(this.kiosk_info.kiosk.config).secondary != "undefined"){
+            this.text_color = "color :"+JSON.parse(this.kiosk_info.kiosk.config).secondary+";";
+        }
+        if(JSON.parse(this.kiosk_info.kiosk.config).success != "undefined"){
+            this.success_btn = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).success+";";
+        }
+        if(JSON.parse(this.kiosk_info.kiosk.config).danger != "undefined"){
+            this.danger_btn = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).danger+";";
+        }
+
+        console.log(this.success_btn)
+
         this.getKioskQueues();
         this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config); 
         this.chekinQrCode = process.env.VUE_APP_CHECKIN_URL+this.kiosk_info.business.hashedid;
