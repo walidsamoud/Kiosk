@@ -658,7 +658,11 @@
 			"StartAgainButton": "Start Again",
 			"TicketSentText": "We have sent a digital ticket to your phone number, please use it to track the progress of your spot in the queue in real-time.",
 			"VerifyData": "please verify the information bellow and click on confirm",
-			"WaitingList": "Waiting List"
+			"WaitingList": "Waiting List",
+			"GuestButton" :"Guest",
+			"JoinGuest" : "Join queue as guest",
+			"PrintTicket": "Print ticket",
+			"SendTicketSms": "Send ticket by sms"
 		},
 		"Content": [
 			"Click here to open Add <strong>Kiosks</strong> form!",
@@ -706,11 +710,18 @@
 		"Ticket": {
 			"Rank": "Customers Waiting",
 			"ScanQR": "Please scan the QR code above to track your ticket online",
+			"ScanQRCheckin": "Please scan the QR code below to check-in online",
 			"Services": "Services",
 			"ThankYou": "Thank you for your visit today",
 			"WaitingTime": "Waiting Time",
 			"Welcome": "Welcome to"
-		}
+		},
+		"Pseudos" : {
+			"Customer": "Customer",
+			"Patient" : "Patient",
+			"User": "User"
+		},
+		"Language" : "Choose your language"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Apply",
@@ -1142,5 +1153,10 @@
 		"CancelButton": "Cancel",
 		"Error": "Sorry!",
 		"Successful": "Successful"
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"French" : "Français",
+		"English" : "English"
 	}
 }
