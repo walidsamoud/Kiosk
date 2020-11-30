@@ -1,8 +1,8 @@
 <template>
     <div>
         <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight :style="background">
-            <div slot="header">
-                <h3 class="mb-1" style="color: black;">{{kiosk_info.business.name}}
+            <div slot="header" id="header">
+                <h3 class="mb-1">{{kiosk_info.business.name}}
                     <div class="float-right" v-if="step > 0">
                         <LanguageSelector></LanguageSelector>
                     </div>
@@ -50,7 +50,7 @@
             </div>
             
 
-            <div class="p-5" style="background-color: #fff">
+            <div class="p-5" :style="card_color ? card_color : 'background-color: #fff'">
                 <div id="step_0" v-if="step == 0" style="margin-left: auto;margin-right: auto;display: table;">
                     <div>
                         <vs-row style="margin-left: auto;margin-right: auto;display: table;">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
 
-                <div id="step_1" v-if="step == 1">
+                <div id="step_1" v-if="step == 1" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 class="font-weight-light text-uppercase mt-5" :style="text_color == '' ? 'color: black;': text_color">{{$t('Kiosk.App.EnterPhone')}}</h2>
                     <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
                            :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
@@ -115,7 +115,7 @@
                     />
                 </div>
 
-                <div id="step_2" v-if="step == 2" style="background-color: #fff">
+                <div id="step_2" v-if="step == 2" :style="card_color ? card_color : 'background-color: #fff'">
                     <h1 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.MoreDetailsText')}}</h1>
                     <vs-row>
                         <vs-col vs-w="6">
@@ -133,7 +133,7 @@
                     </vs-row>
                 </div>
 
-                <div id="step_3" v-if="step == 3" style="background-color: #fff">
+                <div id="step_3" v-if="step == 3" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.ChooseWaitingList')}}</h3>
                     <vs-row class="mt-5">
@@ -152,7 +152,7 @@
                     </vs-row>
                 </div>
 
-                <div id="step_4" v-if="step == 4" style="background-color: #fff">
+                <div id="step_4" v-if="step == 4" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectServices')}}</h3>
                     <vs-row class="mt-5" vs-type="flex">
@@ -166,7 +166,7 @@
                     </vs-row>
                 </div>
 
-                <div id="step_5" v-if="step == 5" style="background-color: #fff">
+                <div id="step_5" v-if="step == 5" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 v-if="customer.fname" class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.HelloCustomer', {customer: customer.fname+' '+customer.lname})}}!</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.SelectEmployee')}}</h3>
                     <vs-row class="mt-3" vs-type="flex">
@@ -188,7 +188,7 @@
                     </vs-row>
                 </div>
 
-                <div id="step_6" v-if="step == 6" style="background-color: #fff">
+                <div id="step_6" v-if="step == 6" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.AlmostDone')}}</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.VerifyData')}}</h3>
                     <vs-row class="mt-4 border border-light p-4">
@@ -235,7 +235,7 @@
                 </div>
 
 
-                <div id="step_7" v-if="step == 7" style="background-color: #fff">
+                <div id="step_7" v-if="step == 7" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.AllDone')}}</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">
                         {{$t('Kiosk.App.TicketSentText')}}
@@ -251,7 +251,7 @@
                 </div>
 
 
-                <div id="step_8" v-if="step == 8" style="background-color: #fff">
+                <div id="step_8" v-if="step == 8" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 class="font-weight-light text-uppercase mt-4" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.RequestAssistanceTitle')}}</h2>
                     <h3 class="font-weight-light text-uppercase mt-1" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.RequestAssistanceText')}}</h3>
                     <vs-row class="mt-4">
@@ -263,7 +263,7 @@
                     </vs-row>
                 </div>
 
-                <div id="step_9" v-if="step == 9" style="background-color: #fff">
+                <div id="step_9" v-if="step == 9" :style="card_color ? card_color : 'background-color: #fff'">
                     <h2 class="font-weight-light text-uppercase mt-5" :style="text_color == '' ? 'color: black;':text_color">{{$t('Kiosk.App.EnterPhone')}}</h2>
                         <input class="w-100 mb-4 mt-4 kiosk-input vs-input-large" :class="errors.phone ? 'kiosk-input-error' : ''"
                             :placeholder="phoneNumberMask" v-model="phone_number" type="phone"
@@ -279,10 +279,10 @@
             </div>
             <img src="https://liberrex.com/wp-content/uploads/2020/09/logo-1.png" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
             <div slot="footer" class="p-2">
-                <button  :class="success_btn == '' ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="success_btn == '' ? '': success_btn" v-if="(step < 7 && step > 0) || step == 9 " @click="goToNextStep">
+                <button  :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="(step < 7 && step > 0 && step != 6) || step == 9 " @click="goToNextStep">
                     {{$t('Kiosk.App.ContinueButton')}}
                 </button>
-                <button :class="danger_btn == '' ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="danger_btn == '' ? '': danger_btn" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
+                <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
                     {{$t('Kiosk.App.ReturnButton')}}
                 </button>
             </div>
@@ -404,9 +404,9 @@ export default {
       chekinQrCode : "",
       ipadVertical : false,
       background : "position: relative;",
+      card_color : "",
       text_color : "",
-      success_btn : "",
-      danger_btn : ""
+      success_btn : ""
   }),
   methods:{
       changeLanguage(locale) {
@@ -937,21 +937,28 @@ export default {
     }
   },
     mounted(){
-        console.log(this.kiosk_info);
+        // console.log(this.kiosk_info);
         if(JSON.parse(this.kiosk_info.kiosk.config).primary != "undefined"){
-            this.background = "position: relative;background:"+JSON.parse(this.kiosk_info.kiosk.config).primary+";";
+            this.background = "position: relative; background:"+JSON.parse(this.kiosk_info.kiosk.config).primary+";";
         }
         if(JSON.parse(this.kiosk_info.kiosk.config).secondary != "undefined"){
-            this.text_color = "color :"+JSON.parse(this.kiosk_info.kiosk.config).secondary+";";
-        }
-        if(JSON.parse(this.kiosk_info.kiosk.config).success != "undefined"){
-            this.success_btn = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).success+";";
+            this.card_color = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).secondary+";";
+            let header = document.getElementsByClassName('vs-card--header');
+            for(let i = 0; i < header.length; i++) {
+                header[i].style.background = JSON.parse(this.kiosk_info.kiosk.config).secondary;
+            }
         }
         if(JSON.parse(this.kiosk_info.kiosk.config).danger != "undefined"){
-            this.danger_btn = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).danger+";";
+            this.text_color = "color :"+JSON.parse(this.kiosk_info.kiosk.config).danger+";";
         }
+        if(JSON.parse(this.kiosk_info.kiosk.config).success != "undefined"){
+            this.success_btn = "background :"+JSON.parse(this.kiosk_info.kiosk.config).success+";";
+        }
+        
 
         console.log(this.success_btn)
+        
+        
 
         this.getKioskQueues();
         this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config); 
@@ -1040,6 +1047,8 @@ export default {
         margin-top: 10px;
         /* Footer height */
     }
+
+    
     
     
 }

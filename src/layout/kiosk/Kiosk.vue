@@ -94,10 +94,12 @@
     border-radius:0px;
     background: #ebf0f4;
   }
-  .vs-card--header{
-    background: #fff;
-    color: #000;
+  .con-vs-card .vs-card--header {
+    background: #ffffff;;
+    color: black;
   }
+  
+  
   .footer-button{
     min-width: 200px;
     font-size: 24px;
