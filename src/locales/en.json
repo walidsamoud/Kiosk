@@ -626,10 +626,13 @@
 		},
 		"App": {
 			"AllDone": "All Done! You have joined the waiting list",
+			"AllDoneBook": "All Done! Your booking request is sent successfully",
+			"BreakDay": "Business closed during this day",
 			"AlmostDone": "We are almost done",
 			"CancelButton": "Cancel",
 			"CheckinTitle": "Check-In",
 			"ChooseWaitingList": "Please choose a waiting list.",
+			"ChooseDepartment": "Please choose a department.",
 			"ConfirmButton": "Confirm",
 			"ContinueButton": "Continue",
 			"EmailPlaceholder": "Email (optional)",
@@ -659,10 +662,17 @@
 			"TicketSentText": "We have sent a digital ticket to your phone number, please use it to track the progress of your spot in the queue in real-time.",
 			"VerifyData": "please verify the information bellow and click on confirm",
 			"WaitingList": "Waiting List",
+			"Department" : "Department",
 			"GuestButton" :"Guest",
 			"JoinGuest" : "Join queue as guest",
 			"PrintTicket": "Print ticket",
-			"SendTicketSms": "Send ticket by sms"
+			"SendTicketSms": "Send ticket by sms",
+			"JoinWaitingList" : "Join Waiting List",
+			"BookNow": "Book Now",
+			"BookingDate" : "Date",
+			"BookingHour" : "Time",
+			"Duration" : "Duration (in minutes)",
+			"Price": "Price"
 		},
 		"Content": [
 			"Click here to open Add <strong>Kiosks</strong> form!",
