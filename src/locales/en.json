@@ -627,21 +627,28 @@
 		"App": {
 			"AllDone": "All Done! You have joined the waiting list",
 			"AllDoneBook": "All Done! Your booking request is sent successfully",
-			"BreakDay": "Business closed during this day",
 			"AlmostDone": "We are almost done",
+			"BookNow": "Book Now",
+			"BookingDate": "Date",
+			"BookingHour": "Time",
+			"BreakDay": "Business closed during this day",
 			"CancelButton": "Cancel",
 			"CheckinTitle": "Check-In",
-			"ChooseWaitingList": "Please choose a waiting list.",
 			"ChooseDepartment": "Please choose a department.",
 			"ChooseUser": "Please choose your profile.",
 			"ConfirmButton": "Confirm",
 			"ContinueButton": "Continue",
+			"Department": "Department",
+			"Duration": "Duration (in minutes)",
 			"EmailPlaceholder": "Email (optional)",
 			"EnterInternalId": "Personal Identifier",
 			"EnterPhone": "Please enter your phone number",
 			"FirstNamePlaceholder": "First Name",
 			"FullName": "Full Name",
+			"GuestButton": "Guest",
 			"HelloCustomer": "Hello, {customer}",
+			"JoinGuest": "Join queue as guest",
+			"JoinWaitingList": "Join Waiting List",
 			"Key": "Key",
 			"LastNamePlaceholder": "Last Name",
 			"Login": "Kiosk Login",
@@ -650,6 +657,8 @@
 			"MoreDetailsText": "We need some more information about you",
 			"PhoneNumber": "Phone Number",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "Price",
+			"PrintTicket": "Print ticket",
 			"PushError": "Unable to join the requested queue, you might be already waiting in the queue!",
 			"RequestAssistanceText": "Access to queue is restricted to customers with confirmed bookings only, please request assistance from the nearest agent.",
 			"RequestAssistanceTitle": "Please request assistance",
@@ -659,21 +668,11 @@
 			"SelectServices": "Please select your desired service(s)",
 			"SelectedMember": "Selected Team Member",
 			"SelectedServices": "Selected Service(s)",
+			"SendTicketSms": "Send ticket by sms",
 			"StartAgainButton": "Start Again",
 			"TicketSentText": "We have sent a digital ticket to your phone number, please use it to track the progress of your spot in the queue in real-time.",
 			"VerifyData": "please verify the information bellow and click on confirm",
-			"WaitingList": "Waiting List",
-			"Department" : "Department",
-			"GuestButton" :"Guest",
-			"JoinGuest" : "Join queue as guest",
-			"PrintTicket": "Print ticket",
-			"SendTicketSms": "Send ticket by sms",
-			"JoinWaitingList" : "Join Waiting List",
-			"BookNow": "Book Now",
-			"BookingDate" : "Date",
-			"BookingHour" : "Time",
-			"Duration" : "Duration (in minutes)",
-			"Price": "Price"
+			"WaitingList": "Waiting List"
 		},
 		"Content": [
 			"Click here to open Add <strong>Kiosks</strong> form!",
@@ -693,6 +692,12 @@
 			"Title": "Edit Kiosk",
 			"ToastFail": "Cannot update kiosk",
 			"ToastSuccess": "Kiosk updated"
+		},
+		"Language": "Choose your language",
+		"Pseudos": {
+			"Customer": "Customer",
+			"Patient": "Patient",
+			"User": "User"
 		},
 		"ResetSecretPrompt": {
 			"Text": "Are you sure you want to reset the secret code for {name}?",
@@ -726,13 +731,12 @@
 			"ThankYou": "Thank you for your visit today",
 			"WaitingTime": "Waiting Time",
 			"Welcome": "Welcome to"
-		},
-		"Pseudos" : {
-			"Customer": "Customer",
-			"Patient" : "Patient",
-			"User": "User"
-		},
-		"Language" : "Choose your language"
+		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "English",
+		"French": "Français"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Apply",
@@ -1164,10 +1168,5 @@
 		"CancelButton": "Cancel",
 		"Error": "Sorry!",
 		"Successful": "Successful"
-	},
-	"Languages": {
-		"Arabic": "العربية",
-		"French" : "Français",
-		"English" : "English"
 	}
 }

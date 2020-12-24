@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "Alles erledigt! Sie haben sich der Warteliste angeschlossen",
+			"AllDoneBook": "Alles erledigt! Ihre Buchungsanfrage wurde erfolgreich gesendet",
 			"AlmostDone": "Wir sind fast fertig",
+			"BookNow": "Buchen Sie jetzt",
+			"BookingDate": "Datum",
+			"BookingHour": "Zeit",
+			"BreakDay": "Geschäft an diesem Tag geschlossen",
 			"CancelButton": "Stornieren",
 			"CheckinTitle": "Check-In",
+			"ChooseDepartment": "Bitte wählen Sie eine Abteilung.",
 			"ChooseWaitingList": "Bitte wählen Sie eine Warteliste.",
 			"ConfirmButton": "Bestätigen",
 			"ContinueButton": "Fortsetzen",
+			"Department": "Abteilung",
+			"Duration": "Dauer (in Minuten)",
 			"EmailPlaceholder": "E-Mail optional)",
 			"EnterInternalId": "Persönliche Kennung",
 			"EnterPhone": "Bitte gib deine Telefonnummer ein",
 			"FirstNamePlaceholder": "Vorname",
 			"FullName": "Vollständiger Name",
+			"GuestButton": "Gast",
 			"HelloCustomer": "Hallo, {customer}",
+			"JoinGuest": "Treten Sie der Warteschlange als Gast bei",
+			"JoinWaitingList": "Warteliste beitreten",
 			"Key": "Schlüssel",
 			"LastNamePlaceholder": "Nachname",
 			"Login": "Kiosk-Login",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "Wir brauchen weitere Informationen über Sie",
 			"PhoneNumber": "Telefonnummer",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "Preis",
+			"PrintTicket": "Ticket drucken",
 			"PushError": "Der angeforderten Warteschlange kann nicht beigetreten werden. Möglicherweise warten Sie bereits in der Warteschlange.",
 			"RequestAssistanceText": "Der Zugriff auf die Warteschlange ist nur Kunden mit bestätigten Buchungen vorbehalten. Bitte wenden Sie sich an den nächstgelegenen Vertreter.",
 			"RequestAssistanceTitle": "Bitte um Unterstützung",
@@ -655,6 +668,7 @@
 			"SelectServices": "Bitte wählen Sie Ihre gewünschte (n) Dienstleistung (en)",
 			"SelectedMember": "Ausgewähltes Teammitglied",
 			"SelectedServices": "Ausgewählte Dienstleistung (en)",
+			"SendTicketSms": "Ticket per SMS senden",
 			"StartAgainButton": "Nochmal beginnen",
 			"TicketSentText": "Wir haben ein digitales Ticket an Ihre Telefonnummer gesendet. Verwenden Sie dieses, um den Fortschritt Ihres Platzes in der Warteschlange in Echtzeit zu verfolgen.",
 			"VerifyData": "Bitte überprüfen Sie die Daten unten und klicken Sie auf Bestätigen",
@@ -678,6 +692,12 @@
 			"Title": "Kiosk bearbeiten",
 			"ToastFail": "Kiosk kann nicht aktualisiert werden",
 			"ToastSuccess": "Kiosk aktualisiert"
+		},
+		"Language": "Wähle deine Sprache",
+		"Pseudos": {
+			"Customer": "Kunde",
+			"Patient": "Geduldig",
+			"User": "Nutzer"
 		},
 		"ResetSecretPrompt": {
 			"Text": "Möchten Sie den Geheimcode für {name}wirklich zurücksetzen?",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "Kunden warten",
 			"ScanQR": "Bitte scannen Sie den obigen QR-Code, um Ihr Ticket online zu verfolgen",
+			"ScanQRCheckin": "Bitte scannen Sie den unten stehenden QR-Code, um online einzuchecken",
 			"Services": "dienstleistungen",
 			"ThankYou": "Vielen Dank für Ihren Besuch heute",
 			"WaitingTime": "WARTEZEIT",
 			"Welcome": "Willkommen zu"
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "Englisch",
+		"French": "Francais"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Sich bewerben",
