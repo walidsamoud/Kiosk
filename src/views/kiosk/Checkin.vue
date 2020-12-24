@@ -327,6 +327,19 @@
                         </vs-row>
                     </div>
 
+                    <div id="bookStep_8" v-if="bookStep == 8" :style="card_color ? card_color : 'background-color: #fff'">
+                        <h2 class="font-weight-light text-uppercase mt-5" :style="text_color == '' ? 'color: black;': text_color">{{$t('Kiosk.App.ChooseUser')}}</h2>
+                        <vs-row class="mt-5">
+                            <vs-col vs-w="12" class="mt-4" :key="'department_'+index" v-for="(item,index) in customers">
+                                <vs-radio class="selector-checkbox-sm" :vs-value="item" v-model="customer">
+                                      &nbsp;{{item.fname + ' ' + item.lname}}
+                                      <span class="float-right">
+                                    | <i class="mdi mdi-mail"></i> {{item.email}}</span>
+                                </vs-radio>
+                            </vs-col>
+                        </vs-row>
+                    </div>
+
 
 
 
@@ -506,7 +519,7 @@
                         {{$t('Kiosk.App.ReturnButton')}}
                     </button>
 
-                    <button  :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="bookStep < 6 && bookStep >0" @click="goToNextBookStep">
+                    <button  :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="bookStep < 6 && bookStep >0 || bookStep == 8" @click="goToNextBookStep">
                         {{$t('Kiosk.App.ContinueButton')}}
                     </button>
                     <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="bookStep > 1" @click="goToPrevBookStep">
@@ -653,7 +666,8 @@ export default {
       today : '',
       duration: 0,
       price : 0,
-      breakDay : false
+      breakDay : false,
+      customers : []
 
   }),
   methods:{
@@ -863,8 +877,16 @@ export default {
           }
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
               if(data.customer != null) {
-                  this.customer = data.customer;
-                  this.bookStep = 6;
+                  console.log(data.customer.length);
+                  if(data.customer.length == 1){
+                    this.customer = data.customer;
+                    this.bookStep = 6;
+                  }
+                  else {
+                      this.customers = data.customer;
+                      this.bookStep = 8;
+                  }
+                
               }
               else {
                   this.bookStep = 5;
@@ -1188,7 +1210,7 @@ export default {
                     })
                     if(this.bookingSlot != "00:00") {
                         if(this.customer.fname){
-                        this.bookStep = 6;
+                            this.bookStep = 6;
                         }
                         else {this.bookStep++;}
                     }
@@ -1201,6 +1223,11 @@ export default {
                     break;
                 case 5:
                     if(this.fname.length && this.lname.length) { this.createCustomer();}
+                    break;
+                case 8:
+                    if(this.customer.fname){
+                        this.bookStep = 6;
+                    }
                     break;
           }
       },
@@ -1256,6 +1283,11 @@ export default {
                     this.availableTimeSlots = [];
                     this.getAvailableSlots();
                     this.bookStep = 3;
+                    break;
+                case 8:
+                    this.customer = {};
+                    this.customers = [];
+                    this.bookStep = 4;
                     break;
 
           }
@@ -1347,6 +1379,7 @@ export default {
           console.log(this.bookingSlot);
       },
       requestToBook(){
+          console.log(this.customer.id)
         this.showLoading();
         let serv = [];
         this.selectedBookServices.forEach((obj, index) => {

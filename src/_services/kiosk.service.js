@@ -133,7 +133,7 @@ function createBooking(data) {
         headers: { ...authKioskHeader()},
         body: data
     };
-    return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.bookings.createBooking}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.kiosks.createBooking}`, requestOptions).then(handleResponse);
 }
 
 function login(key, secret) {
