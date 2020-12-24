@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "Terminé! Vous avez rejoint la liste d'attente",
+			"AllDoneBook": "Terminé! Votre demande de réservation a été envoyée avec succès",
 			"AlmostDone": "On a presque terminé",
+			"BookNow": "Reserve maintenant",
+			"BookingDate": "Rendez-vous amoureux",
+			"BookingHour": "Temps",
+			"BreakDay": "Entreprise fermée ce jour-là",
 			"CancelButton": "annuler",
 			"CheckinTitle": "Enregistrement",
+			"ChooseDepartment": "Veuillez choisir un département.",
 			"ChooseWaitingList": "Veuillez choisir une liste d'attente.",
 			"ConfirmButton": "Confirmer",
 			"ContinueButton": "Continuer",
+			"Department": "département",
+			"Duration": "Durée (en minutes)",
 			"EmailPlaceholder": "Courriel (facultatif)",
 			"EnterInternalId": "Identifiant personnel",
 			"EnterPhone": "S'il vous plait, entrez votre numéro de téléphone",
 			"FirstNamePlaceholder": "Prénom",
 			"FullName": "Nom complet",
+			"GuestButton": "Client",
 			"HelloCustomer": "Bonjour, {customer}",
+			"JoinGuest": "Rejoindre la file d'attente en tant qu'invité",
+			"JoinWaitingList": "Rejoindre la liste d'attente",
 			"Key": "Clé",
 			"LastNamePlaceholder": "Nom de famille",
 			"Login": "Connexion au kiosque",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "Nous avons besoin de plus d'informations sur vous",
 			"PhoneNumber": "Numéro de téléphone",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "Prix",
+			"PrintTicket": "Imprimer le billet",
 			"PushError": "Impossible de rejoindre la file d'attente demandée, vous attendez peut-être déjà dans la file d'attente!",
 			"RequestAssistanceText": "L'accès à la file d'attente est limité aux clients dont les réservations sont confirmées uniquement, veuillez demander l'aide de l'agent le plus proche.",
 			"RequestAssistanceTitle": "Veuillez demander de l'aide",
@@ -655,6 +668,7 @@
 			"SelectServices": "Veuillez sélectionner le ou les services souhaités",
 			"SelectedMember": "Membre de l'équipe sélectionné",
 			"SelectedServices": "Service (s) sélectionné (s)",
+			"SendTicketSms": "Envoyer un ticket par sms",
 			"StartAgainButton": "Recommencer",
 			"TicketSentText": "Nous avons envoyé un ticket numérique à votre numéro de téléphone, veuillez l'utiliser pour suivre la progression de votre place dans la file d'attente en temps réel.",
 			"VerifyData": "veuillez vérifier les données ci-dessous et cliquez sur confirmer",
@@ -678,6 +692,12 @@
 			"Title": "Modifier le kiosque",
 			"ToastFail": "Impossible de mettre à jour le kiosque",
 			"ToastSuccess": "Mise à jour du kiosque"
+		},
+		"Language": "choisissez votre langue",
+		"Pseudos": {
+			"Customer": "Client",
+			"Patient": "Patient",
+			"User": "Utilisateur"
 		},
 		"ResetSecretPrompt": {
 			"Text": "Voulez-vous vraiment réinitialiser le code secret de {name}?",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "Clients en attente",
 			"ScanQR": "Veuillez scanner le code QR ci-dessus pour suivre votre billet en ligne",
+			"ScanQRCheckin": "Veuillez scanner le code QR ci-dessous pour vous enregistrer en ligne",
 			"Services": "Services",
 			"ThankYou": "Merci pour votre visite aujourd'hui",
 			"WaitingTime": "Temps d'attente",
 			"Welcome": "Bienvenue à"
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "Anglais",
+		"French": "English"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Appliquer",
