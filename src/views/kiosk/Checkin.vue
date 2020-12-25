@@ -131,6 +131,27 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="steps-container w-100 row no-gutters justify-content-between align-items-center" v-if="bookStep > 0">
+                    <div class="step row no-gutters col justify-content-center align-items-center"
+                            v-for="(s, index) in stepsBook"
+                            v-bind:class="{ disabled: index > bookStep - 1 }"
+                            :key="s">
+                        <div class="bullet row justify-content-center align-items-center">
+                            <vs-icon icon="done" v-if="index < bookStep - 1 || bookStep - 1 === s.length - 1"
+                                        size="1x"
+                                        class="check-icon"></vs-icon>
+                            <div v-else>{{ index + 1 }}</div>
+                        </div>
+                        <div class="title col-12">
+                            {{ s }}
+                        </div>
+                        <div class="line"
+                            v-if="index < bookSteps.length + 1"
+                            v-bind:class="{ disabled: index === bookStep - 1 }">
+                        </div>
+                    </div>
+                </div>
                 
 
                 <div class="p-5" :style="card_color ? card_color : 'background-color: #fff'">
@@ -640,7 +661,9 @@ export default {
       showNumericalKeyboard: false,
       showAlphaNumericalKeyboard: false,
       steps : ['','','',''],
+      bookSteps : ['','','',''],
       stepsLogin :['','','','','',''],
+      stepsBook  :['','','','','',''],
       stepper : 1,
       currentStep: 1,
       services : [],
@@ -879,7 +902,7 @@ export default {
               if(data.customer != null) {
                   console.log(data.customer.length);
                   if(data.customer.length == 1){
-                    this.customer = data.customer;
+                    this.customer = data.customer[0];
                     this.bookStep = 6;
                   }
                   else {
