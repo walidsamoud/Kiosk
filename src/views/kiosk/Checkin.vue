@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vs-card class="mb-0 full-height login-box" id="checkin-box" fixedHeight :style="background">
+        <vs-card class="mb-0 full-height login-box" id="checkin-box" :style="background">
             <div slot="header" id="header">
                 <h3 class="mb-1">{{kiosk_info.business.name}}
                     <div class="float-right" v-if="step > 0 || bookStep > 0">
@@ -671,7 +671,7 @@ export default {
       guestStep : 1,
       chekinQrCode : "",
       ipadVertical : false,
-      background : "position: relative;",
+      background : "position: absolute;",
       card_color : "",
       text_color : "",
       success_btn : "",
@@ -1525,7 +1525,7 @@ export default {
   },
     mounted(){
         if(JSON.parse(this.kiosk_info.kiosk.config).primary != "undefined"){
-            this.background = "position: relative; background:"+JSON.parse(this.kiosk_info.kiosk.config).primary+";";
+            this.background = "position: absolute; background:"+JSON.parse(this.kiosk_info.kiosk.config).primary+";";
         }
         if(JSON.parse(this.kiosk_info.kiosk.config).secondary != "undefined"){
             this.card_color = "background-color :"+JSON.parse(this.kiosk_info.kiosk.config).secondary+";";
