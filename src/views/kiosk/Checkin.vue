@@ -899,7 +899,7 @@ export default {
               country_prefix: this.countryPrefix
           }
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
-              if(data.customer != null) {
+              if(data.customer.length != 0) {
                   console.log(data.customer.length);
                   if(data.customer.length == 1){
                     this.customer = data.customer[0];
