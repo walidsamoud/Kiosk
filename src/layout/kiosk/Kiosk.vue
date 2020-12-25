@@ -89,6 +89,7 @@
   }
   .con-vs-card{
     background: #ebf0f4;
+    position: absolute;
   }
   .login-box{
     border-radius:0px;
