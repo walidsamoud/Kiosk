@@ -1,5 +1,5 @@
 <template>
-  <div id="lang-box" style="position: fixed; right: 0px; top: 10px;">
+  <div id="lang-box" style="position: absolute; right: 0px; top: 10px;">
     <ul style="display: inline-flex; list-style: none;">
       <li class="mr-4" @click="changeLanguage('ar')">
           <img :src="require('@/assets/images/flags/flag-tn.png')" style="max-height: 48px"/>
@@ -43,7 +43,7 @@ export default {
     changeLanguage(locale) {
       this.$i18n.locale = locale;
       localStorage.setItem('Language', locale);
-      location.reload(true);
+      //location.reload(true);
     },
   },
   computed: {

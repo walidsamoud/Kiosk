@@ -26,148 +26,148 @@
 	},
 	"Billing": {
 		"AddBillingMethod": {
-			"AddCardButton": "",
-			"Text": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"AddCardButton": "إضافة بطاقة الائتمان",
+			"Text": "يرجى ملاحظة أن نظام الدفع الخاص بنا مقدم من Stripe.",
+			"Title": "إضافة طريقة دفع",
+			"ToastFail": "لا يمكن إضافة طريقة الدفع",
+			"ToastSuccess": "طريقة الدفع المضافة"
 		},
-		"BillingMethodLabel": "",
-		"BillingMethodPlaceholder": "",
-		"BillingMethods": "",
+		"BillingMethodLabel": "طريقة الدفع او السداد",
+		"BillingMethodPlaceholder": "اختر طريقة الدفع",
+		"BillingMethods": "طرق الدفع",
 		"Content": [
-			"",
-			"",
-			""
+			"يتم سرد جميع معلومات الفواتير الخاصة بك هنا مثل الفواتير وطرق الدفع وما إلى ذلك.",
+			"يتم سرد جميع الفواتير الخاصة بك في هذا القسم. يمكنك تنزيل فاتورتك بالنقر فوق الزر <strong>تنزيل</strong> ",
+			"يمكنك إدارة بطاقة (بطاقات) الائتمان الخاصة بك هنا في هذا القسم."
 		],
 		"DeleteBillingMethod": {
-			"Text": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"Text": "هل تريد بالتأكيد حذف طريقة الفوترة التي تنتهي بـ {last4} ؟",
+			"Title": "حذف طريقة الفوترة",
+			"ToastFail": "لا يمكن حذف طريقة الفوترة",
+			"ToastSuccess": "تم حذف طريقة الفوترة"
 		},
-		"Download": "",
-		"EndingWith": "",
-		"Expires": "",
-		"Invoices": "",
-		"NoBillingMethodsAttached": "",
-		"UseNewBillingMethod": ""
+		"Download": "تحميل",
+		"EndingWith": "وتنتهي مع",
+		"Expires": "تنتهي",
+		"Invoices": "الفواتير",
+		"NoBillingMethodsAttached": "لا توجد طرق دفع مرتبطة بحساب عملك",
+		"UseNewBillingMethod": "استخدم طريقة دفع جديدة"
 	},
 	"Booking": {
 		"Calendar": {
-			"Day": "",
-			"List": "",
-			"Month": "",
-			"More": "",
-			"Today": "",
-			"Week": ""
+			"Day": "يوم",
+			"List": "قائمة",
+			"Month": "شهر",
+			"More": "الحجز",
+			"Today": "اليوم",
+			"Week": "أسبوع"
 		},
 		"Content": [
-			"",
-			""
+			"قائمة الحجوزات التي تظهر على التقويم.",
+			"جميع طلبات الحجز الأخيرة مدرجة هنا."
 		],
-		"CreateBookingButton": "",
+		"CreateBookingButton": "خلق",
 		"CreatePrompt": {
-			"BookingsAvailable": "",
-			"CancelButton": "",
-			"ChooseTargetDepartment": "",
-			"CreateNewCustomer": "",
-			"CustomerLabel": "",
-			"CustomerPlaceholder": "",
-			"DepartmentLabel": "",
-			"DurationLabel": "",
-			"DurationPlaceholder": "",
-			"ServiceLabel": "",
-			"ServicePlaceholder": "",
-			"StartDate": "",
-			"StartDateLabel": "",
-			"SubmitButton": "",
-			"TimeLabel": "",
-			"TimePlaceholder": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": "",
-			"WithoutSlots": ""
+			"BookingsAvailable": "المواعيد المتاحة",
+			"CancelButton": "إلغاء",
+			"ChooseTargetDepartment": "اختر القسم المستهدف",
+			"CreateNewCustomer": "إنشاء عميل جديد",
+			"CustomerLabel": "زبون",
+			"CustomerPlaceholder": "اختيار العملاء",
+			"DepartmentLabel": "القسم المستهدف",
+			"DurationLabel": "المدة الزمنية",
+			"DurationPlaceholder": "اختر مدة",
+			"ServiceLabel": "خدمات",
+			"ServicePlaceholder": "حدد خدمة واحدة أو أكثر",
+			"StartDate": "تاريخ",
+			"StartDateLabel": "تاريخ",
+			"SubmitButton": "خلق",
+			"TimeLabel": "فسحة زمنية",
+			"TimePlaceholder": "حدد فتحة الوقت",
+			"Title": "إنشاء الحجز",
+			"ToastFail": "لا يمكن إنشاء الحجز",
+			"ToastSuccess": "تم إنشاء الحجز",
+			"WithoutSlots": "بدون فترات زمنية محددة"
 		},
 		"DeletePrompt": {
-			"Text": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"Text": "هل أنت متأكد أنك تريد حذف هذا الحجز؟",
+			"Title": "حذف الحجز",
+			"ToastFail": "لا يمكن تحديث الحجز",
+			"ToastSuccess": "تم تحديث الحجز"
 		},
-		"DepartmentFilterPlaceholder": "",
+		"DepartmentFilterPlaceholder": "تصفية حسب القسم",
 		"EditPrompt": {
-			"BookButton": "",
-			"CancelButton": "",
-			"DeleteButton": "",
-			"RedirectButton": "",
-			"SubmitButton": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"BookButton": "الحجز",
+			"CancelButton": "إلغاء",
+			"DeleteButton": "حذف",
+			"RedirectButton": "طابور",
+			"SubmitButton": "تحديث",
+			"Title": "تحديث الحجز",
+			"ToastFail": "لا يمكن تحديث الحجز",
+			"ToastSuccess": "تم تحديث الحجز"
 		},
-		"ExportBookingsButton": "",
-		"ImportBookingsButton": "",
+		"ExportBookingsButton": "تصدير",
+		"ImportBookingsButton": "رفع",
 		"Prompt": {
-			"Content": ""
+			"Content": "املأ جميع الحقول المطلوبة واضغط على زر <strong>\"إنشاء\"</strong>"
 		},
 		"QueuePrompt": {
-			"CancelButton": "",
-			"SubmitButton": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"CancelButton": "إلغاء",
+			"SubmitButton": "تؤكد",
+			"Title": "إعادة التوجيه إلى قائمة الانتظار",
+			"ToastFail": "لا يمكن إعادة توجيه العميل",
+			"ToastSuccess": "تمت إعادة توجيه العميل إلى قائمة الانتظار"
 		},
-		"RecentRequestsEmpty": "",
-		"RecentRequestsTitle": "",
-		"Services": "",
+		"RecentRequestsEmpty": "ليس لديك أي طلبات معلقة في الوقت الحالي!",
+		"RecentRequestsTitle": "الطلبات الأخيرة",
+		"Services": "خدمات",
 		"UploadPrompt": {
-			"CancelButton": "",
-			"FileLabel": "",
-			"NotifyCustomers": "",
-			"SubmitButton": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"CancelButton": "إلغاء",
+			"FileLabel": "ملف (التنسيقات المقبولة: .CSV و. XSL و. XSLX)",
+			"NotifyCustomers": "إرسال إخطارات للعملاء",
+			"SubmitButton": "رفع",
+			"Title": "تحميل الحجوزات",
+			"ToastFail": "لا يمكن تحميل الحجوزات",
+			"ToastSuccess": "تم تحميل الحجوزات"
 		}
 	},
 	"Company": {
-		"Address": "",
-		"City": "",
-		"Close": "",
+		"Address": "عنوان",
+		"City": "مدينة",
+		"Close": "قريب",
 		"Content": [
-			"",
-			"",
-			"",
-			""
+			"يمكن تحديث جميع الإعدادات المتعلقة بالأعمال من هنا.",
+			"هنا يمكنك العثور على المعلومات الأساسية حول العمل.",
+			"هنا يمكنك ضبط أيام العمل / ساعات العمل.",
+			"يمكنك هنا تعيين موقع النشاط التجاري عن طريق سحب العلامة وإفلاتها في أي مكان."
 		],
-		"Country": "",
+		"Country": "بلد",
 		"EditBasic": {
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"ToastFail": "لا يمكن تحديث المعلومات الأساسية",
+			"ToastSuccess": "تحديث المعلومات الأساسية"
 		},
 		"EditLocation": {
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"ToastFail": "لا يمكن تحديث الموقع",
+			"ToastSuccess": "تم تحديث الموقع"
 		},
 		"EditWorkingDays": {
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"ToastFail": "لا يمكن تحديث أيام العمل",
+			"ToastSuccess": "أيام العمل المحدثة"
 		},
-		"Email": "",
-		"Industry": "",
-		"Logo": "",
-		"Name": "",
-		"Open": "",
-		"PhoneNumber": "",
-		"PostalCode": "",
-		"SmsSenderName": "",
+		"Email": "البريد الإلكتروني",
+		"Industry": "صناعة",
+		"Logo": "شعار",
+		"Name": "اسم الشركة",
+		"Open": "افتح",
+		"PhoneNumber": "رقم الهاتف",
+		"PostalCode": "الرمز البريدي",
+		"SmsSenderName": "اسم مرسل الرسائل القصيرة",
 		"Tabs": {
-			"BasicInformation": "",
-			"Location": "",
-			"WorkingDays": ""
+			"BasicInformation": "معلومات اساسية",
+			"Location": "موقعك",
+			"WorkingDays": "أيام العمل"
 		},
-		"UpdateButton": ""
+		"UpdateButton": "حفظ التغييرات"
 	},
 	"Components": {
 		"Booking": {
@@ -410,23 +410,23 @@
 	},
 	"Dashboard": {
 		"Content": [
-			"",
-			"",
-			""
+			"انقر هنا لفتح قائمة ملف تعريف المستخدم.",
+			"يمكنك تغيير لغة الموقع عن طريق اختيار أي لغة من محدد اللغة هذا",
+			"يتم عرض جميع الإخطارات هنا."
 		],
 		"OnBoarding": {
-			"LaterButton": "",
-			"QuickSetupText": "",
-			"QuickSetupTitle": "",
-			"SetupButton": "",
-			"Text": "",
-			"Title": ""
+			"LaterButton": "إعداد في وقت لاحق",
+			"QuickSetupText": "سنرشدك من خلال إعداد حساب سريع لمساعدتك في البدء مع Liberrex في بضع ثوانٍ.",
+			"QuickSetupTitle": "الإعداد السريع للحساب",
+			"SetupButton": "لنقم بإعداد حسابك",
+			"Text": "شكرًا لاختيار Liberrex لإدارة تدفق العملاء",
+			"Title": "مرحبًا بكم في Liberrex!"
 		},
 		"ServiceConsumption": {
-			"Title": ""
+			"Title": "استهلاك الخدمة"
 		},
 		"VisitFrequency": {
-			"Title": ""
+			"Title": "تردد زيارة العملاء"
 		}
 	},
 	"Days": {
@@ -533,79 +533,79 @@
 		}
 	},
 	"Errors": {
-		"EmailDoesNotExist": "",
-		"Invalid": "",
-		"InvalidEmailOrUsed": "",
-		"InvalidFilePolite": "",
-		"InvalidPassword": "",
-		"InvalidPolite": "",
-		"InvalidSelectPolite": "",
-		"LoginFail": "",
-		"PasswordConfirmDoNotMatch": "",
-		"PasswordResetFail": "",
-		"RegisterTermsFail": "",
-		"Required": ""
+		"EmailDoesNotExist": "البريد الإلكتروني لا يطابق سجلاتنا",
+		"Invalid": "{field} غير صالح",
+		"InvalidEmailOrUsed": "البريد الإلكتروني غير صالح أو يستخدمه حساب آخر",
+		"InvalidFilePolite": "يرجى إرفاق صالح {field}",
+		"InvalidPassword": "الرقم السري يجب الا يقل عن 6 احرف على الاقل",
+		"InvalidPolite": "الرجاء إدخال صالح {field}",
+		"InvalidSelectPolite": "يرجى تحديد {field}صالح",
+		"LoginFail": "البريد الإلكتروني وكلمة المرور لا يتطابقان مع سجلاتنا",
+		"PasswordConfirmDoNotMatch": "تأكيد كلمة المرور غير متطابق",
+		"PasswordResetFail": "البريد الإلكتروني ورمز إعادة التعيين غير متطابقين",
+		"RegisterTermsFail": "يجب عليك قبول البنود والشروط!",
+		"Required": "{field} مطلوب"
 	},
 	"GeneralSettings": {
 		"BusinessAccount": {
-			"DeleteAccount": "",
-			"DeleteHistory": "",
-			"IsPublished": "",
-			"SaveButton": "",
-			"Title": ""
+			"DeleteAccount": "حذف الحساب",
+			"DeleteHistory": "حذف التاريخ",
+			"IsPublished": "تم نشر الأعمال وإتاحتها على أنظمة Liberrex للمستخدمين للبحث وحجز ومشاركة الملاحظات.",
+			"SaveButton": "حفظ",
+			"Title": "حساب الأعمال"
 		},
 		"Content": [
-			"",
-			""
+			"يمكن إدارة إعدادات البيانات والخصوصية من هنا.",
+			"يمكن إدارة إعدادات حساب العمل من هنا."
 		],
 		"DataAndPrivacy": {
-			"DeleteHistoryDaily": "",
-			"ShareData": "",
-			"ShareWaitingTime": "",
-			"Title": ""
+			"DeleteHistoryDaily": "احذف جميع محفوظات البيانات كل 24 ساعة ولا تحتفظ بأي سجلات لنشاط الأعمال.",
+			"ShareData": "مشاركة بيانات نشاط الأعمال مع خدمات الجهات الخارجية من أجل زيادة كفاءة الخوارزمية ودقتها.",
+			"ShareWaitingTime": "مشاركة وقت الانتظار وحجز فتحات مع المستخدمين العموميين",
+			"Title": "خصوصية البيانات"
 		},
 		"DeleteAccountPrompt": {
-			"Text": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"Text": "هل أنت متأكد أنك تريد حذف حسابك التجاري؟ يرجى ملاحظة أنه سيتم حذف جميع البيانات المرتبطة بهذا الحساب ولن تتمكن من استعادتها في المستقبل. إذا كان هذا قرارًا صعبًا ، فيمكنك ببساطة إلغاء نشر عملك حتى تتخذ قرارًا نهائيًا",
+			"Title": "حذف الحساب",
+			"ToastFail": "لا يمكن حذف الحساب",
+			"ToastSuccess": "تم حذف الحساب"
 		},
 		"DeleteHistoryPrompt": {
-			"Text": "",
-			"Title": "",
-			"ToastFail": "",
-			"ToastSuccess": ""
+			"Text": "هل تريد بالتأكيد حذف جميع بيانات الأنشطة المرتبطة بحساب عملك؟",
+			"Title": "حذف التاريخ",
+			"ToastFail": "لا يمكن حذف السجل",
+			"ToastSuccess": "تم حذف التاريخ"
 		},
 		"MyLiberrex": {
-			"BookingAllowAttachments": "",
-			"BookingAllowed": "",
-			"BookingRequireAttachments": "",
-			"BookingSelectDate": "",
-			"BookingSelectDepartment": "",
-			"BookingSelectSlot": "",
-			"QueueAllowed": "",
-			"QueueOnlyBooked": "",
-			"QueueRequirePayment": "",
-			"SaveButton": "",
-			"Title": ""
+			"BookingAllowAttachments": "يمكن للعملاء إرسال المرفقات مع طلبات الحجز.",
+			"BookingAllowed": "يسمح للعملاء بحجز المواعيد.",
+			"BookingRequireAttachments": "تتطلب الحجوزات وجود مرفقات",
+			"BookingSelectDate": "يمكن للعملاء تحديد التواريخ المتاحة.",
+			"BookingSelectDepartment": "تتطلب الحجوزات اختيار القسم.",
+			"BookingSelectSlot": "يمكن للعملاء اختيار الفتحات المتاحة.",
+			"QueueAllowed": "يُسمح للعملاء بالانضمام إلى قوائم الانتظار.",
+			"QueueOnlyBooked": "يمكن للعملاء الانضمام إلى قوائم الانتظار فقط إذا كان لديهم حجز مؤكد في نفس اليوم.",
+			"QueueRequirePayment": "يجب على العملاء دفع الرسوم قبل التمكن من الانضمام إلى قوائم الانتظار.",
+			"SaveButton": "حفظ",
+			"Title": "ليبركس"
 		},
 		"Notifications": {
-			"Email": "",
-			"Push": "",
-			"SMS": "",
-			"Title": ""
+			"Email": "اشعارات البريد الالكتروني",
+			"Push": "دفع الإخطارات",
+			"SMS": "إشعارات الرسائل القصيرة",
+			"Title": "إخطارات"
 		}
 	},
 	"Help": {
-		"MembershipButton": "",
-		"MembershipText": "",
-		"MembershipTitle": "",
-		"NeedHelp": "",
-		"TechnicalProblemText": "",
-		"TechnicalProblemTitle": "",
-		"UserGuideLinkText": "",
-		"UserGuideText": "",
-		"UserGuideTitle": ""
+		"MembershipButton": "الترقية إلى LIBERUP",
+		"MembershipText": "استنادًا إلى بياناتك التاريخية ، توصي منظمة العفو الدولية بحزمة LIBERUP لأعمالك.",
+		"MembershipTitle": "عضوية",
+		"NeedHelp": "تحتاج مساعدة؟",
+		"TechnicalProblemText": "إذا كنت تواجه أي مشكلة فنية ، فيرجى إرسال لقطات شاشة إلى support@liberrex.com أو الاتصال بنا على +44 (0) 7802-40-5359 للحصول على مساعدة عاجلة.",
+		"TechnicalProblemTitle": "مشكلة فنية",
+		"UserGuideLinkText": "دليل المستخدم - فيديو",
+		"UserGuideText": "هل أنت جديد على Liberrex ولا تعرف حتى الآن كيفية استخدام النظام الأساسي؟ لا داعي للذعر ، لقد أعددنا\n        الوثائق ومقاطع الفيديو الخاصة بك التي سوف ترشدك من خلال جميع الميزات وإعدادات الحساب. يرجى النقر على الرابط التالي للذهاب على قناة يوتيوب لدينا.",
+		"UserGuideTitle": "دليل المستخدم"
 	},
 	"Kiosk": {
 		"AddKioskButton": "إنشاء كشك",
@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "لقد انضممت بنجاح إلى قائمة الانتظار.",
+			"AllDoneBook": "كله تمام! تم إرسال طلب الحجز الخاص بك بنجاح",
 			"AlmostDone": "نحن على وشك الإنتهاء",
+			"BookNow": "احجز الآن",
+			"BookingDate": "تاريخ",
+			"BookingHour": "زمن",
+			"BreakDay": "العمل مغلق خلال هذا اليوم",
 			"CancelButton": "إلغاء",
 			"CheckinTitle": "تحقق في",
+			"ChooseDepartment": "الرجاء اختيار القسم.",
 			"ChooseWaitingList": "يرجى اختيار قائمة الانتظار.",
 			"ConfirmButton": "تأكيد",
 			"ContinueButton": "استمر",
+			"Department": " قسم، أقسام",
+			"Duration": "المدة (بالدقائق)",
 			"EmailPlaceholder": "البريد الإلكتروني (اختياري)",
 			"EnterInternalId": "المعرف الشخصي",
 			"EnterPhone": "يرجى إدخال رقم الهاتف المحمول",
 			"FirstNamePlaceholder": "الاسم",
 			"FullName": "اللقب",
+			"GuestButton": "زائر",
 			"HelloCustomer": "مرحبًا ، {customer}",
+			"JoinGuest": "الانضمام إلى قائمة الانتظار كضيف",
+			"JoinWaitingList": "انضم إلى قائمة الانتظار",
 			"Key": "مفتاح",
 			"LastNamePlaceholder": "اللقب",
 			"Login": "كشك تسجيل الدخول",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "نحن بحاجة إلى مزيد من المعلومات عنك",
 			"PhoneNumber": "رقم الهاتف",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "السعر",
+			"PrintTicket": "طباعة التذكرة",
 			"PushError": "ليس بإمكانك الإنضمام إلى قائمة الإنتظار، قد يكون السبب وجود رقم الهاتف المستخدم في قائمة النتظر أو عطب تقني. الرجاء التثبت مع مكتب الإستقبال.",
 			"RequestAssistanceText": "يقتصر الوصول إلى قائمة الإنتظار على العملاء الذين لديهم حجوزات مؤكدة فقط. يرجى التوجه وطلب المساعدة من أقرب مكتب إستقبال.",
 			"RequestAssistanceTitle": "يرجى طلب المساعدة",
@@ -655,6 +668,7 @@
 			"SelectServices": "يرجى اختيار الخدمة (الخدمات) المطلوبة",
 			"SelectedMember": "عضو الفريق المختار",
 			"SelectedServices": "الخدمة (الخدمات) المختارة",
+			"SendTicketSms": "إرسال التذكرة عن طريق الرسائل القصيرة",
 			"StartAgainButton": "إبدأ من جديد",
 			"TicketSentText": "لقد أرسلنا تذكرة رقمية إلى رقم هاتفك، يرجى استخدامها لتتبع تقدم دورك في قائمة الانتظار عن بعد.",
 			"VerifyData": "يرجى التحقق من البيانات أسفله قبل تأكيد التذكرة",
@@ -678,6 +692,12 @@
 			"Title": "تحرير كشك",
 			"ToastFail": "لا يمكن تحديث كشك",
 			"ToastSuccess": "كشك المحدثة"
+		},
+		"Language": "اختر لغتك",
+		"Pseudos": {
+			"Customer": "زبون",
+			"Patient": "صبور",
+			"User": "المستعمل"
 		},
 		"ResetSecretPrompt": {
 			"Text": "هل تريد بالتأكيد إعادة تعيين الكود السري لـ {name}؟",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "زبائن في الإنتظار",
 			"ScanQR": "يرجى مسح رمز الاستجابة السريعة أعلاه لتتبع تذكرتك عبر الإنترنت",
+			"ScanQRCheckin": "يرجى مسح رمز الاستجابة السريعة ضوئيًا أدناه لتسجيل الوصول عبر الإنترنت",
 			"Services": "خدمات",
 			"ThankYou": "شكرا لزيارتكم اليوم",
 			"WaitingTime": "وقت الانتظار",
 			"Welcome": "مرحباً بك في "
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "الإنجليزية",
+		"French": "الفرنسية"
 	},
 	"Membership": {
 		"ApplyCouponButton": "تطبيق",

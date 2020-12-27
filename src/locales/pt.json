@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "Tudo feito! Você entrou na lista de espera",
+			"AllDoneBook": "Tudo feito! Sua solicitação de reserva foi enviada com sucesso",
 			"AlmostDone": "Estamos quase terminando",
+			"BookNow": "Livro agora",
+			"BookingDate": "Encontro",
+			"BookingHour": "tempo",
+			"BreakDay": "Negócio fechado durante este dia",
 			"CancelButton": "Cancelar",
 			"CheckinTitle": "Check-in",
+			"ChooseDepartment": "Escolha um departamento.",
 			"ChooseWaitingList": "Por favor, escolha uma lista de espera.",
 			"ConfirmButton": "confirme",
 			"ContinueButton": "Continuar",
+			"Department": "Departamento",
+			"Duration": "Duração (em minutos)",
 			"EmailPlaceholder": "E-mail opcional)",
 			"EnterInternalId": "Identificador pessoal",
 			"EnterPhone": "Por favor, digite seu número de telefone",
 			"FirstNamePlaceholder": "Primeiro nome",
 			"FullName": "Nome completo",
+			"GuestButton": "Convidado",
 			"HelloCustomer": "Olá {customer}",
+			"JoinGuest": "Entrar na fila como convidado",
+			"JoinWaitingList": "Entrar na lista de espera",
 			"Key": "Chave",
 			"LastNamePlaceholder": "Último nome",
 			"Login": "Login do quiosque",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "Precisamos de mais algumas informações sobre você",
 			"PhoneNumber": "Número de telefone",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "Preço",
+			"PrintTicket": "Imprimir bilhete",
 			"PushError": "Não foi possível ingressar na fila solicitada, você já pode estar esperando na fila!",
 			"RequestAssistanceText": "O acesso à fila é restrito apenas a clientes com reservas confirmadas. Solicite assistência ao agente mais próximo.",
 			"RequestAssistanceTitle": "Solicite assistência",
@@ -655,6 +668,7 @@
 			"SelectServices": "Selecione o (s) serviço (s) desejado (s)",
 			"SelectedMember": "Membro da equipe selecionado",
 			"SelectedServices": "Serviço (s) selecionado (s)",
+			"SendTicketSms": "Enviar ticket por sms",
 			"StartAgainButton": "Comece de novo",
 			"TicketSentText": "Enviamos um ingresso digital para o seu número de telefone. Use-o para acompanhar o progresso do seu lugar na fila em tempo real.",
 			"VerifyData": "verifique os dados abaixo e clique em confirmar",
@@ -678,6 +692,12 @@
 			"Title": "Editar quiosque",
 			"ToastFail": "Não é possível atualizar o quiosque",
 			"ToastSuccess": "Quiosque atualizado"
+		},
+		"Language": "Escolha seu idioma",
+		"Pseudos": {
+			"Customer": "Cliente",
+			"Patient": "paciente",
+			"User": "Do utilizador"
 		},
 		"ResetSecretPrompt": {
 			"Text": "Tem certeza de que deseja redefinir o código secreto para {name}?",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "Clientes aguardando",
 			"ScanQR": "Leia o código QR acima para rastrear seu ingresso on-line",
+			"ScanQRCheckin": "Leia o código QR abaixo para fazer o check-in online",
 			"Services": "Serviços",
 			"ThankYou": "Obrigado por sua visita hoje",
 			"WaitingTime": "Tempo de espera",
 			"Welcome": "Bem-vindo ao"
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "Inglês",
+		"French": "Français"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Aplique",

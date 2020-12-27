@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "הכל בוצע! הצטרפתם לרשימת ההמתנה",
+			"AllDoneBook": "הכל בוצע! בקשת ההזמנה שלך נשלחה בהצלחה",
 			"AlmostDone": "כמעט סיימנו",
+			"BookNow": "להזמין עכשיו",
+			"BookingDate": "תאריך",
+			"BookingHour": "זמן",
+			"BreakDay": "העסק נסגר במהלך היום הזה",
 			"CancelButton": "בטל",
 			"CheckinTitle": "קבלה",
+			"ChooseDepartment": "אנא בחר מחלקה.",
 			"ChooseWaitingList": "אנא בחר רשימת המתנה.",
 			"ConfirmButton": "אשר",
 			"ContinueButton": "המשך",
+			"Department": "המחלקה",
+			"Duration": "משך (בתוך דקות)",
 			"EmailPlaceholder": "אימייל (לא חובה)",
 			"EnterInternalId": "מזהה אישי",
 			"EnterPhone": "אנא הזן את מספר הטלפון שלך",
 			"FirstNamePlaceholder": "שם פרטי",
 			"FullName": "שם מלא",
+			"GuestButton": "אוֹרֵחַ",
 			"HelloCustomer": "שלום, {customer}",
+			"JoinGuest": "הצטרף לתור כאורח",
+			"JoinWaitingList": "הצטרף לרשימת ההמתנה",
 			"Key": "מפתח",
 			"LastNamePlaceholder": "שם משפחה",
 			"Login": "כניסה לקיוסק",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "אנו זקוקים למידע נוסף אודותיך",
 			"PhoneNumber": "מספר טלפון",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "מחיר",
+			"PrintTicket": "כרטיס הדפסה",
 			"PushError": "לא ניתן להצטרף לתור המבוקש, ייתכן שאתה כבר מחכה בתור!",
 			"RequestAssistanceText": "הגישה לתור מוגבלת ללקוחות עם הזמנות מאושרות בלבד, בבקשה לקבל עזרה מהסוכן הקרוב.",
 			"RequestAssistanceTitle": "בבקשה עזרה",
@@ -655,6 +668,7 @@
 			"SelectServices": "אנא בחרו את השירותים / ים הרצויים / ים שלכם",
 			"SelectedMember": "חבר צוות נבחר",
 			"SelectedServices": "שירות / ים נבחרים",
+			"SendTicketSms": "שלח כרטיס בסמס",
 			"StartAgainButton": "להתחיל מחדש",
 			"TicketSentText": "שלחנו כרטיס דיגיטלי למספר הטלפון שלך, אנא השתמש בו כדי לעקוב אחר התקדמות המיקום שלך בתור בזמן אמת.",
 			"VerifyData": "אנא אמת את הנתונים שנשמע ולחץ על אישור",
@@ -678,6 +692,12 @@
 			"Title": "ערוך קיוסק",
 			"ToastFail": "לא ניתן לעדכן קיוסק",
 			"ToastSuccess": "קיוסק עודכן"
+		},
+		"Language": "בחר את השפה שלך",
+		"Pseudos": {
+			"Customer": "צרכן",
+			"Patient": "סבלני",
+			"User": "משתמש"
 		},
 		"ResetSecretPrompt": {
 			"Text": "האם אתה בטוח שברצונך לאפס את הקוד הסודי עבור {name}?",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "לקוחות ממתינים",
 			"ScanQR": "אנא סרוק את קוד ה- QR למעלה כדי לעקוב אחר הכרטיס שלך באופן מקוון",
+			"ScanQRCheckin": "אנא סרוק את קוד ה- QR שלמטה כדי לבצע צ'ק-אין באינטרנט",
 			"Services": "שירותים",
 			"ThankYou": "תודה על הביקור שלך היום",
 			"WaitingTime": "זמן המתנה",
 			"Welcome": "ברוך הבא ל"
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "אנגלית",
+		"French": "צרפתים"
 	},
 	"Membership": {
 		"ApplyCouponButton": "להגיש מועמדות",

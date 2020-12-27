@@ -2,113 +2,106 @@ import { authHeader, ApiConfigs } from '../_helpers';
 
 export const bookingService = {
     getAll,
-    getPage,
-    search,
-    availableSlots,
-    getById,
-    getByDepartment,
-    update,
-    create,
-    upload,
-    delete: _delete
+    get,
+    getConfirmed,
+    getPending,
+    getArchive,
+    getAvailability,
+    createBooking,
+    cancelRequest,
+    cancelBooking,
+    getServicesByDepartement
 };
 
 
 function getAll() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.getAll}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.getAll}`, requestOptions).then(handleResponse);
 }
 
 
-function getPage(page) {
+function get(id) {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.pagination+page}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.get.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
-
-function getByDepartment(department) {
+function getConfirmed() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.getByDepartment+department}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.getConfirmed}`, requestOptions).then(handleResponse);
 }
 
-
-function search(date) {
+function getPending() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.filter+date}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.getPending}`, requestOptions).then(handleResponse);
 }
 
-
-function availableSlots(date, payload) {
+function getArchive() {
     const requestOptions = {
         method: 'GET',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' }
     };
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.availability+date+(payload ? '?dep='+payload.department : '')}`,
-        requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.getArchive}`, requestOptions).then(handleResponse);
 }
 
-
-function getById(id) {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.get.replace(':id', id)}`, requestOptions).then(handleResponse);
-}
-
-function update(booking) {
+function getAvailability(data) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(booking)
+        body: JSON.stringify(data)
     };
-
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.update.replace(':id', booking.id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.availability}`, requestOptions).then(handleResponse);
 }
 
-function create(booking) {
-    const requestOptions = {
-        method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(booking)
-    };
-
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.create}`, requestOptions).then(handleResponse);
-}
-
-
-function upload(payload) {
+function getServicesByDepartement(data) {
     const requestOptions = {
         method: 'POST',
-        headers: { ...authHeader() },
-        body: payload
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
     };
-
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings.upload}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.getServicesByDepartement}`, requestOptions).then(handleResponse);
 }
 
-// prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function createBooking(data) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authHeader()},
+        body: data
+    };
+    return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.bookings.create}`, requestOptions).then(handleResponse);
+}
+
+
+function cancelRequest(id) {
     const requestOptions = {
         method: 'DELETE',
-        headers: authHeader()
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: {}
     };
-
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.bookings._delete.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.cancelRequest.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
+
+
+function cancelBooking(id) {
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({id: id})
+    };
+    return fetch(`${ApiConfigs.base_user_url + ApiConfigs.bookings.cancelBooking}`, requestOptions).then(handleResponse);
+}
+
 
 function handleResponse(response) {
     return response.text().then(text => {

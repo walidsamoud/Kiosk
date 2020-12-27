@@ -1,6 +1,7 @@
 export const ApiConfigs = {
     base_kiosk_url: process.env.VUE_APP_API_URL+'/kiosk',
     base_url: process.env.VUE_APP_API_URL+'/business',
+    base_user_url: process.env.VUE_APP_API_URL+'/user',
     /* -------------------------------- */
     // PUSHER
     pusher: {
@@ -47,6 +48,7 @@ export const ApiConfigs = {
         createCustomer: '/customer/create',
         joinQueue: '/queue/push',
         refresh: '/refresh',
+        createBooking: '/booking/create'
     },
     /* -------------------------------- */
     // BUSINESS
@@ -91,5 +93,18 @@ export const ApiConfigs = {
         getArchivedTicketByUid: '/queue/archive/uid/:uid',
         submitFeedbackByUid: '/queue/uid/:uid/feedback',
         cancelByUid: '/queue/uid/:uid/cancel',
-    }
+    },
+    // BOOKINGS
+    bookings: {
+        getAll: '/booking',
+        getConfirmed: '/booking',
+        getPending: '/booking/requests',
+        getArchive: '/booking/archived',
+        get: '/booking/:id',
+        availability: '/booking/availability',
+        create: '/booking/create',
+        cancelBooking: '/booking/cancel',
+        cancelRequest: '/booking/requests/:id/cancel',
+        getServicesByDepartement : '/getBydepartment'
+    },
 };

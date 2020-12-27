@@ -626,18 +626,29 @@
 		},
 		"App": {
 			"AllDone": "¡Todo listo! Te has unido a la lista de espera",
+			"AllDoneBook": "¡Todo listo! Su solicitud de reserva se envió con éxito",
 			"AlmostDone": "Casi terminamos",
+			"BookNow": "Reservar ahora",
+			"BookingDate": "Fecha",
+			"BookingHour": "hora",
+			"BreakDay": "Negocio cerrado durante este día",
 			"CancelButton": "Cancelar",
 			"CheckinTitle": "Registrarse",
+			"ChooseDepartment": "Elija un departamento.",
 			"ChooseWaitingList": "Por favor, elija una lista de espera.",
 			"ConfirmButton": "Confirmar",
 			"ContinueButton": "Continuar",
+			"Department": "Departamento",
+			"Duration": "Duración (en minutos)",
 			"EmailPlaceholder": "Email opcional)",
 			"EnterInternalId": "Identificador personal",
 			"EnterPhone": "Por favor, introduzca su número de teléfono",
 			"FirstNamePlaceholder": "Nombre de pila",
 			"FullName": "Nombre completo",
+			"GuestButton": "Huésped",
 			"HelloCustomer": "Hola, {customer}",
+			"JoinGuest": "Unirse a la cola como invitado",
+			"JoinWaitingList": "Unirse a la lista de espera",
 			"Key": "Llave",
 			"LastNamePlaceholder": "Apellido",
 			"Login": "Inicio de sesión en el quiosco",
@@ -646,6 +657,8 @@
 			"MoreDetailsText": "Necesitamos más información sobre ti",
 			"PhoneNumber": "Número de teléfono",
 			"PhoneNumberPlaceholder": "+216 __ ___ ___",
+			"Price": "Precio",
+			"PrintTicket": "Imprimir boleto",
 			"PushError": "Incapaz de unirse a la cola solicitada, ¡es posible que ya esté esperando en la cola!",
 			"RequestAssistanceText": "El acceso a la cola está restringido a clientes con reservas confirmadas únicamente, solicite asistencia al agente más cercano.",
 			"RequestAssistanceTitle": "Por favor solicite asistencia",
@@ -655,6 +668,7 @@
 			"SelectServices": "Por favor seleccione los servicios deseados",
 			"SelectedMember": "Miembro del equipo seleccionado",
 			"SelectedServices": "Servicio (s) seleccionado (s)",
+			"SendTicketSms": "Enviar ticket por sms",
 			"StartAgainButton": "Empezar de nuevo",
 			"TicketSentText": "Hemos enviado un boleto digital a su número de teléfono, utilícelo para rastrear el progreso de su lugar en la cola en tiempo real.",
 			"VerifyData": "verifique los datos a continuación y haga clic en confirmar",
@@ -678,6 +692,12 @@
 			"Title": "Editar quiosco",
 			"ToastFail": "No se puede actualizar el quiosco",
 			"ToastSuccess": "Quiosco actualizado"
+		},
+		"Language": "elige tu idioma",
+		"Pseudos": {
+			"Customer": "Cliente",
+			"Patient": "Paciente",
+			"User": "Usuario"
 		},
 		"ResetSecretPrompt": {
 			"Text": "¿Está seguro de que desea restablecer el código secreto para {name}?",
@@ -706,11 +726,17 @@
 		"Ticket": {
 			"Rank": "Clientes en espera",
 			"ScanQR": "Escanee el código QR de arriba para rastrear su boleto en línea",
+			"ScanQRCheckin": "Escanee el código QR a continuación para registrarse en línea",
 			"Services": "Servicios",
 			"ThankYou": "Gracias por tu visita hoy",
 			"WaitingTime": "Tiempo de espera",
 			"Welcome": "Bienvenido a"
 		}
+	},
+	"Languages": {
+		"Arabic": "العربية",
+		"English": "Inglés",
+		"French": "Français"
 	},
 	"Membership": {
 		"ApplyCouponButton": "Aplicar",

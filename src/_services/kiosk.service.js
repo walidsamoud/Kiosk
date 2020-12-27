@@ -16,7 +16,8 @@ export const kioskService = {
     createCustomer,
     getQueueById,
     joinQueue,
-    refresh
+    refresh,
+    createBooking
 };
 
 
@@ -126,6 +127,15 @@ function joinQueue(data) {
     return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.kiosks.joinQueue}`, requestOptions).then(handleResponse);
 }
 
+function createBooking(data) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { ...authKioskHeader()},
+        body: data
+    };
+    return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.kiosks.createBooking}`, requestOptions).then(handleResponse);
+}
+
 function login(key, secret) {
     const requestOptions = {
         method: 'POST',
@@ -184,7 +194,7 @@ function getQueueById(id) {
         headers: authKioskHeader()
     };
 
-    return fetch(`${ApiConfigs.base_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.queues.get.replace(':id', id)}`, requestOptions).then(handleResponse);
 }
 
 function refresh() {
