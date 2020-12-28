@@ -852,11 +852,12 @@ export default {
               country_prefix: this.countryPrefix
           }
           kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
-            if(data.customer != null) {
+            if(data.customer.length != 0) {
                 if(this.kiosk_info.kiosk.login_required == 0){
                     this.step = 6;
                     this.stepper = 4;
-                    this.customer = data.customer;
+                    this.customer = data.customer[0];
+                    console.log(this.customer);
                 }
                 else if(this.kiosk_info.kiosk.require_internal_id == 1 && data.customer.hasBookingToday == 0){
                     this.step = 8;
@@ -866,7 +867,8 @@ export default {
                         this.selectedQueue = this.queues[0];
                         this.step = 4;
                     }
-                    this.customer = data.customer;
+                    this.customer = data.customer[0];
+                    console.log(this.customer);
                 }
             }
             else{
@@ -1561,7 +1563,7 @@ export default {
             dayIndex++;
         }
         
-        console.log(this.$moment.locale());
+        console.log(this.kiosk_info);
         this.today = this.$moment();
         this.getWeekDays();
 
