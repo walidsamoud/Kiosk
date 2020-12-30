@@ -43,7 +43,7 @@ export default {
     changeLanguage(locale) {
       this.$i18n.locale = locale;
       localStorage.setItem('Language', locale);
-      //location.reload(true);
+      location.reload(true);
     },
   },
   computed: {

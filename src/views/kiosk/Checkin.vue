@@ -531,19 +531,22 @@
                         />
                     </div>
                 </div>
-                <img src="https://liberrex.com/wp-content/uploads/2020/09/logo-1.png" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
+
+                <img v-if="!kiosk_info.business.organization_logo" src="https://liberrex.com/wp-content/uploads/2020/09/logo-1.png" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
+                <img v-if="kiosk_info.business.organization_logo" :src="logo" style="margin-top: 3%; max-height: 40px;margin-left: auto;margin-right: auto;display: table;"/>
+
                 <div slot="footer" class="p-2">
                     <button  :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="(step < 7 && step > 0 && step != 6) || step == 9 " @click="goToNextStep">
                         {{$t('Kiosk.App.ContinueButton')}}
                     </button>
-                    <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
+                    <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-danger mb-2 float-left footer-button': 'btn btn-lg mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn_outline" v-if="((step > 1 && kiosk_info.kiosk.login_required == 1) ||  (step > 3 && kiosk_info.kiosk.login_required == 0)) && step < 7" @click="goToPrevStep">
                         {{$t('Kiosk.App.ReturnButton')}}
                     </button>
 
                     <button  :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-primary mb-2 float-right footer-button': 'btn btn-lg btn-outline-light mb-2 float-right footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="bookStep < 6 && bookStep >0 || bookStep == 8" @click="goToNextBookStep">
                         {{$t('Kiosk.App.ContinueButton')}}
                     </button>
-                    <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn" v-if="bookStep > 1" @click="goToPrevBookStep">
+                    <button :class="!JSON.parse(this.kiosk_info.kiosk.config).success ? 'btn btn-lg btn-outline-light btn-danger mb-2 float-left footer-button': 'btn btn-lg btn-outline-light mb-2 float-left footer-button'" :style="!JSON.parse(this.kiosk_info.kiosk.config).success ? '': success_btn_outline" v-if="bookStep > 1" @click="goToPrevBookStep">
                         {{$t('Kiosk.App.ReturnButton')}}
                     </button>
                 </div>
@@ -600,7 +603,7 @@
 
 <script>
 var keyboard = null;
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import LanguageSelector from '../../components/language/LanguageSelector'
 import {kioskService, bookingService} from "../../_services";
 import QrcodeVue from 'qrcode.vue';
@@ -675,6 +678,7 @@ export default {
       card_color : "",
       text_color : "",
       success_btn : "",
+      success_btn_outline : "",
       start : 1,
       pick : 0,
       bookingDate: new Date(),
@@ -690,39 +694,19 @@ export default {
       duration: 0,
       price : 0,
       breakDay : false,
-      customers : []
+      customers : [],
+      logo : ''
 
   }),
   methods:{
-      changeLanguage(locale) {
+      async changeLanguage(locale) {
         this.$i18n.locale = locale;
         localStorage.setItem('Language', locale);
-        this.start = 0;
 
-        if(this.kiosk_info.kiosk.allow_booking == 1) {
-            this.pick = 1;
-        }
-        else if (this.kiosk_info.kiosk.allow_booking == 0){
-            if(this.kiosk_info.kiosk.login_required == 0){
-                if(this.queues.length == 1){
-                    if(this.selectedQueue.services.length == 1){
-                        this.step = 6;
-                        this.stepper = 3;
-                    }
-                    else{
-                        this.step = 4;
-                        this.stepper = 1;
-                    }
-                }
-                else {
-                    this.step = 3;
-                    this.stepper = 0;
-                }
-            }
-            else {
-                this.step = 1;
-            }
-        } 
+        this.getKioskQueues();
+
+ 
+         
       },
       showLoading(){
           this.$vs.loading({
@@ -991,8 +975,37 @@ export default {
                   if(this.kiosk_info.kiosk.login_required == 0){
                     if(this.queues.length == 1){
                         this.selectedQueue = this.queues[0];
+                        console.log(this.selectedQueue.services);
                         if(this.selectedQueue.services.length == 1){
                             this.selectedServices.push(this.selectedQueue.services[0])
+                        }
+                    }
+                    if(this.step == 0 && this.bookStep == 0 && this.start == 1){
+                        this.start = 0;
+
+                        if(this.kiosk_info.kiosk.allow_booking == 1) {
+                            this.pick = 1;
+                        }
+                        else if (this.kiosk_info.kiosk.allow_booking == 0){
+                            if(this.kiosk_info.kiosk.login_required == 0){
+                                if(this.queues.length == 1){
+                                    if(this.selectedQueue.services.length == 1){
+                                        this.step = 6;
+                                        this.stepper = 3;
+                                    }
+                                    else{
+                                        this.step = 4;
+                                        this.stepper = 1;
+                                    }
+                                }
+                                else {
+                                    this.step = 3;
+                                    this.stepper = 0;
+                                }
+                            }
+                            else {
+                                this.step = 1;
+                            }
                         }
                     }
                   }
@@ -1541,13 +1554,22 @@ export default {
         }
         if(JSON.parse(this.kiosk_info.kiosk.config).success != "undefined"){
             this.success_btn = "background :"+JSON.parse(this.kiosk_info.kiosk.config).success+";";
+            this.success_btn_outline = "border-color :"+JSON.parse(this.kiosk_info.kiosk.config).success+";";
+        }
+
+        if(this.kiosk_info.business.organization_logo){
+          this.logo = this.kiosk_info.business.organization_logo;
         }
         
+        console.log(this.success_btn);
+
         this.kiosk_info.business.working_days.forEach((obj, index) => {
             if (obj.active == 0) {
               this.disabledDates.days.push(index == 6 ? 0 : index+1);
             }
         });
+        console.log(JSON.parse(this.kiosk_info.kiosk.config).zoom);
+        document.body.style.zoom = JSON.parse(this.kiosk_info.kiosk.config).zoom+"%";
 
         var searchDate = true;
         var dayIndex = 0;
@@ -1570,7 +1592,6 @@ export default {
         
         
 
-        this.getKioskQueues();
         this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config); 
         this.chekinQrCode = process.env.VUE_APP_CHECKIN_URL+this.kiosk_info.business.hashedid;
         if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(window.navigator.userAgent) && window.screen.orientation.angle == 0) {
