@@ -24,7 +24,7 @@ steps:
 - script: npm run test
   displayName: 'npm test'
 
-- script: npm run build
+- script: npm run staging
   displayName: 'npm build'
 - task: CopyFiles@2
   inputs:
