@@ -46,26 +46,8 @@ export const router = new Router({
                 index: 1000,
                 component: () => import('../views/kiosk/Login.vue')
             },
-            {
-                path: '/logout',
-                name: 'KioskLogout',
-                meta:{
-                    authRequired: false,
-                    authorize: ['*']
-                },
-                index: 1001,
-                component: () => import('../views/kiosk/Logout.vue')
-            }
-            ,{
-                path: '/checkin',
-                name: 'Checkin',
-                meta:{
-                    authRequired: false,
-                    authorize: ['*']
-                },
-                index: 10002,
-                component: () => import('../views/kiosk/Checkin.vue')
-            }]
+            
+          ]
         },
         // Redirect to 404 page, if no match found
         {
