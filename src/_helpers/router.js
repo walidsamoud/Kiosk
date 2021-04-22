@@ -49,7 +49,7 @@ export const router = new Router({
             {
                 path: '/Home',
                 name: 'Home',
-                index: 2,
+                index: 3,
                 meta: {
                     authRequired: true,
                     authorize: ['*'],
@@ -65,7 +65,7 @@ export const router = new Router({
             {
                 path: '/services',
                 name: 'ServicesPage',
-                index: 2,
+                index: 4,
                 meta: {
                     authRequired: true,
                     authorize: ['*'],
@@ -81,7 +81,7 @@ export const router = new Router({
             {
                 path: '/ticket',
                 name: 'Ticket',
-                index: 2,
+                index: 5,
                 meta: {
                     authRequired: true,
                     authorize: ['*'],
@@ -97,7 +97,7 @@ export const router = new Router({
             {
                 path: '/confirmation',
                 name: 'Confirmation',
-                index: 2,
+                index: 6,
                 meta: {
                     authRequired: true,
                     authorize: ['*'],
@@ -109,6 +109,22 @@ export const router = new Router({
                     ],
                 },
                 component: () => import('../views/kiosk/Confirmation')
+            },
+            {
+                path: '/erreur',
+                name: 'Error',
+                index: 7,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Error',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Error')
             },
           ]
         },
