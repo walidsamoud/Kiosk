@@ -3,6 +3,11 @@ import App from './App.vue'
 import {ApiConfigs, authHeader} from './_helpers'
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
+//Bootstrap
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 // i18n
 import i18n from './i18n/i18n.js'
 if(!localStorage.getItem('Language')) { localStorage.setItem('Language', 'en') }
@@ -20,7 +25,8 @@ new Vue({
   i18n,
   render: h => h(App),
 }).$mount('#app')
-
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 // Moment
 import moment from 'moment';
 import 'moment-timezone';

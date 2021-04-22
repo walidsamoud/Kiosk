@@ -46,6 +46,16 @@ export const router = new Router({
                 index: 1000,
                 component: () => import('../views/kiosk/Login.vue')
             },
+            {
+                path: '/test',
+                name: 'TestComponents',
+                meta:{
+                    authRequired: false,
+                    authorize: ['*']
+                },
+                index: 1000,
+                component: () => import('../views/test_components/Index.vue')
+            },
             
           ]
         },
