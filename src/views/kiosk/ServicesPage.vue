@@ -1,9 +1,9 @@
 <template>
    
 <div>
- 
+  <h3 class="mb-3">{{ msg }}</h3>
 <p>
-      Welcome to home page <br>
+      Welcome to  services Page <br>
 </p>
 </div>
   
@@ -12,9 +12,9 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'Login',
+  name: 'ServicesPage',
   data:()=>({
-    msg: "Login",
+    msg:"ServicesPage",
     key:'',
     secret:'',
     requestFailed: false,
