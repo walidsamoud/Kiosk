@@ -8,13 +8,13 @@
         </div>
         <div class="row bottom-btns">
             <div class="col">
-                <Button name="English" size="large" theme="dark"></Button>
+                <Button name="English" size="large" theme="dark" hover="true"></Button>
             </div>
             <div class="col">
-                <Button name="Francais" size="large" theme="medium"></Button>
+                <Button name="Francais" size="large" theme="medium" hover="true"></Button>
             </div>
             <div class="col">
-                <Button name="العربية" size="large" theme="light"></Button>
+                <Button name="العربية" size="large" theme="light" hover="true"></Button>
             </div>
         </div>
     </div>

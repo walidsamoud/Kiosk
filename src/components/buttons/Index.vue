@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <button :class="'btn theme-'+theme+' size-'+size"> {{ name }} </button>
+        <button :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} <i class="fa fa-home"></i></button>
     </div>
 </template>
 
@@ -10,7 +10,8 @@
         props: {
             name: String,
             size: String,
-            theme: String
+            theme: String,
+            hover: String,
         }
     }
 </script>
@@ -24,12 +25,14 @@
         color: #fff;
         cursor: pointer;
         transition: .3s;
+        border: none;
     }
-    .btn:hover{
+    .hover-true:hover{
         opacity: .9;
         color: #fff;
     }
     .theme-dark{
+        border: 1px solid #193060;
         background-color: #193060;
         color: #fff;
     }

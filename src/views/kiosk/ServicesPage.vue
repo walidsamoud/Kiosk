@@ -1,16 +1,36 @@
 <template>
-   
-<div>
-  <h3 class="mb-3">{{ msg }}</h3>
-<p>
-      Welcome to  services Page <br>
-</p>
-</div>
-  
+    <div class="services">
+        <div class="row">
+            <div class="col language_select">
+              <LbrxLanguageSelect></LbrxLanguageSelect>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+              <h2 class="service_h">Veuillez sélectionner un ou plusieurs services</h2>
+            </div>
+        </div>
+        <div class="row bottom-btns">
+            <div class="col">
+                <LbrxButton name="" size="large" theme="dark" hover="false"></LbrxButton>
+            </div>
+            <div class="col">
+                <LbrxButton name="" size="large" theme="dark" hover="false"></LbrxButton>
+            </div>
+            <div class="col">
+                <LbrxButton name="Suivante >" size="large" theme="light" hover="true"></LbrxButton>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex';
+import LbrxButton from '../../components/buttons/Index.vue';
+import LbrxLanguageSelect from '../../components/select/Index.vue';
+
+import $ from 'jquery';
+
 export default {
   name: 'ServicesPage',
   data:()=>({
@@ -89,6 +109,8 @@ export default {
     //this.logout();
   },
   mounted(){
+      $('.img-fluid').css("height", screen.height-100);
+
       if(this.$route.params.key && this.$route.params.token){
           console.log({ key: this.$route.params.key, token: this.$route.params.token })
           this.$vs.loading({ container: '#login-box', scale: 0.6 });
@@ -102,8 +124,40 @@ export default {
           }.bind(this));
       }
   },
-  components:{
+  components: {
+    LbrxButton,
+    LbrxLanguageSelect
   }
 }
 </script>
 
+<style scoped>
+    *{
+         overflow: hidden;
+    }
+    html,body { height: 100%; width: 100%; margin: 0px; padding: 0px;}
+
+
+    .bottom-btns{
+        position: fixed;
+        bottom: 0px;
+        margin: 0;
+        width: 100%;
+        z-index: 9;
+    }
+    .col{
+        width: 100%;
+        padding-right:0;
+        padding-left:0;
+    }
+    .service_h{
+      padding: 25px;
+      font-size: 35px;
+      text-align: center;
+      letter-spacing: 2px
+    }
+    .language_select{
+      text-align: right;
+      padding: 10px 30px;
+    }
+</style>
