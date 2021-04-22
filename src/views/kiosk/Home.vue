@@ -12,9 +12,9 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'Login',
+  name: 'Home',
   data:()=>({
-    msg: "Login",
+    msg:"Home",
     key:'',
     secret:'',
     requestFailed: false,
@@ -84,23 +84,10 @@ export default {
   },
   created () {
 
-    // reset login status
-    if(this.kiosk_info) this.$router.push('/checkin');
-    //this.logout();
+   
   },
   mounted(){
-      if(this.$route.params.key && this.$route.params.token){
-          console.log({ key: this.$route.params.key, token: this.$route.params.token })
-          this.$vs.loading({ container: '#login-box', scale: 0.6 });
-          this.autoLogin({ key: this.$route.params.key, token: this.$route.params.token }).catch(function (data) {
-              this.errors.push(this.$t('Errors.LoginFail'));
-              this.requestFailed = true;
-          }.bind(this)).catch(function (ex) {
-              console.log(ex);
-          }.bind(this)).finally(function () {
-              this.$vs.loading.close('#login-box > .con-vs-loading');
-          }.bind(this));
-      }
+     
   },
   components:{
   }

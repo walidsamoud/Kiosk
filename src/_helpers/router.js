@@ -56,9 +56,91 @@ export const router = new Router({
                 index: 1000,
                 component: () => import('../views/test_components/Index.vue')
             },
-            
+            {
+                path: '/Home',
+                name: 'Home',
+                index: 3,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Home',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Home')
+            },
+            {
+                path: '/services',
+                name: 'ServicesPage',
+                index: 4,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'ServicesPage',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/ServicesPage')
+            },
+            {
+                path: '/ticket',
+                name: 'Ticket',
+                index: 5,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Ticket',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Ticket')
+            },
+            {
+                path: '/confirmation',
+                name: 'Confirmation',
+                index: 6,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Confirmation',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Confirmation')
+            },
+            {
+                path: '/erreur',
+                name: 'Error',
+                index: 7,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Error',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Error')
+            },
           ]
         },
+       
+
+
         // Redirect to 404 page, if no match found
         {
             path: '*',
@@ -71,10 +153,10 @@ import NProgress from 'nprogress';
 
 router.beforeEach((to, from, next) => {
 
-    const kioskLoggedIn = JSON.parse(localStorage.getItem('kiosk'));
-    if (to.meta.authRequired && !kioskLoggedIn) {
+    //const kioskLoggedIn = JSON.parse(localStorage.getItem('kiosk'));
+    if (to.meta.authRequired ) {
         localStorage.setItem('kiosk', null);
-        return next('/login');
+        return next('/home');
     }
 
     next();
