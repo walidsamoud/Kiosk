@@ -4,16 +4,14 @@
   </div>
 </template>
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import {  mapActions } from 'vuex'
   export default {
     name: 'Checkin',
     data:()=>({
       msg: "Checkin"
     }),
     computed: {
-      ...mapState({
-        kiosk_info: state => state.Kiosk.kiosk
-      }),
+      
       theme: function () {
         if(this.kiosk_info == null) return "kiosk_layout_dracula";
         let theme = JSON.parse(this.kiosk_info.kiosk.config).theme;

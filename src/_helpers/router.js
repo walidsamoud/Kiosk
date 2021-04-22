@@ -149,30 +149,6 @@ export const router = new Router({
     ]
 })
 
-import NProgress from 'nprogress';
 
-router.beforeEach((to, from, next) => {
 
-    //const kioskLoggedIn = JSON.parse(localStorage.getItem('kiosk'));
-    if (to.meta.authRequired ) {
-        localStorage.setItem('kiosk', null);
-        return next('/home');
-    }
-
-    next();
-})
-
-router.beforeResolve((to, from, next) => {
-    // If this isn't an initial page load.
-    if (to.name) {
-        // Start the route progress bar.
-        NProgress.start()
-    }
-    next()
-})
-
-router.afterEach(() => {
-    // Complete the animation of the route progress bar.
-    NProgress.done()
-})
 export default router
