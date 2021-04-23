@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <button :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} <i class="fa fa-home"></i></button>
+        <button :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }}</button>
     </div>
 </template>
 
@@ -26,6 +26,7 @@
         cursor: pointer;
         transition: .3s;
         border: none;
+        letter-spacing: 2px;
     }
     .hover-true:hover{
         opacity: .9;

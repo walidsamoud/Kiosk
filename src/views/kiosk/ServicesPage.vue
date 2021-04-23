@@ -2,7 +2,7 @@
     <div class="services">
         <div class="row">
             <div class="col language_select">
-              <LbrxLanguageSelect></LbrxLanguageSelect>
+              <LbrxLanguageSelector></LbrxLanguageSelector>
             </div>
         </div>
         <div class="row">
@@ -10,15 +10,42 @@
               <h2 class="service_h">Veuillez sélectionner un ou plusieurs services</h2>
             </div>
         </div>
+        <div class="container services_container">
+            <div class="row">
+              <div class="col service">
+                <LbrxService name="Payment de facture" size="medium" theme="medium" hover="false" id="1"></LbrxService>
+              </div>
+              <div class="col service">
+                <LbrxService name="Recharge" size="medium" theme="medium" hover="false" id="2"></LbrxService>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col service">
+                <LbrxService name="Carte SIM" size="medium" theme="medium" hover="false" id="3"></LbrxService>
+              </div>
+              <div class="col service">
+                <LbrxService name="Pack internet" size="medium" theme="medium" hover="false" id="4"></LbrxService>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col service">
+                <LbrxService name="Reclamation" size="medium" theme="medium" hover="false" id="5"></LbrxService>
+              </div>
+              <div class="col service">
+                <LbrxService name="Autre demande" size="medium" theme="medium" hover="false" id="6"></LbrxService>
+              </div>
+            </div>
+            
+        </div>
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton name="" size="large" theme="dark" hover="false"></LbrxButton>
+                <LbrxButton name="" size="medium" theme="dark" hover="false"></LbrxButton>
             </div>
             <div class="col">
-                <LbrxButton name="" size="large" theme="dark" hover="false"></LbrxButton>
+                <LbrxButton name="" size="medium" theme="dark" hover="false"></LbrxButton>
             </div>
             <div class="col">
-                <LbrxButton name="Suivante >" size="large" theme="light" hover="true"></LbrxButton>
+                <LbrxButton name="Suivante >" size="medium" theme="light" hover="true"></LbrxButton>
             </div>
         </div>
     </div>
@@ -26,8 +53,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import LbrxButton from '../../components/buttons/Index.vue';
-import LbrxLanguageSelect from '../../components/select/Index.vue';
+import LbrxButton from '../../components/buttons/Button.vue';
+import LbrxLanguageSelector from '../../components/LanguageSelector/LanguageSelector.vue';
+import LbrxService from '../../components/Services/ServiceSelector.vue';
 
 import $ from 'jquery';
 
@@ -40,6 +68,11 @@ export default {
     requestFailed: false,
     errors:[],
   }),
+  components: {
+    LbrxButton,
+    LbrxLanguageSelector,
+    LbrxService
+  },
   methods:{
     checkForm:function(e) {
       this.errors = [];
@@ -123,10 +156,6 @@ export default {
               this.$vs.loading.close('#login-box > .con-vs-loading');
           }.bind(this));
       }
-  },
-  components: {
-    LbrxButton,
-    LbrxLanguageSelect
   }
 }
 </script>
@@ -154,10 +183,17 @@ export default {
       padding: 25px;
       font-size: 35px;
       text-align: center;
-      letter-spacing: 2px
+      letter-spacing: 2px;
     }
     .language_select{
       text-align: right;
-      padding: 10px 30px;
+      padding: 20px 30px;
+      margin: 10px 25px;
+    }
+    .services_container{
+      margin-top: 30px;
+    }
+    .services_container .service{
+        padding: 0px 20px 20px 20px;
     }
 </style>
