@@ -6,13 +6,13 @@
             <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" /> 
         </span>
         <span class="separator">|</span>
-        <span class="language" id="enSpan" v-on:mouseover="openLanguageSelector('en')">
+        <span class="language" id="enSpan">
             <img class="country_flag" src="../../assets/images/en.png" alt=""> English
             <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" /> 
             <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" /> 
         </span>
         <span class="separator">|</span>
-        <span class="language" id="arSpan" v-on:mouseover="openLanguageSelector('ar')">
+        <span class="language" id="arSpan">
             <img class="country_flag" src="../../assets/images/tn.png" alt=""> العربية
             <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" /> 
             <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" /> 
@@ -23,22 +23,27 @@
 <script>
     import $ from "jquery";
     export default {
-        name: 'Languages select',
+        name: 'LanguageSelector',
+        data:()=>({
+            languageSelectorVisible: false
+        }),
         methods:{
-    
             toggleLanguageSelector:function(){
                 $('.language:not(.active)').toggle(300);
                 $('.separator').toggle(300);
-
-                if( !$('.language:not(.active)').is(':visible') ){
-                    alert(0)
+                this.languageSelectorVisible= !this.languageSelectorVisible;
+                if( !this.languageSelectorVisible ){
                     $('.languages').css("border", "none");
+                    $('.active .caret_left').css("display", "none");
+                    $('.active .caret_right').css("display", "inline");
+                }else{
+                    $('.languages').css("border", "1px solid #193060");
+                    $('.active .caret_left').css("display", "inline");
+                    $('.active .caret_right').css("display", "none");
                 }
             }
         },
         mounted(){
-            // alert('a');
-            // this.changeLanguage();
             var self= this;
             $('.active').click(function(){
                 self.toggleLanguageSelector();
@@ -88,9 +93,10 @@
         margin: -2px;
         margin-left: 10px;
         margin-right: 10px;
-    }
-    .caret_left{
         display: none;
+    }
+    .active .caret_right{
+        display: inline;
     }
     
 </style>

@@ -10,7 +10,7 @@
               <h2 class="service_h">Veuillez sélectionner un ou plusieurs services</h2>
             </div>
         </div>
-        <div class="container services_container">
+        <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
             <div class="row">
               <div class="col service">
                 <LbrxService name="Payment de facture" size="medium" theme="medium" hover="false" id="1"></LbrxService>
@@ -36,16 +36,16 @@
               </div>
             </div>
             
-        </div>
+        </form>
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton name="" size="medium" theme="dark" hover="false"></LbrxButton>
+                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
             <div class="col">
-                <LbrxButton name="" size="medium" theme="dark" hover="false"></LbrxButton>
+                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
-            <div class="col">
-                <LbrxButton name="Suivante >" size="medium" theme="light" hover="true"></LbrxButton>
+            <div class="col" v-on:click="submitSelectedServices()">
+                <LbrxButton name="Suivante >" size="medium" theme="light" hover="true" href="#"></LbrxButton>
             </div>
         </div>
     </div>
@@ -74,6 +74,9 @@ export default {
     LbrxService
   },
   methods:{
+    submitSelectedServices:function(){
+      $('#servicesForm').submit();
+    },
     checkForm:function(e) {
       this.errors = [];
       if(!this.key) {
@@ -173,6 +176,7 @@ export default {
         margin: 0;
         width: 100%;
         z-index: 9;
+        background-color: #193060;
     }
     .col{
         width: 100%;

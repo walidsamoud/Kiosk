@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <input type="checkbox" :value="id" class="checkbox" :id="'checkbox'+id" name="services[]"/>
+        <input type="checkbox" :value="id" class="checkbox" :id="'checkbox'+id" name="services"/>
         <label :for="'checkbox'+id" :id="'label'+id" v-on:click="checkService(id)" :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} </label>
     </div>
 </template>
@@ -9,13 +9,13 @@
     import $ from "jquery";
 
     export default {
-        name: 'Dark button',
+        name: 'ServiceSelector',
         props: {
             name: String,
             size: String,
             theme: String,
             hover: String,
-            id: Number
+            id: String
         },
         methods:{
             checkService: function(id){
