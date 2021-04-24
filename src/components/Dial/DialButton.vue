@@ -1,10 +1,12 @@
 <template>
     <div class="DialButton">
-        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }}</a>
+        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover" :id="'DialButton'+name" v-on:click="type(name)"> {{ name }}</a>
     </div>
 </template>
 
 <script>
+    import $ from "jquery";
+
     export default {
         name: 'DialButton',
         props: {
@@ -12,6 +14,19 @@
             theme: String,
             hover: String,
             size: String,
+        },
+        methods:{
+            type: function(symbol){
+                if(symbol<=9 || symbol>=0){
+                    $('#DialButton').html( $('#DialButton').html()+symbol  );
+                }else if(symbol=='X'){
+                    $('#DialButton').html('');
+                }else if(symbol=='<'){
+                    $('#DialButton').html( $('#DialButton').html().substring(0, $('#DialButton').html().length - 1) );
+                }else{
+                    return false;
+                }
+            }
         }
     }
 </script>

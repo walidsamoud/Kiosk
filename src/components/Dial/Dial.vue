@@ -1,5 +1,8 @@
 <template>
     <div class="dial_buttons">
+        <form  method="GET" action="" id="phoneNumberForm">
+            <input type="hidden" name="phone" required id="phoneNumberInput">
+        </form>
             <div class="row">
                 <div class="col">
                     <DialButton name="" theme="default" size="medium" hover="true"></DialButton>
@@ -50,7 +53,7 @@
                 </div>
             </div>
              <div class="row envoyer_sms">
-                <div class="col">
+                <div class="col"  v-on:click="submitPhoneNumber()">
                     <DialButton name="Envoyer SMS" theme="outline" size="medium" hover="true"></DialButton>
                 </div>
             </div>
@@ -59,6 +62,8 @@
 </template>
 
 <script>
+import $ from "jquery";
+
 import { defineComponent } from '@vue/composition-api';
 import DialButton from '../../components/Dial/DialButton.vue';
 
@@ -66,6 +71,12 @@ export default defineComponent({
     name: "Dial",
     components: {
         DialButton,
+    },
+    methods:{
+        submitPhoneNumber:function(){
+            $('#phoneNumberInput').val( $('#DialButton').html() );
+            $('#phoneNumberForm').submit();
+        },
     }
 })
 </script>
@@ -73,7 +84,6 @@ export default defineComponent({
 <style scoped>
     .dial_buttons{
         padding: 40px 70px 0px 60px;
-        max-width: 600px;
     }
     .dial_buttons .col{
         padding: 5px;
