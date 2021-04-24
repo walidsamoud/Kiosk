@@ -1,6 +1,6 @@
 <template>
     <div class="DialButton">
-        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover" :id="'DialButton'+name" v-on:click="type(name)"> {{ name }}</a>
+        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover" :id="'DialButton'+name" v-on:click="type(name)">{{ name }}</a>
     </div>
 </template>
 

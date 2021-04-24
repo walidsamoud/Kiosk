@@ -1,7 +1,7 @@
 <template>
     <div class="dial_buttons">
         <form  method="GET" action="" id="phoneNumberForm">
-            <input type="hidden" name="phone" required id="phoneNumberInput">
+            <input type="hidden" name="phone" id="phoneNumberInput" required>
         </form>
             <div class="row">
                 <div class="col">
@@ -75,7 +75,9 @@ export default defineComponent({
     methods:{
         submitPhoneNumber:function(){
             $('#phoneNumberInput').val( $('#DialButton').html() );
-            $('#phoneNumberForm').submit();
+            if( $('#DialButton').html().length==8 ){
+                $('#phoneNumberForm').submit();
+            }
         },
     }
 })
