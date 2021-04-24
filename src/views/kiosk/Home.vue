@@ -17,13 +17,21 @@
                 <Button name="العربية" size="large" theme="light"></Button>
             </div>
         </div>
+        <Popup
+                message="Vous avez rejoint la file d'attente"
+                title="Félicitations!"
+                hint="Cette page sera fermée dans 5 secondes"
+                type="success"
+                confirmationButton="Recommencer"
+        ></Popup>
     </div>
 </template>
 
 <script>
 import Button from '../../components/buttons/Index.vue';
+import Popup from '../../components/popups/Popup.vue';
 
-import $ from 'jquery';
+//import $ from 'jquery';
 
 export default {
   name: 'Home',
@@ -59,10 +67,11 @@ export default {
      
   },
   components: {
-    Button
+    Button,
+      Popup
   },
   mounted: function(){
-    $('.img-fluid').css("height", screen.height-100);
+    //$('.img-fluid').css("height", screen.height-100);
   }
 }
 </script>

@@ -1,12 +1,12 @@
 <template>
-    <div class="col">
+    <div>
         <button :class="'btn theme-'+theme+' size-'+size"> {{ name }} </button>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Dark button',
+        name: 'DarkButton',
         props: {
             name: String,
             size: String,
