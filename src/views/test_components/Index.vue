@@ -22,7 +22,7 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api';
-import Button from '../../components/buttons/Index.vue';
+import Button from '../../components/buttons/Button.vue';
 
 import $ from 'jquery'
 

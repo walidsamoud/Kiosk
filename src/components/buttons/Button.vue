@@ -1,16 +1,18 @@
 <template>
-    <div>
-        <button :class="'btn theme-'+theme+' size-'+size"> {{ name }} </button>
+    <div class="col">
+        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }}</a>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'DarkButton',
+        name: 'Button',
         props: {
             name: String,
             size: String,
-            theme: String
+            theme: String,
+            hover: String,
+            href: String,
         }
     }
 </script>
@@ -24,12 +26,15 @@
         color: #fff;
         cursor: pointer;
         transition: .3s;
+        border: none;
+        letter-spacing: 2px;
     }
-    .btn:hover{
+    .hover-true:hover{
         opacity: .9;
         color: #fff;
     }
     .theme-dark{
+        border: 1px solid #193060;
         background-color: #193060;
         color: #fff;
     }
@@ -44,13 +49,16 @@
     .size-large{
         font-size: 30px;
         height: 100px;
+        padding-top: 20px;
     }
     .size-medium{
         font-size: 25px;
         height: 75px;
+        padding-top: 15px;
     }
     .size-small{
         font-size: 20px;
         height: 50px;
+        padding-top: 10px;
     }
 </style>

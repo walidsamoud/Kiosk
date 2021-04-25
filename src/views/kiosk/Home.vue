@@ -19,16 +19,17 @@
         </div>
         <Popup
                 message="Vous avez rejoint la file d'attente"
-                title="Félicitations!"
-                hint="Cette page sera fermée dans 5 secondes"
-                type="success"
-                confirmationButton="Recommencer"
+                title="Ouups!"
+                type="danger"
+                confirmationButton="Reessayer"
+                :active.sync="popupActivateState"
+                @confirm="confirmed()"
         ></Popup>
     </div>
 </template>
 
 <script>
-import Button from '../../components/buttons/Index.vue';
+import Button from '../../components/buttons/Button.vue';
 import Popup from '../../components/popups/Popup.vue';
 
 //import $ from 'jquery';
@@ -40,6 +41,7 @@ export default {
     key:'',
     secret:'',
     requestFailed: false,
+    popupActivateState: true,
     errors:[],
   }),
   methods:{
@@ -54,6 +56,9 @@ export default {
     submit(){
       
     },
+    confirmed(){
+        alert("hello");
+    }
    
   },  
   computed: {
