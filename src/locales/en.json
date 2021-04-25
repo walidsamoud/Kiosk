@@ -9,6 +9,9 @@
 		"ErrorTitle": "Please correct the following errors",
 		"ForgotPassword": "Forgot Password?",
 		"Login": "Login",
+		"login": "login",
+		"TerminalId": "Terminal Id",
+		"SecretCode" : "Secret Code",
 		"LoginButton": "Login",
 		"Password": "Password",
 		"PasswordForgotGoToLoginText": "If you remember your password, please click on the login button below to take you to the authentication page.",
@@ -23,6 +26,11 @@
 		"ResetPasswordCode": "Reset Code",
 		"ResetPasswordSubmitButton": "Reset Password",
 		"ResetPasswordTitle": "Reset Password"
+	},
+	"Services":
+	{
+		"Message":"Please select one or more services",
+		"Next":"Next >"
 	},
 	"Billing": {
 		"AddBillingMethod": {

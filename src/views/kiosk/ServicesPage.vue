@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col">
-              <h2 class="service_h">Veuillez sélectionner un ou plusieurs services</h2>
+              <h2 class="service_h">{{$t('Services.Message')}}</h2>
             </div>
         </div>
         <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
@@ -45,7 +45,7 @@
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
             <div class="col" v-on:click="submitSelectedServices()">
-                <LbrxButton name="Suivante >" size="medium" theme="light" hover="true" href="#"></LbrxButton>
+                <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="#"></LbrxButton>
             </div>
         </div>
     </div>

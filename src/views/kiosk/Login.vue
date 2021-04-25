@@ -8,10 +8,10 @@
     </div>
     <div class="split right d-flex flex-column">
       <form method="post" class="m-auto">
-        <h1 class="p-2 text-center">S'identifer</h1>
+        <h1 class="p-2 text-center">{{$t('Auth.Login')}}</h1>
         <div class="container pt-4">
           <div class="p-2">
-            <label for="teminalID"><b>ID du terminal</b></label>
+            <label for="teminalID"><b>{{$t('Auth.TerminalId')}}</b></label>
             <input
               type="text"
               placeholder="Enter Terminal ID"
@@ -22,7 +22,7 @@
             />
           </div>
           <div class="p-2">
-            <label for="secretCode"><b>Code Secret</b></label>
+            <label for="secretCode"><b>{{$t('Auth.SecretCode')}}</b></label>
             <input
               type="password"
               placeholder="Enter secret Code"
@@ -33,7 +33,7 @@
             />
           </div>
           <div class="p-2 pt-4">
-            <LbrxButton @click="checkForm" name="Se Connecter" size="small" theme="outline" class="w-100 m-0 p-0"></LbrxButton>
+            <LbrxButton @click="checkForm" :name="$t('Auth.login')" size="small" theme="outline" class="w-100 m-0 p-0"></LbrxButton>
           </div>
         </div>
       </form>

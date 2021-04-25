@@ -9,6 +9,9 @@
 		"ErrorTitle": "Veuillez corriger les erreurs suivantes",
 		"ForgotPassword": "Mot de passe oublié?",
 		"Login": "S'identifier",
+		"login": "Se Connecter",
+		"SecretCode": "Code Secret",
+		"TerminalId" : "Id Du Terminal",
 		"LoginButton": "S'identifier",
 		"Password": "Mot de passe",
 		"PasswordForgotGoToLoginText": "Si vous vous souvenez de votre mot de passe, veuillez cliquer sur le bouton de connexion ci-dessous pour accéder à la page d'authentification.",
@@ -23,6 +26,11 @@
 		"ResetPasswordCode": "Code de réinitialisation",
 		"ResetPasswordSubmitButton": "Réinitialiser le mot de passe",
 		"ResetPasswordTitle": "Réinitialiser le mot de passe"
+	},
+	"Services":
+	{
+		"Message":"Veuillez sélectionner un ou plusieurs services",
+		"Next":"Suivant >"
 	},
 	"Billing": {
 		"AddBillingMethod": {
