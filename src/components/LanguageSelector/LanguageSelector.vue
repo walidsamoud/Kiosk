@@ -54,7 +54,7 @@
                 }
             },
             selectLanguageCallback:function (code) {
-               localStorage.setItem("language", code);
+               localStorage.setItem("Language", code);
                 this.languages.forEach(function (language) {
                     if(language.code == code){
                         this.selectedLanguage = language;
@@ -81,7 +81,7 @@
         },
         computed: {
             selectedLanguageCode(){
-                return localStorage.getItem("language") ? localStorage.getItem("language") : "en";
+                return localStorage.getItem("Language") ? localStorage.getItem("Language") : "en";
             },
             selectableLanguages(){
                 return this.languages.filter(function (obj) {

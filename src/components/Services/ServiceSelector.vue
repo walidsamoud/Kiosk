@@ -1,7 +1,7 @@
 <template>
     <div class="col">
-        <input type="checkbox" :value="id" class="checkbox" :id="'checkbox'+id" name="services"/>
-        <label :for="'checkbox'+id" :id="'label'+id" v-on:click="checkService(id)" :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} </label>
+        <input type="checkbox" :value="value" class="checkbox" :id="'checkbox'+id" name="services"/>
+        <label :for="'checkbox'+value.id" :id="'label'+value.id" v-on:click="checkService(value.id)" :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} </label>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
             size: String,
             theme: String,
             hover: String,
-            id: String
+            value: Object
         },
         methods:{
             checkService: function(id){
