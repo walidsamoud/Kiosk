@@ -50,6 +50,7 @@ import { mapState, mapActions } from 'vuex'
 import LbrxButton from '../../components/buttons/Button.vue';
 import LbrxDial from '../../components/Dial/Dial.vue';
 
+
 //import $ from "jquery"
 export default {
   name: 'Ticket',
@@ -59,6 +60,23 @@ export default {
     secret:'',
     requestFailed: false,
     errors:[],
+    ticket: {
+      business: 1,
+      checkinDate: "2020-05-12",
+      checkinTime: "02:08:20",
+      customer_id: 395,
+      estimatedTimeToSpend: "25",
+      id: 54,
+      member_id: 1,
+      total_waiting: 0,
+      public_identifier: "001",
+      queue_line_id: 45,
+      services: "4",
+      status: "waiting",
+      statusUpdateTimestamp: "",
+      unique_id: "a818243e9ee05ff6",
+      urgent: "0"
+    },
   }),
   components:{
     LbrxButton,
