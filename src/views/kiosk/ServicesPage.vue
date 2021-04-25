@@ -15,7 +15,7 @@
 
                 <div class="col-6 service" v-for="(item, key) in services" :key="key">
                     <LbrxService :name="item.title" size="medium" theme="medium" hover="false"
-                                 :value="item" @update="">
+                                 :value="item" >
                     </LbrxService>
                 </div>
 
