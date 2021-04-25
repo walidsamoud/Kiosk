@@ -2,7 +2,7 @@
     <div class="services">
         <div class="row">
             <div class="col language_select">
-              <LbrxLanguageSelector></LbrxLanguageSelector>
+              <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
         <div class="row">
@@ -63,6 +63,7 @@ export default {
   methods:{
       loadQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
+          this.services = [];
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
                   data.services.forEach(function (obj) {

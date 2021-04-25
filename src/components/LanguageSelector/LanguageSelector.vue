@@ -63,6 +63,7 @@
                         language.selected = false;
                     }
                 }.bind(this))
+                this.$emit("change");
                this.toggleLanguageSelector();
             }
         },
