@@ -1,5 +1,5 @@
 <template>
-    <div class="loading-wrapper">
+    <div class="loading-wrapper" v-if="active">
         <div class="loading-popup">
             <div class="row h-100 align-items-center m-0">
                 <div class="col-3 text-center">
@@ -15,7 +15,8 @@
     export default {
         name: 'LoadingPopup',
         props: {
-            message: String
+            message: String,
+            active: Boolean,
         }
     }
 </script>

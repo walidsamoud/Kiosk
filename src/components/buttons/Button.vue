@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }}</a>
+        <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover" @click="$emit('click')"> {{ name }}</a>
     </div>
 </template>
 

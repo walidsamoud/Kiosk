@@ -8,6 +8,9 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+// Vuex Store
+import { store } from './_store';
+
 //Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
@@ -28,6 +31,7 @@ Bugsnag.start({
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router,
   i18n,
   render: h => h(App),
