@@ -38,6 +38,11 @@
         background-color: #193060;
         color: #fff;
     }
+    .theme-outline{
+        border: 1px solid #ffffff;
+        background-color: transparent;
+        color: #ffffff;
+    }
     .theme-medium{
         background-color: #264076;
         color: #fff;

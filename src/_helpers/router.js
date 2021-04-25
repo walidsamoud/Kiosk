@@ -15,7 +15,7 @@ export const router = new Router({
     routes: [
         {
             path: '/',
-            component: () => import('../views/kiosk/Login'),
+            component: () => import('../layout/kiosk/Kiosk.vue'),
             // ======================
             // Theme routes / pages
             // ======================

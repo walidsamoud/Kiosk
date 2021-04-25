@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="split right d-flex flex-column">
-      <form method="post">
+      <form method="post" class="m-auto">
         <h1 class="p-2 text-center">S'identifer</h1>
         <div class="container pt-4">
           <div class="p-2">
@@ -16,6 +16,7 @@
               type="text"
               placeholder="Enter Terminal ID"
               name="teminalID"
+              id="teminalID"
               required
             />
           </div>
@@ -25,13 +26,12 @@
               type="password"
               placeholder="Enter secret Code"
               name="secretCode"
+              id="secretCode"
               required
             />
           </div>
           <div class="p-2 pt-4">
-            <button type="submit" class="btn btn-outline-light">
-              Se Connecter
-            </button>
+            <LbrxButton name="Se Connecter" size="small" theme="outline" class="w-100 m-0 p-0"></LbrxButton>
           </div>
         </div>
       </form>
@@ -76,7 +76,8 @@ button:hover {
 
 .right {
   right: 0;
-  background-color: rgb(26, 4, 076);
+  background-image: linear-gradient(to right, #193060, #223A6D);
+  padding: 50px;
 }
 
 .centered {
@@ -89,6 +90,7 @@ button:hover {
 }
 </style>
 <script>
+import LbrxButton from '../../components/buttons/Button.vue';
 export default {
   name: "Login",
   data: () => ({
@@ -105,7 +107,9 @@ export default {
   computed: {},
   created() {},
   mounted() {},
-  components: {},
+  components: {
+    LbrxButton
+  },
 };
 </script>
 
