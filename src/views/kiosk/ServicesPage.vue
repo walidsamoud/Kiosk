@@ -22,6 +22,9 @@
             </div>
             
         </form>
+
+        <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
+
         <div class="row bottom-btns">
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
@@ -30,11 +33,7 @@
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
             <div class="col" v-on:click="submitSelectedServices()">
-<<<<<<< HEAD
                 <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="#"></LbrxButton>
-=======
-                <LbrxButton name="Suivant >" size="medium" theme="light" hover="true" href="#"></LbrxButton>
->>>>>>> c7adfa98d447808099f182c7e1c479ccce4fc056
             </div>
         </div>
     </div>
@@ -46,6 +45,7 @@ import LbrxButton from '../../components/buttons/Button.vue';
 import LbrxLanguageSelector from '../../components/LanguageSelector/LanguageSelector.vue';
 import LbrxService from '../../components/Services/ServiceSelector.vue';
 import {kioskService} from "../../_services";
+import LoadingPopup from "../../components/popups/Loading";
 
 
 export default {
@@ -58,8 +58,13 @@ export default {
     errors:[],
     queues:[],
     services:[],
+    loading: {
+      active: false,
+      message: ""
+    },
   }),
   components: {
+      LoadingPopup,
     LbrxButton,
     LbrxLanguageSelector,
     LbrxService
@@ -68,6 +73,7 @@ export default {
       loadQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           this.services = [];
+          this.showLoading("Please wait, we are loading available services");
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
                   data.services.forEach(function (obj) {
@@ -75,10 +81,20 @@ export default {
                       this.services.push(obj);
                   }.bind(this));
               }.bind(this)).finally(function () {
-                  console.log(this.services)
+                  this.hideLoading();
               }.bind(this))
           })
-      }
+      },
+      showLoading(message){
+          console.log(message);
+          this.loading = {
+              active: true,
+              message: message
+          };
+      },
+      hideLoading(){
+          this.loading = { active: false,  message: "" };
+      },
   },  
   computed: {
       ...mapState({

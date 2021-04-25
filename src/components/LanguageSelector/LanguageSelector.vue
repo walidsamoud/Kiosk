@@ -55,6 +55,7 @@
             },
             selectLanguageCallback:function (code) {
                localStorage.setItem("Language", code);
+                this.$i18n.locale = code;
                 this.languages.forEach(function (language) {
                     if(language.code == code){
                         this.selectedLanguage = language;
