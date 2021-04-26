@@ -27,10 +27,18 @@
 		"ResetPasswordSubmitButton": "Reset Password",
 		"ResetPasswordTitle": "Reset Password"
 	},
-	"Services":
-	{
+	"Services":{
 		"Message":"Please select one or more services",
 		"Next":"Next >"
+	},
+	"Ticket":{
+		"Message1":"Help us reduce our carbon footprint by opting for the SMS ticket",
+		"Message2":"Did you know?",
+		"Message3":"For every 20,000 paper tickets, a tree is cut",
+		"PrintTicket" :"Print Ticket",
+		"Return":"< Return",
+		"Receive":"Receive your ticket by SMS",
+		"SendSms":"Send Sms"
 	},
 	"Billing": {
 		"AddBillingMethod": {

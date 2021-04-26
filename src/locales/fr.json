@@ -32,6 +32,17 @@
 		"Message":"Veuillez sélectionner un ou plusieurs services",
 		"Next":"Suivant >"
 	},
+	"Ticket":{
+		"Message1":"Aidez-nous à réduire notre empreinte carbone en optant pour le ticket SMS",
+		"Message2":"Le Saviez-Vous?",
+		"Message3":"Pour chaque 20,000 tickets papier, un arbre est coupé",
+		"PrintTicket" :"Imprimer Ticket",
+		"Return":"< Retour",
+		"Receive":"Recevez votre ticket par SMS",
+		"SendSms":"Envoyer Sms"
+
+
+	},
 	"Billing": {
 		"AddBillingMethod": {
 			"AddCardButton": "Ajouter une carte de crédit",
