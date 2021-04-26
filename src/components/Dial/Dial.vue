@@ -51,7 +51,7 @@
             </div>
              <div class="row envoyer_sms">
                 <div class="col">
-                    <DialButton name="Envoyer SMS" theme="outline" size="medium" hover="true" @click="$emit('submit')"></DialButton>
+                    <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" hover="true" @click="$emit('submit')"></DialButton>
                 </div>
             </div>
             
