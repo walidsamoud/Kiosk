@@ -15,7 +15,7 @@
 
                 <div class="col-6 service" v-for="(item, key) in services" :key="key">
                     <LbrxService :name="item.title" size="medium" theme="medium" hover="false"
-                                 :value="item" >
+                                 :value="item" @checked="addSelection(item)" @unchecked="removeSelection(item)">
                     </LbrxService>
                 </div>
 
@@ -33,7 +33,7 @@
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
             <div class="col" v-on:click="submitSelectedServices()">
-                <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="#"></LbrxButton>
+                <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
             </div>
         </div>
     </div>
@@ -58,6 +58,7 @@ export default {
     errors:[],
     queues:[],
     services:[],
+    selectedServices:[],
     loading: {
       active: false,
       message: ""
@@ -95,6 +96,19 @@ export default {
       hideLoading(){
           this.loading = { active: false,  message: "" };
       },
+      addSelection(item){
+          this.selectedServices.push(item);
+      },
+      removeSelection(item){
+          let filteredServices = this.selectedServices.filter(function (obj) {
+              return obj.id != item.id;
+          });
+          this.selectedServices = filteredServices;
+      },
+      submitSelectedServices(){
+          localStorage.setItem("selectedServices", JSON.stringify(this.selectedServices));
+          this.$router.push({name: "Ticket"}).catch();
+      }
   },  
   computed: {
       ...mapState({

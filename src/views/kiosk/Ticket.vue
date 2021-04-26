@@ -10,12 +10,12 @@
               </div>
 
               <div class="imageDiv">
-                <img class="image" src="../../assets/images/illustrations-co2-process2@2x 1.png" alt="">
+                <img class="image" src="../../assets/images/green-city.gif" alt="">
               </div>
 
               <div class="row print_ticket">
                 <div class="col">
-                  <LbrxButton name="Imprimer Ticket" size="medium" theme="light" hover="true" href="services"></LbrxButton>
+                  <LbrxButton name="Imprimer Ticket" @click="optedForTicket" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
                 </div>
               </div>
           
@@ -31,9 +31,10 @@
             </div>
           </div>
         </div>
+
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton name="< Retour" size="medium" theme="light" hover="true" href="services"></LbrxButton>
+                <LbrxButton name="< Retour" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
             </div>
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
@@ -42,13 +43,18 @@
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
         </div>
+
+        <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
+
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex';
 import LbrxButton from '../../components/buttons/Button.vue';
 import LbrxDial from '../../components/Dial/Dial.vue';
+import {kioskService} from "../../_services";
+import LoadingPopup from "../../components/popups/Loading";
 
 
 //import $ from "jquery"
@@ -77,94 +83,91 @@ export default {
       unique_id: "a818243e9ee05ff6",
       urgent: "0"
     },
+    selectedServices: [],
+    loading: {
+      active: false,
+      message: ""
+    },
+    customer: {
+        id: null
+    }
   }),
   components:{
+      LoadingPopup,
     LbrxButton,
     LbrxDial
   },
   methods:{
-    checkForm:function(e) {
-      this.errors = [];
-      if(!this.key) {
-        this.errors.push(this.$t('Errors.Required', {field: this.$t('Kiosk.App.Key')}));
-      } else if(!this.secret)
-          this.errors.push(this.$t('Errors.Required', {field: this.$t('Kiosk.App.Key')}));
-      else {
-          this.handleSubmit();
-        //this.$router.push('/dashboards/classic-dashboard');
-      }
-      if(!this.errors.length) return true;
-      e.preventDefault();
-      
+    showLoading(message){
+        console.log(message);
+        this.loading = {
+            active: true,
+            message: message
+        };
     },
-    /* eslint-disable */
-    validEmail:function(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
-    return re.test(email);
+    hideLoading(){
+        this.loading = { active: false,  message: "" };
     },
-    /* eslint-disable */
-    submit(){
-      if(this.validEmail(this.key)){
-        this.handleSubmit();
-      }else {
-          this.errors.push(this.$t('Errors.Invalid', {field: this.$t('Auth.Email')}));
-      }
-    },
-    ...mapActions('Kiosk', ['login', 'autoLogin', 'logout']),
-    handleSubmit () {
-        this.requestFailed = false;
-        this.submitted = true;
-        const { key, secret } = this;
-        if (key && secret) {
-            this.$vs.loading({
-                container: '#login-box',
-                scale: 0.6
-            });
-            this.login({ key, secret }).catch(function (data) {
-                this.errors.push(this.$t('Errors.LoginFail'));
-                this.requestFailed = true;
-            }.bind(this)).catch(function (ex) {
-                console.log(ex);
-            }.bind(this)).finally(function () {
-                this.$vs.loading.close('#login-box > .con-vs-loading');
-            }.bind(this));
-        }
-    }
-  },  
+      optedForTicket(){
+          this.showLoading("Please wait, we are generating your ticket.");
+          let payload = {
+              queue_id: this.selectedServices[0].queue_id,
+              services: this.selectedServices.map(function (obj) {
+                  return obj.id;
+              }).join(","),
+              customer_id: -1,
+              member_id: -1,
+              anonymous: this.kiosk_info.kiosk.collected_details,
+          }
+
+          switch(this.kiosk_info.kiosk.pseudo){
+              case "1":
+                  payload.pseudo = this.$t('Kiosk.Pseudos.Customer');
+                  break;
+              case "2":
+                  payload.pseudo = this.$t('Kiosk.Pseudos.Patient');
+                  break;
+              case "3":
+                  payload.pseudo = this.$t('Kiosk.Pseudos.User');
+                  break;
+          }
+
+          kioskService.joinQueue(payload).then(function (data) {
+              this.ticket = data.ticket;
+              this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
+              this.step = 7;
+
+              if(!this.customer.id){
+                  setTimeout(function (){ window.print(); }, 500);
+              }
+
+              setTimeout(function (){
+
+              }.bind(this), 5000);
+
+          }.bind(this)).catch(function () {
+              this.errors.push = true;
+          }.bind(this)).finally(function () {
+              this.hideLoading();
+          }.bind(this))
+      },
+      optedForSms(){
+
+      },
+  },
   computed: {
-    ...mapState('Kiosk', ['status']),
       ...mapState({
-          kiosk_info: state => state.Kiosk.kiosk
+          kiosk_info: state => state.Kiosk.kiosk,
+          theme_info : state => state
       }),
-    inputValid(){
-      if(this.key && this.secret && !this.requestFailed){
-        return false
-      } else {
-        return true
-      }
-    }
   },
   created () {
 
-    // reset login status
-    if(this.kiosk_info) this.$router.push('/checkin');
-    //this.logout();
   },
   mounted(){
-      //$('.ticketDiv').css("height", screen.height-75);
+      this.selectedServices = localStorage.getItem("selectedServices") ? JSON.parse(localStorage.getItem("selectedServices")) : [];
+      console.log(this.selectedServices);
 
-      if(this.$route.params.key && this.$route.params.token){
-          console.log({ key: this.$route.params.key, token: this.$route.params.token })
-          this.$vs.loading({ container: '#login-box', scale: 0.6 });
-          this.autoLogin({ key: this.$route.params.key, token: this.$route.params.token }).catch(function (data) {
-              this.errors.push(this.$t('Errors.LoginFail'));
-              this.requestFailed = true;
-          }.bind(this)).catch(function (ex) {
-              console.log(ex);
-          }.bind(this)).finally(function () {
-              this.$vs.loading.close('#login-box > .con-vs-loading');
-          }.bind(this));
-      }
   }
 }
 </script>
@@ -212,7 +215,7 @@ export default {
       width: 100%;
     }
     .print_ticket{
-      margin-top: 40px;
+      margin-top: 20px;
     }
     .ticketDiv .rightSide{
       padding-top: 60px;

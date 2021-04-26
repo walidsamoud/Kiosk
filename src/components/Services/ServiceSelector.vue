@@ -1,6 +1,6 @@
 <template>
     <div class="col">
-        <input type="checkbox" :value="value" class="checkbox" :id="'checkbox'+id" name="services"/>
+        <input type="checkbox" :value="value.id" class="checkbox" :id="'checkbox'+value.id" name="services"/>
         <label :for="'checkbox'+value.id" :id="'label'+value.id" v-on:click="checkService(value.id)" :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"> {{ name }} </label>
     </div>
 </template>
@@ -22,8 +22,10 @@
                 var checkBox = $(":checkbox[value="+id+"]");
                 if( !checkBox.prop('checked') ){
                     $('#label'+id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
+                    this.$emit("checked");
                 }else{
                     $('#label'+id).css("border-left", "15px solid #294786");
+                    this.$emit("unchecked");
                 }
             }
         }
