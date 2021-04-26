@@ -3,10 +3,10 @@
         <div class="row ticketDiv">
           <div class="col leftSide">
             <div class="container">
-              <p>Aidez-nous à réduire notre empreinte carbone en optant pour le ticket SMS</p>
+              <p>{{$t('Ticket.Message1')}}</p>
               <div class="small">
-                <small> Le Saviez-Vous? </small><br>
-                <small> Pour chaque 20,000 tickets papier, un arbre est coupé</small>
+                <small> {{$t('Ticket.Message2')}}</small><br>
+                <small>{{$t('Ticket.Message3')}}</small>
               </div>
 
               <div class="imageDiv">
@@ -15,7 +15,7 @@
 
               <div class="row print_ticket">
                 <div class="col">
-                  <LbrxButton name="Imprimer Ticket" @click="optedForTicket" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
+                  <LbrxButton :name="$t('Ticket.PrintTicket')" @click="optedForTicket" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
                 </div>
               </div>
           
@@ -23,7 +23,7 @@
           </div>
           <div class="col rightSide">
             <div class="container">
-              <h5 class="right_header">Recevez votre ticket par SMS</h5>
+              <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
             </div>
 
             <div class="dialDiv">
@@ -34,7 +34,7 @@
 
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton name="< Retour" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
+                <LbrxButton :name="$t('Ticket.Return')" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
             </div>
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
