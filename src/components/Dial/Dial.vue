@@ -66,6 +66,7 @@ export default defineComponent({
     name: "Dial",
     props: {
         max_digits: Number,
+        value: String
     },
     components: {
         DialButton,
@@ -75,14 +76,19 @@ export default defineComponent({
     }),
     methods: {
         dialNumber(number){
-            if(this.phoneNumber.length < this.max_digits)
+            if(this.phoneNumber.length < this.max_digits){
                 this.phoneNumber = this.phoneNumber + number;
+                this.$emit('input', this.phoneNumber);
+            }
+
         },
         clearInput(){
             this.phoneNumber = "";
+            this.$emit('input', this.phoneNumber);
         },
         deleteInput(){
             this.phoneNumber = this.phoneNumber.slice(0, -1);
+            this.$emit('input', this.phoneNumber);
         },
     }
 })

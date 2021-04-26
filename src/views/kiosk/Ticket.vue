@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="dialDiv">
-                  <LbrxDial :max_digits="8"></LbrxDial>
+                  <LbrxDial v-model="phone_number" @submit="optedForSms" :max_digits="8"></LbrxDial>
                 </div>
               </div>
             </div>
@@ -46,6 +46,10 @@
             </div>
 
             <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
+
+            <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
+                   :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
+            </Popup>
 
         </div>
 
@@ -98,6 +102,7 @@ import LbrxButton from '../../components/buttons/Button.vue';
 import LbrxDial from '../../components/Dial/Dial.vue';
 import {kioskService} from "../../_services";
 import LoadingPopup from "../../components/popups/Loading";
+import Popup from '../../components/popups/Popup.vue';
 import QrcodeVue from 'qrcode.vue';
 
 //import $ from "jquery"
@@ -132,21 +137,34 @@ export default {
       message: ""
     },
     customer: {
-        id: null
+        id: null,
     },
     kioskConfig: {},
     qrCode: "",
     selectedQueue: null,
+    popup: {
+      active: false,
+      title: "",
+      message: "",
+      hint: "",
+      type: "",
+      confirmation: "",
+      callback: null,
+    },
+    internal_id: null,
+    countryPrefix: "+216",
+    phone_number: "",
+    countryIso: "TN"
   }),
   components:{
     LoadingPopup,
     LbrxButton,
     LbrxDial,
-    QrcodeVue
+    QrcodeVue,
+    Popup
   },
   methods:{
     showLoading(message){
-        console.log(message);
         this.loading = {
             active: true,
             message: message
@@ -183,23 +201,103 @@ export default {
               this.ticket = data.ticket;
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
-
-              if(!this.customer.id){
-                  setTimeout(function (){ window.print(); }, 500);
-              }
-
+              setTimeout(function (){ window.print(); }, 500);
+              this.showPopup("success", "Congratulations!", "Your ticket is ready", "Please wait, we are printing your ticket", "Close", this.hidePopup);
               setTimeout(function (){
-
+                  this.$router.push({path: "/home"})
               }.bind(this), 5000);
 
           }.bind(this)).catch(function () {
-              this.errors.push = true;
+              this.showPopup("danger", "Ouups!", "A problem occured", "We are sorry, we cannot generate yoru ticket", "Close", this.hidePopup);
           }.bind(this)).finally(function () {
               this.hideLoading();
           }.bind(this))
       },
       optedForSms(){
 
+          if(this.customer.id == null){
+              this.findCustomerByPhoneNumber();
+          } else {
+              this.showLoading("Please wait, we are generating your ticket.");
+              let payload = {
+                  queue_id: this.selectedServices[0].queue_id,
+                  services: this.selectedServices.map(function (obj) {
+                      return obj.id;
+                  }).join(","),
+                  customer_id: this.customer.id,
+                  member_id: -1,
+                  anonymous: this.kiosk_info.kiosk.collected_details,
+              }
+
+              kioskService.joinQueue(payload).then(function (data) {
+                  this.ticket = data.ticket;
+                  this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
+                  this.step = 7;
+
+                  this.showPopup("success", "Congratulations!", "Your ticket is ready", "We have sent your ticket by SMS", "Close", this.hidePopup);
+                  setTimeout(function (){
+                      this.$router.push({path: "/home"})
+                  }.bind(this), 5000);
+
+              }.bind(this)).catch(function () {
+                  this.showPopup("danger", "Ouups!", "A problem occured", "We are sorry, we cannot generate yoru ticket", "Close", this.hidePopup);
+              }.bind(this)).finally(function () {
+                  this.hideLoading();
+              }.bind(this))
+          }
+
+
+      },
+      showPopup(type, title, message, hint, confirmation, callback){
+          this.popup = {
+              active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback
+          };
+      },
+      hidePopup(){
+          this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
+      },
+      findCustomerByPhoneNumber(){
+          this.showLoading("We are looking for your phone number in our database");
+          let payload = {
+              phone_number: this.phone_number,
+              internal_id: this.internal_id,
+              country_prefix: this.countryPrefix
+          }
+          kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
+              if(data.customer.length == 0) {
+                  this.createNewCustomer();
+              } else {
+                  this.customer = data.customer[0];
+                  this.optedForSms();
+              }
+
+          }.bind(this)).catch(function () {
+
+          }.bind(this)).finally(function () {
+              this.hideLoading();
+          }.bind(this))
+      },
+      createNewCustomer(){
+          this.showLoading("We are creating a new account for you");
+          let payload = {
+              phone_number: this.phone_number,
+              country_prefix: this.countryPrefix,
+              country: this.countryIso,
+              fname: "",
+              lname: "",
+              email: "",
+              internal_id: this.internal_id,
+          }
+          kioskService.createCustomer(payload).then(function (data) {
+              if(data.customer != null) {
+                  this.customer = data.customer;
+                  this.optedForSms();
+              }
+          }.bind(this)).catch(function () {
+
+          }.bind(this)).finally(function () {
+            this.hideLoading();
+          }.bind(this))
       },
   },
   computed: {

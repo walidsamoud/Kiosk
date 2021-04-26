@@ -85,12 +85,12 @@
     .popup-success .popup-title {
         color: #89d24c !important;
         margin-bottom: 0px;
-        font-size: 46px !important;
+        font-size: 42px !important;
         display: flex;
     }
 
     .popup-success  .icon {
-        width: 75px;
+        width: 70px;
         margin: 10px 10px;
     }
 
@@ -133,12 +133,12 @@
     .popup-danger .popup-title {
         color: #DC3545 !important;
         margin-bottom: 0px;
-        font-size: 46px !important;
+        font-size: 42px !important;
         display: flex;
     }
 
     .popup-danger  .icon {
-        width: 75px;
+        width: 70px;
         margin: 10px 10px;
     }
 

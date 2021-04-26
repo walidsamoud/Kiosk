@@ -69,14 +69,11 @@ export default {
    
   },
   mounted(){
-     
+     this.$router.push({path: "/services"});
   },
   components: {
     Button,
       Popup
-  },
-  mounted: function(){
-    //$('.img-fluid').css("height", screen.height-100);
   }
 }
 </script>
