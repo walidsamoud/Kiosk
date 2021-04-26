@@ -1,40 +1,25 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import themeConfig from '@/../themeConfig.js'
+  
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-  },
-  data:()=>({
-  }),
-  watch: {
-        '$store.state.theme'(val) {
-            this.toggleBodyClass(val);
-        }
-    },
-  methods: {
-  toggleBodyClass(className) {
-            if (className == 'dark') {
-                document.body.classList.add('dark-theme');
-            } else {
-                document.body.classList.remove('dark-theme');
-                
-            }
-        }
-    },
-  
-mounted() {
-  this.toggleBodyClass(themeConfig.theme)
-},
-
-
     
-  
+  }
 }
 </script>
+
+<style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+</style>

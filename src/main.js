@@ -1,50 +1,35 @@
 import Vue from 'vue'
-import Vuesax from 'vuesax'
-import Vuex from 'vuex'
-import {ApiConfigs, authHeader} from './_helpers'
 import App from './App.vue'
-
-import 'vuesax/dist/vuesax.css' //Vuesax styles
-import 'material-icons/iconfont/material-icons.css';
-// Vuex Store
-import { store } from './_store';
-// Theme Configurations
-import '../themeConfig.js'
-// Perfectscrollbar
-// import PerfectScrollbar from "vue2-perfect-scrollbar";
-// import "vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css";
-// Vue.use(PerfectScrollbar);
-import Vuebar from 'vuebar';
-
-//import promise
-import 'es6-promise/auto';
-
+import {ApiConfigs, authHeader} from './_helpers'
 import Bugsnag from '@bugsnag/js'
 import BugsnagPluginVue from '@bugsnag/plugin-vue'
+//Bootstrap
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Bugsnag.start({
-    apiKey: 'a8dde7f55dab42f680479a97a0a41d78',
-    plugins: [new BugsnagPluginVue()]
-})
 
-Vue.use(Vuesax);
-Vue.use(Vuebar);
-Vue.use(Vuex)
+// Vuex Store
+import { store } from './_store';
 
-// Theme Configurations
-import 'prismjs'
-import 'prismjs/themes/prism.css'
-import VsPrism from './components/prism/VsPrism.vue';
-Vue.component(VsPrism.name, VsPrism);
-
+//Fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faCaretLeft);
+library.add(faCaretRight);
 // i18n
 import i18n from './i18n/i18n.js'
 if(!localStorage.getItem('Language')) { localStorage.setItem('Language', 'en') }
 // Vue Router
 import { router } from './_helpers';
-Vue.config.productionTip = true;
-//Vue.config.silent = true;
+Bugsnag.start({
+    apiKey: 'a8dde7f55dab42f680479a97a0a41d78',
+    plugins: [new BugsnagPluginVue()]
+})
 
+Vue.config.productionTip = false
 
 new Vue({
   store,
@@ -52,22 +37,24 @@ new Vue({
   i18n,
   render: h => h(App),
 }).$mount('#app')
-import '@/assets/scss/style.scss'
 
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.config.productionTip = false
 // Moment
 import moment from 'moment';
 import 'moment-timezone';
 moment.locale(i18n.locale == 'ar' ? 'ar-tn' : i18n.locale);
 Vue.prototype.$moment = moment;
-
 import Pusher from 'pusher-js' // import Pusher
 Vue.prototype.$pusher = new Pusher(process.env.VUE_APP_PUSHER_ID, {
-    cluster: 'eu',
-    encrypted: true,
-    authEndpoint: ApiConfigs.broadcast_url+ApiConfigs.pusher.auth,
-    auth: {
-        headers: { ...authHeader() }
-    }
+  cluster: 'eu',
+  encrypted: true,
+  authEndpoint: ApiConfigs.broadcast_url+ApiConfigs.pusher.auth,
+  auth: {
+      headers: { ...authHeader() }
+  }
 });
 
 Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)

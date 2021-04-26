@@ -13,7 +13,7 @@ const actions = {
             .then(
                 kiosk => {
                     commit('loginSuccess', kiosk);
-                    router.push('/checkin');
+                    router.push('/home');
                 },
                 error => {
                     commit('loginFailure', error);
@@ -28,7 +28,7 @@ const actions = {
             .then(
                 kiosk => {
                     commit('loginSuccess', kiosk);
-                    router.push('/checkin');
+                    router.push('/home');
                 },
                 error => {
                     commit('loginFailure', error);
