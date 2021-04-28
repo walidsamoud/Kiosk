@@ -1,5 +1,5 @@
 <template>
-    <div class="services">
+    <div class="services" id="ServicesPage">
         <div class="row">
             <div class="col language_select">
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
@@ -13,7 +13,7 @@
         <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
             <div class="row">
 
-                <div class="col-6 service" v-for="(item, key) in services" :key="key">
+                <div class="col-md-6 service" v-for="(item, key) in services" :key="key">
                     <LbrxService :name="item.title" size="medium" theme="medium" hover="false"
                                  :value="item" @checked="addSelection(item)" @unchecked="removeSelection(item)">
                     </LbrxService>
@@ -36,6 +36,9 @@
                 <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
             </div>
         </div>
+        <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
+                   :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
+            </Popup>
     </div>
 </template>
 
@@ -46,7 +49,7 @@ import LbrxLanguageSelector from '../../components/LanguageSelector/LanguageSele
 import LbrxService from '../../components/Services/ServiceSelector.vue';
 import {kioskService} from "../../_services";
 import LoadingPopup from "../../components/popups/Loading";
-
+import Popup from '../../components/popups/Popup.vue';
 
 export default {
   name: 'ServicesPage',
@@ -63,12 +66,22 @@ export default {
       active: false,
       message: ""
     },
+    popup: {
+      active: false,
+      title: "",
+      message: "",
+      hint: "",
+      type: "",
+      confirmation: "",
+      callback: null,
+    },
   }),
   components: {
-      LoadingPopup,
+    LoadingPopup,
     LbrxButton,
     LbrxLanguageSelector,
-    LbrxService
+    LbrxService,
+    Popup,
   },
   methods:{
       loadQueues(){
@@ -106,9 +119,22 @@ export default {
           this.selectedServices = filteredServices;
       },
       submitSelectedServices(){
-          localStorage.setItem("selectedServices", JSON.stringify(this.selectedServices));
-          this.$router.push({name: "Ticket"}).catch();
-      }
+          if(this.selectedServices.length){
+              localStorage.setItem("selectedServices", JSON.stringify(this.selectedServices));
+              this.$router.push({name: "Ticket"}).catch();
+          }else{
+              this.showPopup("danger", "Ouups!", "A problem occured", "Please select at least one service to proceed", "Close", this.hidePopup);
+          }
+          
+      },
+      showPopup(type, title, message, hint, confirmation, callback){
+          this.popup = {
+              active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback
+          };
+      },
+      hidePopup(){
+          this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
+      },
   },  
   computed: {
       ...mapState({
@@ -124,42 +150,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-    *{
-         overflow: hidden;
-    }
-    html,body { height: 100%; width: 100%; margin: 0px; padding: 0px;}
-
-
-    .bottom-btns{
-        position: fixed;
-        bottom: 0px;
-        margin: 0;
-        width: 100%;
-        z-index: 9;
-        background-color: #193060;
-    }
-    .col{
-        width: 100%;
-        padding-right:0;
-        padding-left:0;
-    }
-    .service_h{
-      padding: 25px;
-      font-size: 35px;
-      text-align: center;
-      letter-spacing: 2px;
-    }
-    .language_select{
-      text-align: right;
-      padding: 20px 30px;
-      margin: 10px 25px;
-    }
-    .services_container{
-      margin-top: 30px;
-    }
-    .services_container .service{
-        padding: 0px 20px 20px 20px;
-    }
-</style>

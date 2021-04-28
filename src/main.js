@@ -31,6 +31,8 @@ Bugsnag.start({
 
 Vue.config.productionTip = false
 
+require ('./assets/css/style.scss');
+
 new Vue({
   store,
   router,
@@ -58,3 +60,13 @@ Vue.prototype.$pusher = new Pusher(process.env.VUE_APP_PUSHER_ID, {
 });
 
 Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)
+
+let config= JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config );
+let bodyStyles = document.body.style;
+bodyStyles.setProperty('--primary', config.primary);
+bodyStyles.setProperty('--primary-medium', config.danger);
+bodyStyles.setProperty('--primary-light', config.success);
+
+bodyStyles.setProperty('--secondary', config.secondary);
+bodyStyles.setProperty('--danger', config.danger);
+bodyStyles.setProperty('--success', config.success);

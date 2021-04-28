@@ -1,5 +1,5 @@
 <template>
-    <div class="col">
+    <div class="col" id="Button">
         <a :href='href' :class="'btn theme-'+theme+' size-'+size+' hover-'+hover" @click="$emit('click')"> {{ name }}</a>
     </div>
 </template>
@@ -16,54 +16,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .btn{
-        width: 100%;
-        border-radius: 0px;
-        font-size: 20px;
-        background-color: #193060;
-        color: #fff;
-        cursor: pointer;
-        transition: .3s;
-        border: none;
-        letter-spacing: 2px;
-    }
-    .hover-true:hover{
-        opacity: .9;
-        color: #fff;
-    }
-    .theme-dark{
-        border: 1px solid #193060;
-        background-color: #193060;
-        color: #fff;
-    }
-    .theme-outline{
-        border: 1px solid #ffffff;
-        background-color: transparent;
-        color: #ffffff;
-    }
-    .theme-medium{
-        background-color: #264076;
-        color: #fff;
-    }
-    .theme-light{
-        background-color: #294786;
-        color: #fff;
-    }
-    .size-large{
-        font-size: 30px;
-        height: 100px;
-        padding-top: 20px;
-    }
-    .size-medium{
-        font-size: 25px;
-        height: 75px;
-        padding-top: 15px;
-    }
-    .size-small{
-        font-size: 20px;
-        height: 50px;
-        padding-top: 10px;
-    }
-</style>
