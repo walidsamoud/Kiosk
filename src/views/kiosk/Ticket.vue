@@ -4,10 +4,10 @@
             <div class="row ticketDiv">
               <div class="col leftSide">
                 <div class="container">
-                  <p>Aidez-nous à réduire notre empreinte carbone en optant pour le ticket SMS</p>
+                  <p>{{$t('Ticket.Message1')}}</p>
                   <div class="small">
-                    <small> Le Saviez-Vous? </small><br>
-                    <small> Pour chaque 20,000 tickets papier, un arbre est coupé</small>
+                    <small>{{$t('Ticket.Message2')}}</small><br>
+                    <small>{{$t('Ticket.Message3')}}</small>
                   </div>
 
                   <div class="imageDiv">
@@ -16,7 +16,8 @@
 
                   <div class="row print_ticket">
                     <div class="col">
-                      <LbrxButton name="Imprimer Ticket" @click="optedForTicket" size="medium" theme="medium" hover="true" href="javascript:;"></LbrxButton>
+
+                      <LbrxButton :name="$t('Ticket.PrintTicket')" @click="optedForTicket" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
                     </div>
                   </div>
 
@@ -24,7 +25,7 @@
               </div>
               <div class="col rightSide">
                 <div class="container">
-                  <h5 class="right_header">Recevez votre ticket par SMS</h5>
+                  <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
 
                 <div class="dialDiv">
@@ -35,7 +36,7 @@
 
             <div class="row bottom-btns">
                 <div class="col">
-                    <LbrxButton name="< Retour" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
+                    <LbrxButton :name="$t('Ticket.Return')" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
                 </div>
                 <div class="col">
                     <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
@@ -174,7 +175,7 @@ export default {
         this.loading = { active: false,  message: "" };
     },
       optedForTicket(){
-          this.showLoading("Please wait, we are generating your ticket.");
+          this.showLoading(this.$t('Popup.LoadingMessage'));
           let payload = {
               queue_id: this.selectedServices[0].queue_id,
               services: this.selectedServices.map(function (obj) {
@@ -202,13 +203,14 @@ export default {
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
               setTimeout(function (){ window.print(); }, 500);
-              this.showPopup("success", "Congratulations!", "Your ticket is ready", "Please wait, we are printing your ticket", "Close", this.hidePopup);
+              this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup);
               setTimeout(function (){
                   this.$router.push({path: "/home"})
               }.bind(this), 5000);
 
           }.bind(this)).catch(function () {
-              this.showPopup("danger", "Ouups!", "A problem occured", "We are sorry, we cannot generate your ticket", "Close", this.hidePopup);
+
+              this.showPopup("danger", "Ouups!", this.$t('Popup.AProblemOccured'), this.$t('Popup.TicketFailure'), this.$t('Popup.Close'), this.hidePopup);
           }.bind(this)).finally(function () {
               this.hideLoading();
           }.bind(this))
@@ -218,7 +220,7 @@ export default {
           if(this.customer.id == null){
               this.findCustomerByPhoneNumber();
           } else {
-              this.showLoading("Please wait, we are generating your ticket.");
+              this.showLoading(this.$t('Popup.LoadingMessage'));
               let payload = {
                   queue_id: this.selectedServices[0].queue_id,
                   services: this.selectedServices.map(function (obj) {
@@ -234,13 +236,13 @@ export default {
                   this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
                   this.step = 7;
 
-                  this.showPopup("success", "Congratulations!", "Your ticket is ready", "We have sent your ticket by SMS", "Close", this.hidePopup);
+                  this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'), this.$t('Popup.SmSSuccess'), this.$t('Popup.Close'), this.hidePopup);
                   setTimeout(function (){
                       this.$router.push({path: "/home"})
                   }.bind(this), 5000);
 
               }.bind(this)).catch(function () {
-                  this.showPopup("danger", "Ouups!", "A problem occured", "We are sorry, we cannot generate yoru ticket", "Close", this.hidePopup);
+                  this.showPopup("danger", "Ouups!", this.$t('Popup.AProblemOccured'), this.$t('Popup.TicketFailure'), this.$t('Popup.Close'), this.hidePopup);
               }.bind(this)).finally(function () {
                   this.hideLoading();
               }.bind(this))
@@ -257,7 +259,7 @@ export default {
           this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
       },
       findCustomerByPhoneNumber(){
-          this.showLoading("We are looking for your phone number in our database");
+          this.showLoading(this.$t('Popup.PhoneChecking'));
           let payload = {
               phone_number: this.phone_number,
               internal_id: this.internal_id,
