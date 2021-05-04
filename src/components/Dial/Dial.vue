@@ -1,5 +1,5 @@
 <template>
-    <div class="dial_buttons">
+    <div class="dial_buttons" id="Dial">
             <div class="row">
                 <div class="col">
                     <DialButton :name="phoneNumber" theme="default" size="medium" hover="true" font="large"></DialButton>
@@ -95,15 +95,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    .dial_buttons{
-        padding: 40px 70px 0px 60px;
-        max-width: 550px;
-        margin: auto;
-    }
-    .dial_buttons .col{
-        padding: 5px;
-    }
-    .envoyer_sms{
-        margin-top: 36px;
-    }
+    
 </style>

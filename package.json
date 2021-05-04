@@ -29,7 +29,7 @@
     "moment-timezone": "^0.5.33",
     "nprogress": "^0.2.0",
     "pusher-js": "^7.0.3",
-    "qrcode.vue": "^1.*",
+    "qrcode.vue": "^1.7.0",
     "sass-loader": "^10",
     "style-loader": "^2.0.0",
     "vue": "^2.6.12",
@@ -47,8 +47,10 @@
     "eslint-plugin-vue": "^6.2.2",
     "postcss": "^8.2.12",
     "postcss-loader": "^5.2.0",
+    "sass": "^1.32.11",
+    "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.0.0"
+    "webpack": "^4.46.0"
   },
   "eslintConfig": {
     "root": true,

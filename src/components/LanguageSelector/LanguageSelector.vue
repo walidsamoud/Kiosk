@@ -1,5 +1,5 @@
 <template>
-    <div class="languages row">
+    <div class="languages row" id="LanguageSelector">
         <span class="language active selected" id="frSpan" >
             <img class="country_flag" :src="selectedLanguage.flag" alt="">  {{selectedLanguage.label}}
             <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" /> 
@@ -35,6 +35,7 @@
             selectedLanguage: {
                 label: "", flag: null, code: "", selected: true
             },
+            config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config )
         }),
         methods:{
             toggleLanguageSelector:function(){
@@ -47,7 +48,7 @@
                     $('.active .caret_right').css("display", "inline");
                     $('.active').addClass("selected");
                 }else{
-                    $('.languages').css("border", "1px solid #193060");
+                    $('.languages').css("border", "1px solid "+this.config.primary);
                     $('.active .caret_left').css("display", "inline");
                     $('.active .caret_right').css("display", "none");
                     $('.active').removeClass("selected");
@@ -95,61 +96,5 @@
 </script>
 
 <style scoped>
-    .languages{
-        display: inline-block;
-        border: 1px solid #193060;
-        border-radius: 40px;
-        padding: 10px 15px;
-        font-size: 22px;
-    }
-    .languages span{
-        letter-spacing: 1px;
-    }
-    .language{
-        display: none;
-        cursor: pointer;
-    }
-    .separator{
-        display: none;
-    }
-    .country_flag{
-        width: 40px;
-        margin-right: 10px;
-    }
-    .separator{
-        padding: 0 25px;
-        color: #192f6048;
-    }
-    .active{
-        display: inline;
-        background-color: #193060;
-        padding: 15px 25px 20px 20px;
-        margin-left: -15px;
-        margin-right: -32px;
-        color: #fff;
-        border-radius: 50px;
-    }
-    .selected{
-        display: inline;
-        background-color: #ffffff;
-        padding: 15px 25px 20px 20px;
-        margin-left: -15px;
-        margin-right: -32px;
-        color: #193060;
-        border-radius: 50px;
-        border: 1px solid #193060;
-    }
-    .active .caret_right{
-        display: inline-block;
-    }
-    .caret_left, .caret_right{
-        margin: -2px;
-        margin-left: 10px;
-        margin-right: 10px;
-        display: none;
-    }
-    .active .caret_right{
-        display: inline;
-    }
     
 </style>

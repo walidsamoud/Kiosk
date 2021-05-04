@@ -40,6 +40,17 @@
 		"Receive":"Receive your ticket by SMS",
 		"SendSms":"Send Sms"
 	},
+	"Popup":{
+		"AProblemOccured":"A problem has occured",
+		"TicketFailure":"We are sorry, we cannot generate your ticket",
+		"Close":"Close",
+		"Congratulations":"Congratulations!!",
+		"TicketSuccess":"Your ticket is ready",
+		"SuccessMessage":"Please wait, we are printing your ticket",
+		"LoadingMessage":"Please wait, we are generating your ticket.",
+		"SmSSuccess":"We have sent your ticket by SMS",
+		"PhoneChecking":"We are looking for your phone number in our database"
+	},
 	"Billing": {
 		"AddBillingMethod": {
 			"AddCardButton": "Add credit card",
