@@ -63,7 +63,8 @@ export const router = new Router({
                     },
                     ],
                 },
-                component: () => import('../views/kiosk/Home')
+                  // component: () => import('../views/kiosk/Home')
+                component: () => import('../views/kiosk/ServicesPage')
             },
             {
                 path: '/services',
