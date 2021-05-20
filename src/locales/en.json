@@ -9,6 +9,9 @@
 		"ErrorTitle": "Please correct the following errors",
 		"ForgotPassword": "Forgot Password?",
 		"Login": "Login",
+		"login": "login",
+		"TerminalId": "Terminal Id",
+		"SecretCode" : "Secret Code",
 		"LoginButton": "Login",
 		"Password": "Password",
 		"PasswordForgotGoToLoginText": "If you remember your password, please click on the login button below to take you to the authentication page.",
@@ -23,6 +26,30 @@
 		"ResetPasswordCode": "Reset Code",
 		"ResetPasswordSubmitButton": "Reset Password",
 		"ResetPasswordTitle": "Reset Password"
+	},
+	"Services":{
+		"Message":"Please select one or more services",
+		"Next":"Next >"
+	},
+	"Ticket":{
+		"Message1":"Help us reduce our carbon footprint by opting for the SMS ticket",
+		"Message2":"Did you know?",
+		"Message3":"For every 20,000 paper tickets, a tree is cut",
+		"PrintTicket" :"Print Ticket",
+		"Return":"< Return",
+		"Receive":"Receive your ticket by SMS",
+		"SendSms":"Send Sms"
+	},
+	"Popup":{
+		"AProblemOccured":"A problem has occured",
+		"TicketFailure":"We are sorry, we cannot generate your ticket",
+		"Close":"Close",
+		"Congratulations":"Congratulations!!",
+		"TicketSuccess":"Your ticket is ready",
+		"SuccessMessage":"Please wait, we are printing your ticket",
+		"LoadingMessage":"Please wait, we are generating your ticket.",
+		"SmSSuccess":"We have sent your ticket by SMS",
+		"PhoneChecking":"We are looking for your phone number in our database"
 	},
 	"Billing": {
 		"AddBillingMethod": {

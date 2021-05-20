@@ -3,10 +3,9 @@ import Vuex from 'vuex';
 import moment from "moment";
 
 import { alert } from './alert.module';
-import { account } from './account.module';
+//import { account } from './account.module';
 import { Kiosk } from './kiosk.module';
-import { users } from './users.module';
-import themeConfig from '../../themeConfig.js'
+//import { users } from './users.module';
 
 
 
@@ -15,17 +14,9 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     modules: {
         alert,
-        account,
-        users,
         Kiosk
     },
     state: {
-        theme: themeConfig.theme,
-
-        isSidebarActive: false,
-        isSidebarReduced: themeConfig.sidebarCollapsed,
-        sidebarWidth: "default",
-        themeColor: themeConfig.themeColor,
 
         // Calendar Events
         calendarEvents: [{

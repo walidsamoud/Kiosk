@@ -9,6 +9,9 @@
 		"ErrorTitle": "Veuillez corriger les erreurs suivantes",
 		"ForgotPassword": "Mot de passe oublié?",
 		"Login": "S'identifier",
+		"login": "Se Connecter",
+		"SecretCode": "Code Secret",
+		"TerminalId" : "Id Du Terminal",
 		"LoginButton": "S'identifier",
 		"Password": "Mot de passe",
 		"PasswordForgotGoToLoginText": "Si vous vous souvenez de votre mot de passe, veuillez cliquer sur le bouton de connexion ci-dessous pour accéder à la page d'authentification.",
@@ -23,6 +26,31 @@
 		"ResetPasswordCode": "Code de réinitialisation",
 		"ResetPasswordSubmitButton": "Réinitialiser le mot de passe",
 		"ResetPasswordTitle": "Réinitialiser le mot de passe"
+	},
+	"Services":
+	{
+		"Message":"Veuillez sélectionner un ou plusieurs services",
+		"Next":"Suivant >"
+	},
+	"Ticket":{
+		"Message1":"Aidez-nous à réduire notre empreinte carbone en optant pour le ticket SMS",
+		"Message2":"Le Saviez-Vous?",
+		"Message3":"Pour chaque 20,000 tickets papier, un arbre est coupé",
+		"PrintTicket" :"Imprimer Ticket",
+		"Return":"< Retour",
+		"Receive":"Recevez votre ticket par SMS",
+		"SendSms":"Envoyer Sms"
+	},
+	"Popup":{
+		"AProblemOccured":"Un problème est survenu",
+		"TicketFailure":"Nous sommes désolés, nous ne pouvons pas générer votre ticket",
+		"Close":"Fermer",
+		"Congratulations":"Félicitations!!",
+		"TicketSuccess":"Votre ticket est prêt",
+		"SuccessMessage":"Veuillez patienter, nous imprimons votre billet",
+		"LoadingMessage":"Veuillez patienter, nous générons votre ticket.",
+		"SmSSuccess":"Nous avons envoyé votre ticket par SMS",
+		"PhoneChecking":"Nous recherchons votre numéro de téléphone dans notre base de données"
 	},
 	"Billing": {
 		"AddBillingMethod": {

@@ -20,14 +20,7 @@ export const router = new Router({
             // Theme routes / pages
             // ======================
             children: [
-            {
-                path: '/',
-                redirect: '/login',
-                meta:{
-                    authRequired: false,
-                    authorize: ['*']
-                }
-            },
+            
             {
                 path: '/auth/:key/:token',
                 meta:{
@@ -47,26 +40,101 @@ export const router = new Router({
                 component: () => import('../views/kiosk/Login.vue')
             },
             {
-                path: '/logout',
-                name: 'KioskLogout',
+                path: '/test',
+                name: 'TestComponents',
                 meta:{
                     authRequired: false,
                     authorize: ['*']
                 },
-                index: 1001,
-                component: () => import('../views/kiosk/Logout.vue')
-            }
-            ,{
-                path: '/checkin',
-                name: 'Checkin',
-                meta:{
-                    authRequired: false,
-                    authorize: ['*']
+                index: 1000,
+                component: () => import('../views/test_components/Index.vue')
+            },
+            {
+                path: '/Home',
+                name: 'Home',
+                index: 3,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Home',
+                        active: true
+                    },
+                    ],
                 },
-                index: 10002,
-                component: () => import('../views/kiosk/Checkin.vue')
-            }]
+                // component: () => import('../views/kiosk/Home')
+                component: () => import('../views/kiosk/ServicesPage')
+            },
+            {
+                path: '/services',
+                name: 'ServicesPage',
+                index: 4,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'ServicesPage',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/ServicesPage')
+            },
+            {
+                path: '/ticket',
+                name: 'Ticket',
+                index: 5,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Ticket',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Ticket')
+            },
+            {
+                path: '/confirmation',
+                name: 'Confirmation',
+                index: 6,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Confirmation',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Confirmation')
+            },
+            {
+                path: '/erreur',
+                name: 'Error',
+                index: 7,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'Error',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/Error')
+            },
+          ]
         },
+       
+
+
         // Redirect to 404 page, if no match found
         {
             path: '*',
@@ -74,6 +142,7 @@ export const router = new Router({
         }
     ]
 })
+
 
 import NProgress from 'nprogress';
 
@@ -101,4 +170,5 @@ router.afterEach(() => {
     // Complete the animation of the route progress bar.
     NProgress.done()
 })
+
 export default router

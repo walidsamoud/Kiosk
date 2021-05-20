@@ -149,7 +149,11 @@ function login(key, secret) {
         // login successful if there's a jwt token in the response
         if (kiosk.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('kiosk', JSON.stringify(kiosk));
+            if(localStorage.getItem("kiosk") != JSON.stringify(kiosk)){
+                localStorage.setItem('kiosk', JSON.stringify(kiosk));
+                console.log('reloading');
+                location.reload();
+            }
         }
         return kiosk;
     });
@@ -167,8 +171,12 @@ function autoLogin(key, token) {
         .then(kiosk => {
             // login successful if there's a jwt token in the response
             if (kiosk.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('kiosk', JSON.stringify(kiosk));
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                if(localStorage.getItem("kiosk") != JSON.stringify(kiosk)){
+                    localStorage.setItem('kiosk', JSON.stringify(kiosk));
+                    console.log('reloading');
+                    location.reload();
+                }
             }
             return kiosk;
         });

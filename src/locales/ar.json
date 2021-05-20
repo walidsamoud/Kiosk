@@ -24,6 +24,31 @@
 		"ResetPasswordSubmitButton": "إعادة تعيين كلمة السر",
 		"ResetPasswordTitle": "إعادة تعيين كلمة السر"
 	},
+	"Services":
+	{
+		"Message":"الرجاء تحديد خدمة واحدة أو أكثر",
+		"Next":" التالي >"
+	},
+	"Ticket":{
+		"Message1":"ساعدنا في تقليل بصمتنا الكربونية عن طريق اختيار تذكرة SMS",
+		"Message2":"هل كنت تعلم؟",
+		"Message3":"يتم قطع شجرة مقابل كل 20000 تذكرة ورقية",
+		"PrintTicket" :"طباعة التذكرة",
+		"Return":"< العودة",
+		"Receive":"تلقي تذكرتك عن طريق الرسائل القصيرة SMS",
+		"SendSms":"أرسل رسالة Sms"
+	},
+	"Popup":{
+		"AProblemOccured":"حدثت مشكلة",
+		"TicketFailure":"نحن آسفون ، لا يمكننا إنشاء تذكرتك",
+		"Close":"اغلاق",
+		"Congratulations":"تهانينا!!",
+		"TicketSuccess":"تذكرتك جاهزة",
+		"SuccessMessage":"يرجى الانتظار ، نحن نطبع تذكرتك",
+		"LoadingMessage":"من فضلك انتظر ، نحن نصدر تذكرتك.",
+		"SmSSuccess":"لقد أرسلنا تذكرتك عبر SMS",
+		"PhoneChecking":"نحن نبحث عن رقم هاتفك في قاعدة بياناتنا"
+	},
 	"Billing": {
 		"AddBillingMethod": {
 			"AddCardButton": "إضافة بطاقة الائتمان",
