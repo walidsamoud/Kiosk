@@ -32,7 +32,24 @@ Bugsnag.start({
 Vue.config.productionTip = false
 
 require ('./assets/css/style.scss');
+let fullConfig= JSON.parse(localStorage.getItem('kiosk')) ;
+console.log(fullConfig);
 
+if(fullConfig!=null){
+  var config= JSON.parse( fullConfig.kiosk.config );
+}
+
+Vue.mixin({
+  data:  function() {
+    return {
+      mixin: null,
+      get Config() {
+        this.mixin= fullConfig;
+        return this.mixin;
+      }
+    }
+  }
+});
 new Vue({
   store,
   router,
@@ -61,9 +78,7 @@ Vue.prototype.$pusher = new Pusher(process.env.VUE_APP_PUSHER_ID, {
 
 Bugsnag.getPlugin('vue').installVueErrorHandler(Vue)
 
-let config= JSON.parse(localStorage.getItem('kiosk')) ;
-console.log(config);
-config= JSON.parse( config.kiosk.config );
+
 
 let bodyStyles = document.body.style;
 bodyStyles.setProperty('--primary', config.primaryDark);
