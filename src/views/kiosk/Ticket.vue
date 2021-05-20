@@ -2,16 +2,16 @@
     <div id="Ticket">
         <div class="services" id="services-box">
             <div class="row ticketDiv">
-              <div class="col leftSide">
-                <div class="container">
+              <div class="col leftSide"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
+                <div class="container" >
                   <p>{{$t('Ticket.Message1')}}</p>
-                  <div class="small">
+                  <div class="small" :style="'text-align:'+left_text_align">
                     <small>{{$t('Ticket.Message2')}}</small><br>
                     <small>{{$t('Ticket.Message3')}}</small>
                   </div>
 
                   <div class="imageDiv">
-                    <img class="image" src="../../assets/images/green-city.gif" alt="">
+                    <img class="image" src="../../assets/images/green-city.gif" alt="" :style="'width:'+left_img_width">
                   </div>
 
                   <div class="row print_ticket">
@@ -23,7 +23,7 @@
 
                 </div>
               </div>
-              <div class="col rightSide">
+              <div class="col rightSide" v-if="sms_allowed">
                 <div class="container">
                   <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
@@ -155,7 +155,11 @@ export default {
     internal_id: null,
     countryPrefix: "+216",
     phone_number: "",
-    countryIso: "TN"
+    countryIso: "TN",
+    sms_allowed: true,
+    print_allowed: true,
+    left_img_width: '100%',
+    left_text_align: 'left'
   }),
   components:{
     LoadingPopup,
@@ -324,6 +328,14 @@ export default {
 
   },
   mounted(){
+      if(!this.Config.kiosk.allow_print_ticket){
+          this.print_allowed= false;
+      }
+      if(!this.Config.kiosk.allow_sms_ticket){
+          this.left_img_width= '50%';
+          this.left_text_align= 'center';
+          this.sms_allowed= false;
+      }
       this.selectedServices = localStorage.getItem("selectedServices") ? JSON.parse(localStorage.getItem("selectedServices")) : [];
       this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);
   }
