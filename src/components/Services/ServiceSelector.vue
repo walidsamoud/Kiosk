@@ -7,7 +7,7 @@
             v-on:click="checkService(value.id)" 
             :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"
         > 
-                {{ name }} {{ name }} {{ name }} 
+                {{ name }} 
         </label>
     </div>
 </template>
