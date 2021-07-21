@@ -20,7 +20,7 @@ export const router = new Router({
             // Theme routes / pages
             // ======================
             children: [
-            
+            { path: '/', redirect: '/home' },
             {
                 path: '/auth/:key/:token',
                 meta:{
