@@ -18,7 +18,8 @@
     export default {
         name: 'ServiceSelector',
         data:()=>({
-            config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config )
+            config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config ),
+            secondary:'#6c757d'
         }),
         props: {
             name: String,
@@ -34,10 +35,13 @@
                     $('#label'+id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
                     this.$emit("checked");
                 }else{
-                    $('#label'+id).css("border-left", "15px solid "+this.config.secondary);
+                    $('#label'+id).css("border-left", "15px solid "+this.secondary);
                     this.$emit("unchecked");
                 }
             }
+        },
+        mounted(){
+            this.secondary= (this.config.secondary)?this.config.secondary:'#6c757d'
         }
     }
 </script>
