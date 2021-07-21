@@ -3,7 +3,7 @@
     <div class="split left">
       <div class="centered">
         <img
-         src="@/assets/reservini-bkg.png" alt="image" />
+         src="@/assets/images/liberrex_favicon2.webp" alt="image" />
       </div>
     </div>
     <div class="split right d-flex flex-column">
@@ -82,7 +82,7 @@ button:hover {
 
 .right {
   right: 0;
-  background-image: linear-gradient(to right, #193060, #223A6D);
+  background-image: linear-gradient(to right, #008fc9, #0478a5);
   padding: 50px;
 }
 
