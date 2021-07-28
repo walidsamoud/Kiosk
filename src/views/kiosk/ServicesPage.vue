@@ -33,7 +33,10 @@
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
             </div>
             <div class="col" v-on:click="submitSelectedServices()">
-                <LbrxButton :name="$t('Services.Next')" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
+                <LbrxButton 
+                    :name="(!this.Config.kiosk.allow_sms_ticket && this.Config.kiosk.allow_print_ticket)?$t('Ticket.PrintTicket'):$t('Services.Next')" 
+                    size="medium" theme="light" hover="true" href="javascript:;">
+                </LbrxButton>
             </div>
         </div>
         <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
