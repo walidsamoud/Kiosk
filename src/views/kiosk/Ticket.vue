@@ -200,6 +200,8 @@ export default {
               case "3":
                   payload.pseudo = this.$t('Kiosk.Pseudos.User');
                   break;
+              default:
+                  payload.pseudo = this.$t('Kiosk.Pseudos.Customer');
           }
 
           kioskService.joinQueue(payload).then(function (data) {
@@ -338,6 +340,10 @@ export default {
       }
       this.selectedServices = localStorage.getItem("selectedServices") ? JSON.parse(localStorage.getItem("selectedServices")) : [];
       this.kioskConfig = JSON.parse(this.kiosk_info.kiosk.config);
+
+      if(!this.Config.kiosk.allow_sms_ticket && this.Config.kiosk.allow_print_ticket){
+          this.optedForTicket();
+      }
   }
 }
 </script>
