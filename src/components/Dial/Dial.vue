@@ -50,8 +50,11 @@
                 </div>
             </div>
              <div class="row envoyer_sms">
-                <div class="col">
-                    <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" hover="true" @click="$emit('submit')"></DialButton>
+                <div class="col-12">
+                    <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')"></DialButton>
+                </div>
+                <div class="col-12 mt-2">
+                    <DialButton :name="$t('Ticket.PrintTicket')" theme="default" size="medium" font="large" hover="true" @click="$emit('print')"></DialButton>
                 </div>
             </div>
             

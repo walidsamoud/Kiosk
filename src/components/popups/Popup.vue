@@ -64,6 +64,7 @@
 
     .loading-popup{
         width: 60%;
+        min-width: 320px;
         max-width: 500px;
         height: 275px;
         background: #ffffff;
