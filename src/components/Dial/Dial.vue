@@ -54,7 +54,7 @@
                     <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')"></DialButton>
                 </div>
                 <div class="col-12 mt-2">
-                    <DialButton :name="$t('Ticket.PrintTicket')" theme="default" size="medium" font="large" hover="true" @click="$emit('print')"></DialButton>
+                    <DialButton class="right-print-button" :name="$t('Ticket.PrintTicket')" theme="default" size="medium" font="large" hover="true" @click="$emit('print')"></DialButton>
                 </div>
             </div>
             
@@ -98,5 +98,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    
+     .right-print-button{
+        display: none;
+    }
+    @media screen and (max-width:575px){
+        .right-print-button{
+            display: block;
+        }
+    }
 </style>
