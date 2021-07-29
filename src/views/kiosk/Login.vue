@@ -94,6 +94,15 @@ button:hover {
   transform: translate(-50%, -50%);
   text-align: left;
 }
+
+@media screen and (max-width: 600px){
+  .left{
+    display: none;
+  }
+  .split{
+    width: 100%;
+  }
+}
 </style>
 <script>
 import LbrxButton from '../../components/buttons/Button.vue';

@@ -2,12 +2,12 @@
     <div id="Ticket">
         <div class="services" id="services-box">
             <div class="row ticketDiv">
-              <div class="col leftSide"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
+              <div class="col-sm-6 leftSide"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
                 <div class="container" >
                   <p>{{$t('Ticket.Message1')}}</p>
                   <div class="small" :style="'text-align:'+left_text_align">
                     <small>{{$t('Ticket.Message2')}}</small><br>
-                    <small>{{$t('Ticket.Message3')}}</small>
+                    <small class="msg3">{{$t('Ticket.Message3')}}</small>
                   </div>
 
                   <div class="imageDiv">
@@ -16,32 +16,32 @@
 
                   <div class="row print_ticket">
                     <div class="col">
-
                       <LbrxButton :name="$t('Ticket.PrintTicket')" @click="optedForTicket" size="medium" theme="light" hover="true" href="javascript:;"></LbrxButton>
                     </div>
                   </div>
 
                 </div>
               </div>
-              <div class="col rightSide" v-if="sms_allowed">
+              <div class="col-sm-6 rightSide" v-if="sms_allowed">
                 <div class="container">
                   <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
 
                 <div class="dialDiv">
-                  <LbrxDial v-model="phone_number" @submit="optedForSms" :max_digits="8"></LbrxDial>
+                  <LbrxDial v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8"></LbrxDial>
                 </div>
               </div>
+
             </div>
 
             <div class="row bottom-btns">
                 <div class="col">
                     <LbrxButton :name="$t('Ticket.Return')" size="medium" theme="light" hover="true" @click="$router.back()" href="javascript:;"></LbrxButton>
                 </div>
-                <div class="col">
+                <div class="col empty-col">
                     <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
                 </div>
-                <div class="col" v-on:click="submitSelectedServices()">
+                <div class="col empty-col">
                     <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
                 </div>
             </div>
@@ -158,7 +158,7 @@ export default {
     countryIso: "TN",
     sms_allowed: true,
     print_allowed: true,
-    left_img_width: '100%',
+    left_img_width: '90%',
     left_text_align: 'left'
   }),
   components:{
@@ -347,3 +347,13 @@ export default {
   }
 }
 </script>
+<style scoped> 
+    @media screen and (max-width:575px){
+        .leftSide{
+            display: none;
+        }
+        .empty-col{
+            display: none;
+        }
+    }
+</style>
