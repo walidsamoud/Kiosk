@@ -1,7 +1,7 @@
 <template>
     <div class="languages row" id="LanguageSelector">
         <span class="language active selected" id="frSpan" >
-            <img class="country_flag" :src="selectedLanguage.flag" alt="">  {{selectedLanguage.label}}
+            <img class="country_flag" :src="selectedLanguage.flag" alt=""> <span class="language-name"> {{selectedLanguage.label}} </span>
             <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" /> 
             <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" /> 
         </span>
@@ -9,7 +9,7 @@
         <span v-for="(item, index) in selectableLanguages" :key="index">
             <span class="separator">|</span>
             <span  class="language" id="enSpan" @click="selectLanguageCallback(item.code)">
-                <img class="country_flag" :src="item.flag" alt=""> {{item.label}}
+                <img class="country_flag" :src="item.flag" alt=""> <span class="language-name"> {{item.label}} </span>
                 <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" />
                 <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" />
             </span>
