@@ -80,7 +80,7 @@ html,body { height: 100%; width: 100%; margin: 0px; padding: 0px;}
    }
    .services_container{
      margin-top: 2vh;
-     height: 50vh;
+     max-height: 50vh;
      overflow-y: scroll !important;
      overflow-x: hidden !important;
    }
