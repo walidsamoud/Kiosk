@@ -85,13 +85,13 @@
             </table>
             <hr>
             <span style="font-size: 24px; font-weight: bold">{{$t('Kiosk.Ticket.Services')}}</span><br>
-            <span v-for="(item,index) in ticket.services" :key="index" style="font-size: 18px;font-family: 'Times New Roman', Times, serif;">
+            <span v-for="(item,index) in ticket.services" :key="index" style="font-size: 18px">
                     {{item.title}} <br>
                 </span>
             <footer id="footer">
                 <qrcode-vue renderAs="svg" :value="qrCode" style="margin-bottom: 10px"></qrcode-vue>
                 <span style="font-size: 12px;">{{$t('Kiosk.Ticket.ScanQR')}}</span><br>
-                <span style="font-size: 14px;font-family: 'Times New Roman', Times, serif;">{{$t('Kiosk.Ticket.ThankYou')}}</span>
+                <span style="font-size: 14px">{{$t('Kiosk.Ticket.ThankYou')}}</span>
             </footer>
         </div>
     </div>
