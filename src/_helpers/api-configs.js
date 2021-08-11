@@ -1,6 +1,5 @@
 export const ApiConfigs = {
-    base_kiosk_url: 'http://localhost:8000/v1/kiosk',
-    // base_kiosk_url: process.env.VUE_APP_API_URL+'/kiosk',
+    base_kiosk_url: process.env.VUE_APP_API_URL+'/kiosk',
     base_url: process.env.VUE_APP_API_URL+'/business',
     base_user_url: process.env.VUE_APP_API_URL+'/user',
     /* -------------------------------- */
