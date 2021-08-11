@@ -27,7 +27,7 @@
 
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
+                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
             </div>
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
@@ -53,6 +53,7 @@ import LbrxService from '../../components/Services/ServiceSelector.vue';
 import {kioskService} from "../../_services";
 import LoadingPopup from "../../components/popups/Loading";
 import Popup from '../../components/popups/Popup.vue';
+import LongPress from 'vue-directive-long-press';
 
 export default {
   name: 'ServicesPage',
@@ -86,7 +87,14 @@ export default {
     LbrxService,
     Popup,
   },
+  directives: {
+    'long-press': LongPress
+  },
   methods:{
+      onLongPressStart () {
+          localStorage.removeItem('kiosk')
+          this.$router.push('/login')
+      },
       loadQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           this.services = [];
