@@ -99,6 +99,22 @@ export const router = new Router({
                 component: () => import('../views/kiosk/Ticket')
             },
             {
+                path: '/print',
+                name: 'print',
+                index: 5,
+                meta: {
+                    authRequired: true,
+                    authorize: ['*'],
+                    breadcrumb: [
+                    {
+                        title: 'print',
+                        active: true
+                    },
+                    ],
+                },
+                component: () => import('../views/kiosk/a')
+            },
+            {
                 path: '/confirmation',
                 name: 'Confirmation',
                 index: 6,
