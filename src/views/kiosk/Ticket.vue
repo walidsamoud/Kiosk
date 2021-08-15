@@ -208,13 +208,7 @@ export default {
               this.ticket = data.ticket;
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
-              setTimeout(function (){ 
-                  window.open('/print','','width=,height=,resizable=no');  
-                window.focus();
-                window.blur();
-                window.resizeTo(0,0); 
-                window.moveTo(0,0);
-              }, 500);
+              setTimeout(function (){ window.print(); }, 500);
               this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup);
               setTimeout(function (){
                   this.$router.push({path: "/home"})
