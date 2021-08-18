@@ -9,7 +9,6 @@
                     <small>{{$t('Ticket.Message2')}}</small><br>
                     <small class="msg3">{{$t('Ticket.Message3')}}</small>
                   </div>
-
                   <div class="imageDiv">
                     <img class="image" src="../../assets/images/green-city.gif" alt="" :style="'width:'+left_img_width">
                   </div>
@@ -54,7 +53,7 @@
 
         </div>
 
-        <div id="ticketPrint" style="text-align: center">
+        <div v-if="Config.kiosk.ticket_style=='Long'" id="ticketPrint" style="text-align: center">
             <img :src="kioskConfig.photo != '' ? kioskConfig.photo : require('@/assets/images/liberrex-grayscale.png')" style="width: 50%; margin-bottom: 1cm"/>
             <br>
             <span style="font-size: 18px">{{$t('Kiosk.Ticket.Welcome')}}</span><br>
@@ -92,6 +91,61 @@
                 <qrcode-vue renderAs="svg" :value="qrCode" style="margin-bottom: 10px"></qrcode-vue>
                 <span style="font-size: 12px;">{{$t('Kiosk.Ticket.ScanQR')}}</span><br>
                 <span style="font-size: 14px">{{$t('Kiosk.Ticket.ThankYou')}}</span>
+            </footer>
+        </div>
+     
+        <div v-else id="ticketPrint" class="horizontal-ticket" style="text-align: center">
+            <div class="row w-100 p-0 m-0">
+                <div class="col-6 w-100 welcome  p-0 m-0">
+                    <img :src="kioskConfig.photo != '' ? kioskConfig.photo : require('@/assets/images/liberrex-grayscale.png')" style="height: 100px; margin-bottom: 0.5cm;float: left !important;"/>
+                </div>
+                <div class="col-6 w-100 welcome  p-0 m-0">
+                    <qrcode-vue renderAs="svg" :value="qrCode" style="float: right !important;"></qrcode-vue>
+                </div>
+            </div>
+
+            <hr>
+            
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center;  width: 100%">
+                        <span style="font-size: 15px">{{$t('Kiosk.Ticket.Welcome')}}</span><br>
+                        <span style="font-size: 18px; font-weight: bold">{{kiosk_info.business.name}}</span><br>
+                        <span style="font-size: 54px; font-weight: bold">{{ticket.public_identifier}}</span><br>
+                        {{checkinDateFormatted}} {{checkinTimeFormatted}}
+                    </td>
+                </tr>
+            </table>
+            <div class="seperator"></div>
+            <hr>
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: center; width: 50%">
+                        <span style="font-size: 32px; font-weight: bold">{{ticket.total_waiting}}</span><br>
+                        <span style="font-size: 15px">{{$t('Kiosk.Ticket.Rank')}}</span>
+                    </td>
+                    <td style="text-align: center;  width: 50%">
+                        <span style="font-size: 32px; font-weight: bold">{{ticketWaitingTimeFormatted}}</span><br>
+                        <span style="font-size: 15px">{{$t('Kiosk.Ticket.WaitingTime')}}</span>
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <table style="width: 100%">
+                <tr>
+                    <td style="text-align: left; width: 40%">
+                        <span style="font-size: 24px; font-weight: bold">{{$t('Kiosk.Ticket.Services')}}</span><br>
+                    </td>
+                    <td style="text-align: right;  width: 60%">
+                        <span v-for="(item,index) in ticket.services" :key="index" style="font-size: 18px">
+                            {{item.title}} <br>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            
+            <footer id="footer" style="margin-top: 10px;">
+                <span style="font-size: 14px;font-weight: bold;">{{$t('Kiosk.Ticket.ThankYou')}}</span>
             </footer>
         </div>
     </div>

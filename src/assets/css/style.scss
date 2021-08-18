@@ -265,6 +265,18 @@ html,body { height: 100%; width: 100%; margin: 0px; padding: 0px;}
     }
 }
 #Ticket{
+    .horizontal-ticket{
+        .ticket-logo{
+            display: inline-block;
+            max-width: 100%;
+            text-align: left;
+        }
+        .welcome{
+            display: inline-block;
+            max-width: 100%;
+            text-align: right;
+        }
+    }
    .bottom-btns{
        position: fixed;
        bottom: 0px;
