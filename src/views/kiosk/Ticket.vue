@@ -113,6 +113,7 @@
                         <span style="font-size: 18px; font-weight: bold">{{kiosk_info.business.name}}</span><br>
                         <span style="font-size: 54px; font-weight: bold">{{ticket.public_identifier}}</span><br>
                         {{checkinDateFormatted}} {{checkinTimeFormatted}}
+
                     </td>
                 </tr>
             </table>
