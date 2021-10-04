@@ -238,7 +238,7 @@ export default {
           let payload = {
               queue_id: this.selectedServices[0].queue_id,
               services: this.selectedServices.map(function (obj) {
-                  return obj.id;
+                  return obj.id+'-qte:'+obj.qte;
               }).join(","),
               customer_id: -1,
               member_id: -1,
@@ -285,7 +285,7 @@ export default {
               let payload = {
                   queue_id: this.selectedServices[0].queue_id,
                   services: this.selectedServices.map(function (obj) {
-                      return obj.id;
+                    return obj.id+'-qte:'+obj.qte;
                   }).join(","),
                   customer_id: this.customer.id,
                   member_id: -1,

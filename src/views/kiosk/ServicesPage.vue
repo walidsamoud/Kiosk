@@ -14,7 +14,9 @@
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div class="col-md-6 service" v-for="(item, key) in services" :key="key">
-                    <LbrxService :name="item.title" size="medium" theme="medium" hover="false"
+                    <LbrxService 
+                                 v-long-press="1000" @long-press-start="openQtePopup(item)"
+                                 :name="item.title" size="medium" theme="medium" hover="false"
                                  :value="item" @checked="addSelection(item)" @unchecked="removeSelection(item)">
                     </LbrxService>
                 </div>
@@ -40,8 +42,13 @@
             </div>
         </div>
         <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
-                   :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
-            </Popup>
+           :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
+        </Popup>
+
+        <PopupQte :item="popup_qte.item" :message="popup_qte.message" :hint="popup_qte.hint" :title="popup_qte.title" :type="popup_qte.type"
+           :confirmationButton="popup_qte.confirmation" :active.sync="popup_qte.active" @confirm="addSelection">
+        </PopupQte>
+
     </div>
 </template>
 
@@ -53,11 +60,14 @@ import LbrxService from '../../components/Services/ServiceSelector.vue';
 import {kioskService} from "../../_services";
 import LoadingPopup from "../../components/popups/Loading";
 import Popup from '../../components/popups/Popup.vue';
+import PopupQte from '../../components/popups/PopupServiceQte.vue';
 import LongPress from 'vue-directive-long-press';
+import $ from 'jquery'
 
 export default {
   name: 'ServicesPage',
   data:()=>({
+      secondary:'#6c757d',
     msg:"ServicesPage",
     key:'',
     secret:'',
@@ -79,6 +89,16 @@ export default {
       confirmation: "",
       callback: null,
     },
+    popup_qte: {
+      item: {},
+      active: false,
+      title: "",
+      message: "",
+      hint: "",
+      type: "",
+      confirmation: "",
+      callback: 'qteSelected',
+    },
   }),
   components: {
     LoadingPopup,
@@ -86,11 +106,19 @@ export default {
     LbrxLanguageSelector,
     LbrxService,
     Popup,
+    PopupQte
   },
   directives: {
     'long-press': LongPress
   },
   methods:{
+      qteSelected(item, qte=1){
+          alert(item)
+          alert(qte)
+      },
+      openQtePopup(item) {
+          this.showPopupQte(item, "success", "Confirmation", "", "Combien de fois voulez-vous faire ce service", "Selectionner", this.hidePopupQte);
+      },
       onLongPressStart () {
           localStorage.removeItem('kiosk')
           this.$router.push('/login')
@@ -120,8 +148,17 @@ export default {
       hideLoading(){
           this.loading = { active: false,  message: "" };
       },
-      addSelection(item){
+      addSelection(item, qte=1, fromPopup=false){
+          item.qte= qte
+          console.log(item)
           this.selectedServices.push(item);
+
+          if(fromPopup){
+              var checkBox = $(":checkbox[value="+item.id+"]");
+              checkBox.prop('checked', true)
+              $('#label'+item.id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
+              this.$emit("checked");
+          }
       },
       removeSelection(item){
           let filteredServices = this.selectedServices.filter(function (obj) {
@@ -145,6 +182,15 @@ export default {
       },
       hidePopup(){
           this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
+      },
+
+      showPopupQte(item, type, title, message, hint, confirmation, callback){
+          this.popup_qte = {
+              item: item, active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback
+          };
+      },
+      hidePopupQte(){
+          this.popup_qte = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
       },
   },  
   computed: {
