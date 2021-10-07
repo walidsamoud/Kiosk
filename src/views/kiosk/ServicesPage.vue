@@ -15,7 +15,7 @@
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div class="col-md-6 service" v-for="(item, key) in services" :key="key">
                     <LbrxService 
-                                 v-long-press="1000" @long-press-start="openQtePopup(item)"
+                                 v-long-press="3000" @long-press-start="openQtePopup(item)"
                                  :name="item.title" size="medium" theme="medium" hover="false"
                                  :value="item" @checked="addSelection(item)" @unchecked="removeSelection(item)">
                     </LbrxService>

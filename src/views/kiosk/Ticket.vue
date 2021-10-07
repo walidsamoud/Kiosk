@@ -2,8 +2,8 @@
     <div id="Ticket">
         <div class="services" id="services-box">
             <div class="row ticketDiv">
-              <div class="col-sm-6 leftSide"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
-                <div class="container" >
+              <div :class="(sms_allowed)?'col-sm-6 leftSide':'col-sm-12 leftSide'"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
+                <div class="container" style="max-width: 400px;">
                   <p>{{$t('Ticket.Message1')}}</p>
                   <div class="small" :style="'text-align:'+left_text_align">
                     <small>{{$t('Ticket.Message2')}}</small><br>
@@ -21,12 +21,12 @@
 
                 </div>
               </div>
-              <div class="col-sm-6 rightSide" v-if="sms_allowed">
+              <div :class="(print_allowed)?'col-sm-6 leftSide':'col-sm-12 rightSide'"  v-if="sms_allowed">
                 <div class="container">
                   <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
 
-                <div class="dialDiv">
+                <div class="dialDiv" style="max-width: 400px;">
                   <LbrxDial v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8"></LbrxDial>
                 </div>
               </div>
