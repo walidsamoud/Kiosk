@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="dialDiv" style="max-width: 500px;width: 100%;text-align: center;">
-                  <LbrxDial v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8"></LbrxDial>
+                  <LbrxDial v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8" style="text-align: center;"></LbrxDial>
                 </div>
               </div>
 
