@@ -15,10 +15,10 @@
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div class="col-md-6 service" v-for="(item, key) in services" :key="key">
                     <LbrxService 
-                                 v-long-press="3000" @long-press-start="openQtePopup(item)"
                                  :name="item.title" size="medium" theme="medium" hover="false"
-                                 :value="item" @checked="addSelection(item)" @unchecked="removeSelection(item)">
+                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)">
                     </LbrxService>
+                    <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
                 </div>
 
             </div>
@@ -62,7 +62,7 @@ import LoadingPopup from "../../components/popups/Loading";
 import Popup from '../../components/popups/Popup.vue';
 import PopupQte from '../../components/popups/PopupServiceQte.vue';
 import LongPress from 'vue-directive-long-press';
-import $ from 'jquery'
+// import $ from 'jquery'
 
 export default {
   name: 'ServicesPage',
@@ -148,17 +148,17 @@ export default {
       hideLoading(){
           this.loading = { active: false,  message: "" };
       },
-      addSelection(item, qte=1, fromPopup=false){
+      addSelection(item, qte=1){
           item.qte= qte
           console.log(item)
           this.selectedServices.push(item);
 
-          if(fromPopup){
-              var checkBox = $(":checkbox[value="+item.id+"]");
-              checkBox.prop('checked', true)
-              $('#label'+item.id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
-              this.$emit("checked");
-          }
+        //   if(fromPopup){
+        //       var checkBox = $(":checkbox[value="+item.id+"]");
+        //       checkBox.prop('checked', true)
+        //       $('#label'+item.id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
+        //       this.$emit("checked");
+        //   }
       },
       removeSelection(item){
           let filteredServices = this.selectedServices.filter(function (obj) {
@@ -171,7 +171,7 @@ export default {
               localStorage.setItem("selectedServices", JSON.stringify(this.selectedServices));
               this.$router.push({name: "Ticket"}).catch();
           }else{
-              this.showPopup("danger", "Ouups!", "A problem occured", "Please select at least one service to proceed", "Close", this.hidePopup);
+              this.showPopup("danger", "Ouups!", "Un problème est survenu", "Veuillez sélectionner au moins un service pour continuer", "Fermer", this.hidePopup);
           }
           
       },

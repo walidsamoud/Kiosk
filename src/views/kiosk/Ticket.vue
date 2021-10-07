@@ -243,6 +243,7 @@ export default {
               customer_id: -1,
               member_id: -1,
               anonymous: this.kiosk_info.kiosk.collected_details,
+              kiosk_language: localStorage.getItem('Language')
           }
 
           switch(this.kiosk_info.kiosk.pseudo){
@@ -290,6 +291,7 @@ export default {
                   customer_id: this.customer.id,
                   member_id: -1,
                   anonymous: this.kiosk_info.kiosk.collected_details,
+                  kiosk_language: localStorage.getItem('Language')
               }
 
               kioskService.joinQueue(payload).then(function (data) {

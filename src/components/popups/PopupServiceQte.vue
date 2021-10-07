@@ -1,11 +1,14 @@
 <template>
     <div class="loading-wrapper" v-if="isActive">
         <div :class="'loading-popup popup-' + type">
+            <div class="close" style="padding: 20px;" @click="close()">
+                <font-awesome-icon class="caret_left" :icon="['fas', 'times']" />
+            </div>
             <div class="h-100 m-5 align-items-center text-center m-0">
                 <div class="row">
                     <div class="col align-items-center">
                         <div class="text-left d-inline-block">
-                            <h2 class="popup-title" style="font-size: 17px;">{{title}}</h2>
+                            <h2 class="popup-title" style="font-size: 23px !important;">{{title}}</h2>
                             <span class="message">{{message}}</span>
                         </div>
                     </div>
@@ -14,8 +17,13 @@
                 <div class="text-center mt-4" v-if="hint">
                     <span class="hint">{{hint}}</span>
                 </div>
-
-                <div class="text-center mt-4 mb-4">
+                
+                <div class="numbers">
+                    <div :class="qte==index?'number active':'number'" v-for="index in 9" :key="index" @click="qte=index">
+                        <span>{{index}}</span>
+                    </div>
+                </div>
+                <!-- <div class="text-center mt-4 mb-4">
                     <input 
                         type="number"
                         step="1"
@@ -25,7 +33,7 @@
                         style="border: 1px solid #bbb;border-radius: 5px;padding: 5px;width: 50%;text-align: center;"
                         v-model="qte"
                     />
-                </div>
+                </div> -->
                 
                 <label style="bottom: -7px;" :for="'checkbox'+item.id" class="btn-confirm" @click="clicked()">{{confirmationButton}}</label>
             </div>
@@ -49,9 +57,12 @@
             item: Object
         },
         methods: {
+            close(){
+                this.$emit('close');
+            },
             clicked(){
                 this.$emit('update:active', false);
-                this.$emit('confirm', this.item, this.qte, true);
+                this.$emit('confirm', this.item.id, this.qte, true);
             }
         },
         computed: {
@@ -189,6 +200,30 @@
 
     .popup-danger .btn-confirm:focus, .btn-confirm.focus {
         box-shadow: none;
+    }
+
+    .numbers{
+        display: flex;
+        text-align: center;
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+    .number{
+        width: 40px;
+        height: 40px;
+        padding-top: 10px;
+        background: transparent;
+        border: 1px solid #72b53a;
+        margin-right: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: .3s;
+    }
+
+    .active{
+        background: #72b53a;
+        color: #fff;
     }
 
 </style>
