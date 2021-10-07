@@ -53,7 +53,7 @@
                 <div class="col-12">
                     <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')"></DialButton>
                 </div>
-                <div class="col-12 mt-2">
+                <div class="col-12 mt-2" v-if="printAllowed">
                     <DialButton class="right-print-button" :name="$t('Ticket.PrintTicket')" theme="default" size="medium" font="large" hover="true" @click="$emit('print')"></DialButton>
                 </div>
             </div>
@@ -69,7 +69,8 @@ export default defineComponent({
     name: "Dial",
     props: {
         max_digits: Number,
-        value: String
+        value: String,
+        printAllowed: Boolean
     },
     components: {
         DialButton,

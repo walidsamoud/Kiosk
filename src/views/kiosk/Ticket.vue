@@ -26,8 +26,8 @@
                   <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
 
-                <div class="dialDiv" style="max-width: 500px;width: 100%;text-align: center;">
-                  <LbrxDial v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8" style="text-align: center;"></LbrxDial>
+                <div class="dialDiv" style="width: 100%;text-align: center;">
+                  <LbrxDial :printAllowed="print_allowed" v-model="phone_number" @submit="optedForSms" @print="optedForTicket" :max_digits="8" style="text-align: center;"></LbrxDial>
                 </div>
               </div>
 
