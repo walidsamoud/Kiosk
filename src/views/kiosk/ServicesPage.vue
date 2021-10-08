@@ -1,5 +1,5 @@
 <template>
-    <div class="services" id="ServicesPage" style="z-index: 999999999;">
+    <div class="services" id="ServicesPage">
         <div class="row">
             <div class="col language_select">
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <div class="col">
-              <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;margin-top: -5px;':'font-size: 10px;margin-top: -10px;'">
+              <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
                   {{$t('Services.Message')}}
               </h2>
             </div>
