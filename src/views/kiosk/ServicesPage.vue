@@ -1,23 +1,25 @@
 <template>
-    <div class="services" id="ServicesPage">
+    <div class="services" id="ServicesPage" style="z-index: 999999999;">
         <div class="row">
             <div class="col language_select">
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: -20px;">
             <div class="col">
-              <h2 class="service_h" style="font-size: 20px;">{{$t('Services.Message')}}</h2>
+              <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;margin-top: -5px;':'font-size: 10px;margin-top: -10px;'">
+                  {{$t('Services.Message')}}
+              </h2>
             </div>
         </div>
-        {{selectedServices}}
-        <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
+        <form id="servicesForm" class="container services_container" method="GET" action="Ticket" style="margin-top: -10px;">
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
                     <LbrxService 
                                  :name="item.title" size="medium" theme="medium" hover="false"
-                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)" >
+                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)" 
+                    >
                     </LbrxService>
                     <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
                 </div>
@@ -100,6 +102,7 @@ export default {
       confirmation: "",
       callback: 'qteSelected',
     },
+    kiosk_language: localStorage.getItem('Language')
   }),
   components: {
     LoadingPopup,
