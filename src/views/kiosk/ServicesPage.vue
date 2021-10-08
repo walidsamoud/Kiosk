@@ -5,7 +5,7 @@
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
-        <div class="row" style="margin-top: -20px;">
+        <div class="row">
             <div class="col">
               <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;margin-top: -5px;':'font-size: 10px;margin-top: -10px;'">
                   {{$t('Services.Message')}}
@@ -17,7 +17,7 @@
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
                     <LbrxService 
-                                 :name="item.title" size="medium" theme="medium" hover="false"
+                                 :name="item.title" size="small" theme="small" hover="false"
                                  :value="item" @checked="addSelection" @unchecked="removeSelection(item)" 
                     >
                     </LbrxService>

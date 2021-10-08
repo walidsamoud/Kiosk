@@ -1,5 +1,5 @@
 <template>
-    <div class="col" id="ServiceSelector" style="display: flex;height: 50px !important;">
+    <div class="col" id="ServiceSelector" style="display: flex;min-height: 50px !important;">
         <input ref="cb" type="checkbox" :value="value.id" class="checkbox" :id="'checkbox'+value.id" name="services"/>
         <label 
             :for="'checkbox'+value.id" 
@@ -10,7 +10,7 @@
         > 
                 {{ name }} <small :class="'qte'+value.id" style="display: none;" >( x{{qte}} ) </small>
         </label>
-        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: relative;display:none;left: -13px;'">
+        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 10px;'">
             <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
         </div>
 
