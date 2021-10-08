@@ -10,6 +10,7 @@
               <h2 class="service_h" style="font-size: 20px;">{{$t('Services.Message')}}</h2>
             </div>
         </div>
+        {{selectedServices}}
         <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
@@ -149,6 +150,7 @@ export default {
           this.loading = { active: false,  message: "" };
       },
       addSelection(item, qte=1){
+          this.removeSelection(item)
           item.qte= qte
           console.log(item)
           this.selectedServices.push(item);

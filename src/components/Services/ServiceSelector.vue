@@ -10,7 +10,7 @@
         > 
                 {{ name }} <small :class="'qte'+value.id" style="display: none;" >( x{{qte}} ) </small>
         </label>
-        <div @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: relative;'">
+        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: relative;display:none;left: -13px;'">
             <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
         </div>
 
@@ -54,20 +54,24 @@
         methods:{
             checkService: function(id, qte=1, fromPopup=false){
                 this.qte= qte
-                $('.qte'+id).toggle()
+                
                 var checkBox = $(":checkbox[value="+id+"]");
-                if( !checkBox.prop('checked') ){
+                if( !checkBox.prop('checked') || fromPopup ){
                     $('#label'+id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
                     this.$emit("checked",this.value, this.qte);
-                    if(fromPopup){
-                        checkBox.prop('checked', true)
-                    }
+                    $('.qte'+id).show()
+                    $('.plus'+id).show()
+                    // if(fromPopup){
+                    //     checkBox.prop('checked', true)
+                    // }
                 }else{
                     $('#label'+id).css("border-left", "15px solid "+this.secondary);
                     this.$emit("unchecked");
-                    if(fromPopup){
-                        checkBox.prop('checked', false)
-                    }
+                    $('.qte'+id).hide()
+                    $('.plus'+id).hide()
+                    // if(fromPopup){
+                    //     checkBox.prop('checked', false)
+                    // }
                 }
 
                 
