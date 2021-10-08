@@ -8,7 +8,7 @@
             :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"
             style="font-size: 100%;"
         > 
-                {{ name }} <small :class="'qte'+value.id" style="display: none;" >( x{{qte}} ) </small>
+                {{ name }} <small :class="'qte'+value.id" style="display: none;" >(x{{qte}}) </small>
         </label>
         <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 10px;'">
             <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
