@@ -1,7 +1,7 @@
 <template>
     <div class="services" id="ServicesPage">
         <div class="row">
-            <div class="col language_select">
+            <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
