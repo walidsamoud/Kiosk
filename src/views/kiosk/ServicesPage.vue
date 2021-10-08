@@ -7,16 +7,16 @@
         </div>
         <div class="row">
             <div class="col">
-              <h2 class="service_h">{{$t('Services.Message')}}</h2>
+              <h2 class="service_h" style="font-size: 20px;">{{$t('Services.Message')}}</h2>
             </div>
         </div>
         <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
-                <div class="col-md-6 service" v-for="(item, key) in services" :key="key">
+                <div :class="services.length>=3?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
                     <LbrxService 
                                  :name="item.title" size="medium" theme="medium" hover="false"
-                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)">
+                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)" >
                     </LbrxService>
                     <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
                 </div>
@@ -207,3 +207,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.service{
+    padding-top: 10px;
+}
+</style>

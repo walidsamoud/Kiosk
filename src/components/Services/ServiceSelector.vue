@@ -1,16 +1,17 @@
 <template>
-    <div class="col" id="ServiceSelector" style="display: flex;">
+    <div class="col" id="ServiceSelector" style="display: flex;height: 50px !important;">
         <input ref="cb" type="checkbox" :value="value.id" class="checkbox" :id="'checkbox'+value.id" name="services"/>
         <label 
             :for="'checkbox'+value.id" 
             :id="'label'+value.id" 
             v-on:click="checkService(value.id)" 
             :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"
+            style="font-size: 100%;"
         > 
                 {{ name }} <small :class="'qte'+value.id" style="display: none;" >( x{{qte}} ) </small>
         </label>
-        <div @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 75px;height: 75px;text-align: center;padding: 5px 0 0 0;font-size: 40px;color: #fff;'">
-            <span>+</span>
+        <div @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+';width: 50px;height: 50px;text-align: center;font-size: 30px;color: #fff;position: relative;'">
+            <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
         </div>
 
         <PopupQte :item="popup_qte.item" :message="popup_qte.message" :hint="popup_qte.hint" :title="popup_qte.title" :type="popup_qte.type"
