@@ -13,7 +13,7 @@
         <form id="servicesForm" class="container services_container" method="GET" action="Ticket">
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
-                <div :class="services.length>=3?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
+                <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
                     <LbrxService 
                                  :name="item.title" size="medium" theme="medium" hover="false"
                                  :value="item" @checked="addSelection" @unchecked="removeSelection(item)" >
