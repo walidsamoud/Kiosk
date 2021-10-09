@@ -216,6 +216,14 @@ export default {
         this.$i18n.locale = this.kiosk_config.default_language
         this.kiosk_language= this.kiosk_config.default_language
         localStorage.setItem('Language', this.kiosk_config.default_language)
+    }else{
+        this.$i18n.locale = 'fr'
+        this.kiosk_language= 'fr'
+        localStorage.setItem('Language', 'fr')
+    }
+
+    if(!this.kiosk_config.multi_language){
+        this.kiosk_config.multi_language= true
     }
   }
 }
