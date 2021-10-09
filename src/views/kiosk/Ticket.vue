@@ -343,7 +343,7 @@ export default {
           }.bind(this))
       },
       createNewCustomer(){
-          this.showLoading("We are creating a new account for you");
+          this.showLoading("Nous créons un nouveau compte pour vous");
           let payload = {
               phone_number: this.phone_number,
               country_prefix: this.countryPrefix,

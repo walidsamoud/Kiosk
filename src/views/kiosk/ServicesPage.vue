@@ -131,7 +131,7 @@ export default {
       loadQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           this.services = [];
-          this.showLoading("Please wait, we are loading available services");
+          this.showLoading("Veuillez patienter, nous chargeons les services disponibles");
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
                   data.services.forEach(function (obj) {

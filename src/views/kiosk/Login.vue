@@ -168,7 +168,7 @@ export default {
         this.showLoading("Please wait, we are verifying your credentials!");
         //this.$vs.loading({ container: '#login-box', scale: 0.6 });
         this.login({ key, secret }).catch(function (data) {
-          this.showPopup("danger", "Ouups!", "We cannot log you in", "Please check your login credentials and try again", "Close", this.hidePopup);
+          this.showPopup("danger", "Ouups!", "Nous ne pouvons pas vous connecter", "Veuillez vérifier vos identifiants de connexion et réessayer", "Fermer", this.hidePopup);
           this.requestFailed = true;
         }.bind(this)).catch(function (ex) {
           console.log(ex);
@@ -220,10 +220,10 @@ export default {
 
     if(this.$route.params.key && this.$route.params.token){
       console.log({ key: this.$route.params.key, token: this.$route.params.token });
-      this.showLoading("Please wait, we are verifying your credentials!");
+      this.showLoading("Veuillez patienter, nous vérifions vos informations d'identification !");
       this.autoLogin({ key: this.$route.params.key, token: this.$route.params.token }).catch(function (data) {
 
-        this.showPopup("danger", "Ouups!", "We cannot log you in", "Please check your login credentials and try again", "Close", this.hidePopup);
+        this.showPopup("danger", "Ouups!", "Nous ne pouvons pas vous connecter", "Please check your login credentials and try again", "Fermer", this.hidePopup);
 
         this.requestFailed = true;
       }.bind(this)).catch(function (ex) {
