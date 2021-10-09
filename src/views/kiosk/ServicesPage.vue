@@ -1,11 +1,11 @@
 <template>
     <div class="services" id="ServicesPage">
-        <div class="row">
+        <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false'">
             <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
-        <div class="row">
+        <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;'">
             <div class="col">
               <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
                   {{$t('Services.Message')}}
@@ -102,7 +102,8 @@ export default {
       confirmation: "",
       callback: 'qteSelected',
     },
-    kiosk_language: localStorage.getItem('Language')
+    kiosk_language: localStorage.getItem('Language'),
+    kiosk_config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config )
   }),
   components: {
     LoadingPopup,
@@ -209,6 +210,13 @@ export default {
   },
   mounted(){
     this.loadQueues();
+  },
+  beforeMount(){
+    if(this.kiosk_config.default_language){
+        this.$i18n.locale = this.kiosk_config.default_language
+        this.kiosk_language= this.kiosk_config.default_language
+        localStorage.setItem('Language', this.kiosk_config.default_language)
+    }
   }
 }
 </script>

@@ -215,6 +215,9 @@ export default {
     //this.logout();
   },
   mounted() {
+    this.$i18n.locale = 'fr';
+    localStorage.setItem('Language', 'fr')
+
     if(this.$route.params.key && this.$route.params.token){
       console.log({ key: this.$route.params.key, token: this.$route.params.token });
       this.showLoading("Please wait, we are verifying your credentials!");
