@@ -5,14 +5,14 @@
               <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
             </div>
         </div>
-        <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;'">
+        <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;margin-bottom: 20px;'">
             <div class="col">
               <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
                   {{$t('Services.Message')}}
               </h2>
             </div>
         </div>
-        <form id="servicesForm" class="container services_container" method="GET" action="Ticket" style="margin-top: -10px;">
+        <form id="servicesForm" class="container services_container" method="GET" action="Ticket" :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'max-height: 65vh !important;'">
             <div class="row">
                 <div class="col-md-3" v-if="services.length==1"></div>
                 <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
