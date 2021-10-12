@@ -21,7 +21,7 @@
 
                 </div>
               </div>
-              <div :class="(print_allowed)?'col-sm-6 leftSide':'col-sm-12 rightSide'"  v-if="sms_allowed">
+              <div :class="(print_allowed)?'col-sm-6 rightSide':'col-sm-12 rightSide'"  v-if="sms_allowed">
                 <div class="container">
                   <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
                 </div>
