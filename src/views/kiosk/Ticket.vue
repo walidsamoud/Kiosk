@@ -47,7 +47,7 @@
 
             <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
 
-            <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
+            <Popup :rank="popup.rank" :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
                    :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
             </Popup>
 
@@ -200,6 +200,7 @@ export default {
     selectedQueue: null,
     popup: {
       active: false,
+      rank: 0,
       title: "",
       message: "",
       hint: "",
@@ -265,7 +266,7 @@ export default {
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
               setTimeout(function (){ window.print(); }, 500);
-              this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup);
+              this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup, this.ticket.queue_rank);
               setTimeout(function (){
                   this.$router.push({path: "/home"})
               }.bind(this), 5000);
@@ -299,7 +300,7 @@ export default {
                   this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
                   this.step = 7;
 
-                  this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'), this.$t('Popup.SmSSuccess'), this.$t('Popup.Close'), this.hidePopup);
+                  this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'), this.$t('Popup.SmSSuccess'), this.$t('Popup.Close'), this.hidePopup, this.ticket.queue_rank);
                   setTimeout(function (){
                       this.$router.push({path: "/home"})
                   }.bind(this), 5000);
@@ -315,11 +316,11 @@ export default {
       },
       showPopup(type, title, message, hint, confirmation, callback){
           this.popup = {
-              active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback
+              active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback, rank: rank
           };
       },
       hidePopup(){
-          this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
+          this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null, rank: 0 };
       },
       findCustomerByPhoneNumber(){
           this.showLoading(this.$t('Popup.PhoneChecking'));
