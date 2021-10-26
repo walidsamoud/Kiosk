@@ -314,7 +314,7 @@ export default {
 
 
       },
-      showPopup(type, title, message, hint, confirmation, callback){
+      showPopup(type, title, message, hint, confirmation, callback, rank = 0){
           this.popup = {
               active: true, title: title, message: message, hint: hint, type: type, confirmation: confirmation, callback: callback, rank: rank
           };
