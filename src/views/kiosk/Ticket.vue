@@ -272,6 +272,7 @@ export default {
                       this.$router.push({path: "/home"})
                 }.bind(this), 5000);
 
+
           }.bind(this)).catch(function () {
 
               this.showPopup("danger", "Ouups!", this.$t('Popup.AProblemOccured'), this.$t('Popup.TicketFailure'), this.$t('Popup.Close'), this.hidePopup);

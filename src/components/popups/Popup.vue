@@ -71,6 +71,7 @@
         width: 60%;
         min-width: 320px;
         max-width: 500px;
+        height: 350px;
         background: #ffffff;
         border-radius: 20px;
         height: 350px;
