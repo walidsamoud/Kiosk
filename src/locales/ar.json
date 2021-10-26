@@ -1,4 +1,7 @@
 {
+	"New": {
+		"YourTicketIs": "رقم تذكرتك هو"
+	},
 	"Auth": {
 		"AcceptTerms": "أوافق على جميع شروط وأحكام الاستخدام.",
 		"AlreadyHaveResetCodeButton": "هل لديك  رمز إعادة تعيين؟",

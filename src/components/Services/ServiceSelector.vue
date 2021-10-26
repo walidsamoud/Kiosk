@@ -10,7 +10,7 @@
         > 
                 <span style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 80%;">{{ name }} <small :class="'qte'+value.id" style="display: none;" >(x{{qte}}) </small></span>
         </label>
-        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+'8f;width: 50px;height: 63px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 10px;'">
+        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+'8f;width: 50px;height: 63px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 15px;'">
             <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
         </div>
 

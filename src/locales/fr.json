@@ -1,4 +1,7 @@
 {
+	"New": {
+		"YourTicketIs": "Votre numéro de ticket est"
+	},
 	"Auth": {
 		"AcceptTerms": "J'accepte toutes les conditions d'utilisation.",
 		"AlreadyHaveResetCodeButton": "Vous avez déjà un code de réinitialisation?",

@@ -14,6 +14,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-center mt-4" v-if="rank">
+                    <span class="rank">{{$t('New.YourTicketIs')}}</span>
+                    <h2 style="font-weight: bold;">#{{rank}}</h2>
+                </div>
 
                 <div class="text-center mt-4" v-if="hint">
                     <span class="hint">{{hint}}</span>
@@ -29,6 +33,7 @@
     export default {
         name: 'LoadingPopup',
         props: {
+            rank: Number,
             active: Boolean,
             title: String,
             message: String,
@@ -66,10 +71,9 @@
         width: 60%;
         min-width: 320px;
         max-width: 500px;
-        height: 275px;
         background: #ffffff;
         border-radius: 20px;
-
+        height: 350px;
         position: absolute;
         top: 50%;
         left: 50%;

@@ -8,7 +8,15 @@
     </div>
     <div class="split right d-flex flex-column">
       <form method="post" class="m-auto">
-        <h1 class="p-2 text-center">{{$t('Auth.Login')}}</h1>
+        <h1 class="p-2 text-center">
+          <span style="float: left;">{{$t('Auth.Login')}}</span>
+          <div @click="selectServer('ci')" style="float: right;cursor: pointer;">
+              <country-flag country='ci' size='normal' v-if="server=='tn'"/>
+          </div>
+          <div @click="selectServer('tn')" style="float: right;cursor: pointer;">
+              <country-flag country='tn' size='normal' v-if="server=='ci'"/>
+          </div>
+        </h1>
         <div class="container pt-4">
           <div class="p-2">
             <label for="teminalID"><b>{{$t('Auth.TerminalId')}}</b></label>
@@ -129,9 +137,14 @@ export default {
       type: "",
       confirmation: "",
       callback: null,
-    }
+    },
+    server: localStorage.getItem('server')?localStorage.getItem('server'):'tn'
   }),
   methods: {
+    selectServer(sv){
+      localStorage.setItem('server', sv)
+      this.$router.go()
+    },
     checkForm:function(e) {
       this.errors = [];
       if(!this.key) {

@@ -1,7 +1,16 @@
+function server(){
+    // return 'http://localhost:8003/v1'
+    switch (localStorage.getItem('server')) {
+        case 'tn': return process.env.VUE_APP_API_URL_TN;
+        case 'ci': return process.env.VUE_APP_API_URL_CI;
+        default: return process.env.VUE_APP_API_URL_TN;
+    }
+}
+
 export const ApiConfigs = {
-    base_kiosk_url: process.env.VUE_APP_API_URL+'/kiosk',
-    base_url: process.env.VUE_APP_API_URL+'/business',
-    base_user_url: process.env.VUE_APP_API_URL+'/user',
+    base_kiosk_url: server()+'/kiosk',
+    base_url: server()+'/business',
+    base_user_url: server()+'/user',
     /* -------------------------------- */
     // PUSHER
     pusher: {

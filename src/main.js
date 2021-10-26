@@ -31,6 +31,9 @@ Bugsnag.start({
     plugins: [new BugsnagPluginVue()]
 })
 
+import CountryFlag from 'vue-country-flag'
+Vue.component('country-flag', CountryFlag)
+
 Vue.config.productionTip = false
 
 require ('./assets/css/style.scss');
