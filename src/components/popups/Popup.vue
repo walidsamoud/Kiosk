@@ -15,6 +15,11 @@
                     </div>
                 </div>
 
+                <div class="text-center mt-4" v-if="rank">
+                    <span class="rank">Votre numéro de ticket est</span>
+                    <h2 style="font-weight: bold;">#{{rank}}</h2>
+                </div>
+
                 <div class="text-center mt-4" v-if="hint">
                     <span class="hint">{{hint}}</span>
                 </div>
@@ -29,6 +34,7 @@
     export default {
         name: 'LoadingPopup',
         props: {
+            rank: Number,
             active: Boolean,
             title: String,
             message: String,
@@ -66,7 +72,7 @@
         width: 60%;
         min-width: 320px;
         max-width: 500px;
-        height: 275px;
+        height: 350px;
         background: #ffffff;
         border-radius: 20px;
 
