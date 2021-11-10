@@ -16,7 +16,7 @@
                 </div>
                 <div class="text-center mt-4" v-if="rank">
                     <span class="rank">{{$t('New.YourTicketIs')}}</span>
-                    <h2 style="font-weight: bold;">#{{rank}}</h2>
+                    <h2 style="font-weight: bold;">{{rank}}</h2>
                 </div>
 
                 <div class="text-center mt-4" v-if="hint">
