@@ -266,7 +266,7 @@ export default {
               this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
               this.step = 7;
               setTimeout(function (){ window.print(); }, 500);
-              this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup, this.ticket.queue_rank);
+              this.showPopup("success", this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'),this.$t('Popup.SuccessMessage'), this.$t('Popup.Close'), this.hidePopup, this.ticket.public_identifier);
               
                 setTimeout(function (){
                       this.$router.push({path: "/home"})
@@ -302,7 +302,7 @@ export default {
                   this.qrCode = process.env.VUE_APP_TICKET_URL+this.ticket.unique_id;
                   this.step = 7;
 
-                  this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'), this.$t('Popup.SmSSuccess'), this.$t('Popup.Close'), this.hidePopup, this.ticket.queue_rank);
+                  this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.TicketSuccess'), this.$t('Popup.SmSSuccess'), this.$t('Popup.Close'), this.hidePopup, this.ticket.public_identifier);
                   setTimeout(function (){
                       this.$router.push({path: "/home"})
                   }.bind(this), 5000);
