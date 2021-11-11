@@ -2,7 +2,7 @@
     <div class="dial_buttons" id="Dial">
             <div class="row">
                 <div class="col">
-                    <DialButton :name="phoneNumber" theme="default" size="medium" hover="true" font="large"></DialButton>
+                    <DialButton :name="phoneNumber" :placeholder="$t('New.EnterPhoneNumber')" theme="default" size="medium" hover="true" font="large"></DialButton>
                 </div>
             </div>
             <div class="row">

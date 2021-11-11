@@ -1,6 +1,7 @@
 {
 	"New": {
-		"YourTicketIs": "Votre numéro de ticket est"
+		"YourTicketIs": "Votre numéro de ticket est",
+		"EnterPhoneNumber": "Entrez votre numéro de téléphone"
 	},
 	"Auth": {
 		"AcceptTerms": "J'accepte toutes les conditions d'utilisation.",

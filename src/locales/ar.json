@@ -1,6 +1,7 @@
 {
 	"New": {
-		"YourTicketIs": "رقم تذكرتك هو"
+		"YourTicketIs": "رقم تذكرتك هو",
+		"EnterPhoneNumber": "أدخل رقم هاتفك"
 	},
 	"Auth": {
 		"AcceptTerms": "أوافق على جميع شروط وأحكام الاستخدام.",
