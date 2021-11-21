@@ -1,7 +1,20 @@
 {
 	"New": {
 		"YourTicketIs": "Your ticket number is",
-		"EnterPhoneNumber": "Enter your Phone Number"
+		"EnterPhoneNumber": "Enter your Phone Number",
+		"ChooseDepartment": "Choose Department",
+		"EnterYourFirstName": "Enter your first name",
+		"EnterYourLastName": "Enter your last name",
+		"NoSlots": "No slots available for this date",
+		"WelcomeTo": "Welcome To",
+		"ClientDoesntExist": "Your phone number is not registered, please enter your name to create a new account",
+		"RDV": "Appointment",
+		"QUEUE": "Waiting Room",
+		"Space": "Space",
+		"BookingSuccessTitle": "Appointment Booked",
+		"BookingSuccess": "Congrats, your appointment has been booked successfully",
+		"BookingFailure": "An error occurred, please try again",
+		"Book": "Book"
 	},
 	"Auth": {
 		"AcceptTerms": "I accept all Terms and Conditions of use.",

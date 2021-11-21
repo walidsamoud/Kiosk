@@ -3,7 +3,7 @@
     <div id="Booking">
         <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false' && step<4">
             <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
-            <LbrxLanguageSelector @change="$router.go()"></LbrxLanguageSelector>
+            <LbrxLanguageSelector></LbrxLanguageSelector>
             </div>
         </div>
         <div class="booking-div box departments" v-if="step == 0" style="padding-top: 30px;">
@@ -92,7 +92,7 @@
                     Choisissez une date
                 </div>
                 <div v-if="selected_date && slots.length==0 && !loading_slots" style="text-align: center;width: 100%;">
-                    <span style="font-size: 15px;">Aucun créneaux n'est disponibles</span>
+                    <span style="font-size: 15px;">{{$t('New.NoSlots')}}</span>
                     <!-- <span class="btn btn-danger closed">Fermé</span> -->
                 </div>
                 <div v-if="selected_date && slots.length==0 && loading_slots" style="text-align: center;width: 100%;">
@@ -151,10 +151,10 @@
         <div class="row identification" id="step_4" v-if="step == 4">
             <div class="col-md-6 col-sm-12 left">
                 <div class="title">
-                    Bienvenue Chez {{kiosk.business.name}}<br>
+                    {{$t('New.WelcomeTo')}} {{kiosk.business.name}}<br>
                 </div>
                 <div class="subtitle">
-                    Votre numéro de téléphone n'est pas enregistré, veuillez entrer votre nom pour vous créer un nouveau compte
+                    {{$t('New.ClientDoesntExist')}}
                 </div>
 
                 <div class="infos">
@@ -200,7 +200,7 @@
             </div>
             <div class="col" v-on:click="reserver()">
                 <LbrxButton 
-                    :name="step==2 || step==4?'Réserver >':''"
+                    :name="step==2 || step==4?$t('New.Book'):''"
                     size="medium" :theme="step==2 || step==4?'light':'dark'" hover="true" href="javascript:;">
                 </LbrxButton>
             </div>
@@ -220,7 +220,7 @@ import {bookingService, kioskService} from '../../_services'
 import LbrxLanguageSelector from '../LanguageSelector/LanguageSelector.vue';
 import LbrxButton from '../buttons/Button.vue';
 import LongPress from 'vue-directive-long-press';
-import LbrxService from '../Services/ServiceSelector.vue';
+import LbrxService from '../Services/BookingServiceSelector.vue';
 import Popup from '../popups/Popup.vue';
 import LoadingPopup from "../popups/Loading";
 import LbrxDialBooking from '../Dial/DialBooking.vue';
@@ -353,26 +353,28 @@ export default({
             }
         },
         findCustomerByPhoneNumber(){
-            this.showLoading(this.$t('Popup.PhoneChecking'));
-            let payload = {
-                phone_number: this.user.phone_number,
-                internal_id: null,
-                country_prefix: '+216'
-            }
-            kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
-                if(data.customer.length == 0) {
-                    this.requestName();
-                    this.hideLoading();
-                } else {
-                    this.user = data.customer[0];
-                    this.bookAppointment();
+            if(this.user.phone_number.length==8){
+                this.showLoading(this.$t('Popup.PhoneChecking'));
+                let payload = {
+                    phone_number: this.user.phone_number,
+                    internal_id: null,
+                    country_prefix: '+216'
                 }
+                kioskService.findCustomerByPhoneNumber(payload).then(function (data) {
+                    if(data.customer.length == 0) {
+                        this.requestName();
+                        this.hideLoading();
+                    } else {
+                        this.user = data.customer[0];
+                        this.bookAppointment();
+                    }
 
-            }.bind(this)).catch(function () {
-                this.requestName();
-                // this.createNewCustomer();
-            }.bind(this)).finally(function () {
-            }.bind(this))
+                }.bind(this)).catch(function () {
+                    this.requestName();
+                    // this.createNewCustomer();
+                }.bind(this)).finally(function () {
+                }.bind(this))
+            }
         },
         requestName(){
             this.step++
@@ -432,12 +434,12 @@ export default({
                 console.log(data)
 
                 kioskService.createBooking(data).then(function(){
-                    this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('Popup.BookingSuccess'), this.$t('Popup.BookingSuccess'), this.$t('Popup.Close'), this.hidePopup);
+                    this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('New.BookingSuccessTitle'), this.$t('Popup.BookingSuccess'), this.$t('Popup.Close'), this.hidePopup);
                     setTimeout(function (){
                         this.$router.go()
                     }.bind(this), 3000);
                 }.bind(this)).catch(function(){
-                  this.showPopup("danger", "Ouups!", this.$t('Popup.AProblemOccured'), this.$t('Popup.BookingFailure'), this.$t('Popup.Close'), this.hidePopup);
+                  this.showPopup("danger", "Ouups!", this.$t('Popup.AProblemOccured'), this.$t('New.BookingFailure'), this.$t('Popup.Close'), this.hidePopup);
                 }.bind(this)).finally(function(){
                     this.hideLoading();
                 }.bind(this))
@@ -595,6 +597,7 @@ height: 100vh;
     transition: .5s;
     padding-bottom: 15px;
     letter-spacing: 1px;
+    color: #333;
 }
 .dates .date .numberr{
     display: block;
@@ -605,10 +608,14 @@ height: 100vh;
     transform: translate(-50%);
     border-radius: 0;
     letter-spacing: 1px;
+    color: #333;
 }
 .dates .selected{
     background: var(--primary);
-    color: #fff;
+    .numberr{
+        color: #fff !important;
+    }
+    color: #fff !important;
 }
 .flesh{
     position: absolute;
@@ -712,6 +719,7 @@ height: 100vh;
     .title{
         font-size: 17px;
         letter-spacing: 2px;
+        color: #333;
     }
     .row{
         display: flex;
@@ -728,6 +736,7 @@ height: 100vh;
                 border-radius: 5px;
                 cursor: pointer;
                 transition: .3s;
+                height: 100%;
                 .icon{
                     display: none;
                     margin-bottom: 40px;
@@ -737,10 +746,6 @@ height: 100vh;
                     }
                 }
                 span{
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
                     color: var(--primary);
                     letter-spacing: 1px;
                     font-size: 18px;

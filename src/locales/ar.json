@@ -1,7 +1,20 @@
 {
 	"New": {
 		"YourTicketIs": "رقم تذكرتك هو",
-		"EnterPhoneNumber": "أدخل رقم هاتفك"
+		"EnterPhoneNumber": "أدخل رقم هاتفك",
+		"ChooseDepartment": "اختر القسم",
+		"EnterYourFirstName": "أدخل اسمك ",
+		"EnterYourLastName": "أدخل لقبك ",
+		"NoSlots": "لا توجد فترات زمنية متاحة لهذا التاريخ",
+		"WelcomeTo": "مرحبًا بك في",
+		"ClientDoesntExist": "رقم هاتفك غير مسجل ، يرجى إدخال اسمك لإنشاء حساب جديد",
+		"RDV": "موعد",
+		"QUEUE": "غرفة الانتظار",
+		"Space": "فراغ",
+		"BookingSuccessTitle": "تم حجز الموعد",
+		"BookingSuccess": "تهانينا ، لقد تم حجز موعدك بنجاح",
+		"BookingFailure": "حدث خطأ ، يرجى المحاولة مرة أخرى",
+		"Book": "حجز"
 	},
 	"Auth": {
 		"AcceptTerms": "أوافق على جميع شروط وأحكام الاستخدام.",

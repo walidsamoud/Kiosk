@@ -1,7 +1,20 @@
 {
 	"New": {
 		"YourTicketIs": "Votre numéro de ticket est",
-		"EnterPhoneNumber": "Entrez votre numéro de téléphone"
+		"EnterPhoneNumber": "Entrez votre numéro de téléphone",
+		"ChooseDepartment": "Choisir le département",
+		"EnterYourFirstName": "Entrez votre prénom",
+		"EnterYourLastName": "Entrez votre nom",
+		"NoSlots": "Aucun créneau disponible pour cette date",
+		"WelcomeTo": "Bienvenue chez",
+		"ClientDoesntExist": "Votre numéro de téléphone n'est pas enregistré, veuillez saisir votre nom pour créer un nouveau compte",
+		"RDV": "Rendez-vous",
+		"QUEUE": "Salle d'attente",
+		"Space": "Espace",
+		"BookingSuccessTitle": "Rendez-vous réservé",
+		"BookingSuccess": "Félicitations, votre rendez-vous a été pris avec succès",
+		"BookingFailure": "Une erreur s'est produite, veuillez réessayer",
+		"Book": "Réserver"
 	},
 	"Auth": {
 		"AcceptTerms": "J'accepte toutes les conditions d'utilisation.",

@@ -2,8 +2,8 @@
   <div id="KeyBoard">
     <div class="chars">
       <div class="title">
-        <span v-if="optingFor=='lname'"> Entrer votre nom </span>
-        <span v-else> Entrer votre prénom </span>
+        <span v-if="optingFor=='lname'"> {{$t('New.EnterYourLastName')}} </span>
+        <span v-else> {{$t('New.EnterYourFirstName')}} </span>
       </div>
       <div class="char" @click="type('A')">A</div>
       <div class="char" @click="type('B')">B</div>
@@ -35,7 +35,7 @@
       <br>
       <br>
       <div class="char" @click="type('<')">&#60;</div>
-      <div class="char" @click="type('Space')" style="width: 200px;">Espace</div>
+      <div class="char" @click="type('Space')" style="width: 200px;"> {{$t('New.Space')}} </div>
       <div class="char" @click="type('*')">X</div>
 
     </div>
@@ -67,7 +67,10 @@ export default({
     padding: 40px;
     .title{
       color: var(--info);
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      font-size: 30px;
+      letter-spacing: 2px;
+      font-weight: 200;
     }
     .char{
       width: 60px;

@@ -3,7 +3,7 @@
         <!-- <LbrxLanguageSelector @change="$router.go()" class="language"></LbrxLanguageSelector> -->
         <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false'" style="position: absolute;right: 30px;z-index: 9999;opacity: 1 !important;">
             <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
-            <LbrxLanguageSelector @change="$router.go()"></LbrxLanguageSelector>
+            <LbrxLanguageSelector></LbrxLanguageSelector>
             </div>
         </div>
         <div class="row p-0 m-0">
@@ -12,7 +12,7 @@
                     <div class="icon">
                         <img src="/calendar.png" alt="">
                     </div>
-                    <span>rendez-vous</span>
+                    <span>{{$t('New.RDV')}}</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-sm-12 p-0 m-0 right" @click="optedFor('Queue')">
@@ -20,7 +20,7 @@
                     <div class="icon">
                         <img src="/waiting-room.png" alt="">
                     </div>
-                    <span>salle d'attente</span>
+                    <span>{{$t('New.QUEUE')}}</span>
                 </div>
             </div>
         </div>
