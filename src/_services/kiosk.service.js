@@ -127,11 +127,20 @@ function joinQueue(data) {
     return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.kiosks.joinQueue}`, requestOptions).then(handleResponse);
 }
 
+// function createBooking(data) {
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: { ...authKioskHeader()},
+//         body: data
+//     };
+//     return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.kiosks.createBooking}`, requestOptions).then(handleResponse);
+// }
+
 function createBooking(data) {
     const requestOptions = {
-        method: 'POST',
-        headers: { ...authKioskHeader()},
-        body: data
+        method: 'PUT',
+        headers: { ...authKioskHeader(), 'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
     };
     return fetch(`${ApiConfigs.base_kiosk_url + ApiConfigs.kiosks.createBooking}`, requestOptions).then(handleResponse);
 }

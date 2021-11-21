@@ -1,56 +1,63 @@
 <template>
     <div class="services" id="ServicesPage">
-        <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false'">
-            <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
-              <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
-            </div>
+        <div v-if="kiosk.allow_queue && kiosk.allow_booking && !opted">
+            <SplittedScreen @optedFor="optedFor"/>
         </div>
-        <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;margin-bottom: 20px;'">
-            <div class="col">
-              <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
-                  {{$t('Services.Message')}}
-              </h2>
-            </div>
+        <div v-else-if="(kiosk.allow_booking  && !opted) || opted=='Booking'">
+            <Booking />
         </div>
-        <form id="servicesForm" class="container services_container" method="GET" action="Ticket" :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'max-height: 65vh !important;'">
-            <div class="row">
-                <div class="col-md-3" v-if="services.length==1"></div>
-                <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
-                    <LbrxService 
-                                 :name="item.title" size="small" theme="small" hover="false"
-                                 :value="item" @checked="addSelection" @unchecked="removeSelection(item)" 
-                    >
-                    </LbrxService>
-                    <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
+        <div v-else>
+            <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false'">
+                <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
+                <LbrxLanguageSelector @change="loadQueues"></LbrxLanguageSelector>
                 </div>
+            </div>
+            <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;margin-bottom: 20px;'">
+                <div class="col">
+                <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
+                    {{$t('Services.Message')}}
+                </h2>
+                </div>
+            </div>
+            <form id="servicesForm" class="container services_container" method="GET" action="Ticket" :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'max-height: 65vh !important;'">
+                <div class="row">
+                    <div class="col-md-3" v-if="services.length==1"></div>
+                    <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
+                        <LbrxService 
+                                    :name="item.title" size="small" theme="small" hover="false"
+                                    :value="item" @checked="addSelection" @unchecked="removeSelection(item)" 
+                        >
+                        </LbrxService>
+                        <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
+                    </div>
 
-            </div>
-            
-        </form>
+                </div>
+            </form>
 
-        <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
+            <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
 
-        <div class="row bottom-btns">
-            <div class="col">
-                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
+            <div class="row bottom-btns">
+                <div class="col">
+                    <LbrxButton name="" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
+                </div>
+                <div class="col">
+                    <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
+                </div>
+                <div class="col" v-on:click="submitSelectedServices()">
+                    <LbrxButton 
+                        :name="(!this.Config.kiosk.allow_sms_ticket && this.Config.kiosk.allow_print_ticket)?$t('Ticket.PrintTicket'):$t('Services.Next')" 
+                        size="medium" theme="light" hover="true" href="javascript:;">
+                    </LbrxButton>
+                </div>
             </div>
-            <div class="col">
-                <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
-            </div>
-            <div class="col" v-on:click="submitSelectedServices()">
-                <LbrxButton 
-                    :name="(!this.Config.kiosk.allow_sms_ticket && this.Config.kiosk.allow_print_ticket)?$t('Ticket.PrintTicket'):$t('Services.Next')" 
-                    size="medium" theme="light" hover="true" href="javascript:;">
-                </LbrxButton>
-            </div>
+            <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
+            :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
+            </Popup>
+
+            <PopupQte :item="popup_qte.item" :message="popup_qte.message" :hint="popup_qte.hint" :title="popup_qte.title" :type="popup_qte.type"
+            :confirmationButton="popup_qte.confirmation" :active.sync="popup_qte.active" @confirm="addSelection">
+            </PopupQte>
         </div>
-        <Popup :message="popup.message" :hint="popup.hint" :title="popup.title" :type="popup.type"
-           :confirmationButton="popup.confirmation" :active.sync="popup.active" @confirm="popup.callback ? popup.callback : hidePopup()">
-        </Popup>
-
-        <PopupQte :item="popup_qte.item" :message="popup_qte.message" :hint="popup_qte.hint" :title="popup_qte.title" :type="popup_qte.type"
-           :confirmationButton="popup_qte.confirmation" :active.sync="popup_qte.active" @confirm="addSelection">
-        </PopupQte>
 
     </div>
 </template>
@@ -65,6 +72,8 @@ import LoadingPopup from "../../components/popups/Loading";
 import Popup from '../../components/popups/Popup.vue';
 import PopupQte from '../../components/popups/PopupServiceQte.vue';
 import LongPress from 'vue-directive-long-press';
+import SplittedScreen from '/src/components/buttons/SplittedScreen.vue';
+import Booking from '/src/components/Booking/Index.vue';
 // import $ from 'jquery'
 
 export default {
@@ -103,7 +112,10 @@ export default {
       callback: 'qteSelected',
     },
     kiosk_language: localStorage.getItem('Language'),
-    kiosk_config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config )
+    kiosk: JSON.parse(localStorage.getItem('kiosk')).kiosk,
+    kiosk_config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config ),
+
+    opted: null
   }),
   components: {
     LoadingPopup,
@@ -111,12 +123,17 @@ export default {
     LbrxLanguageSelector,
     LbrxService,
     Popup,
-    PopupQte
+    PopupQte,
+    SplittedScreen,
+    Booking
   },
   directives: {
     'long-press': LongPress
   },
   methods:{
+      optedFor(choice){
+          this.opted = choice
+      },
       qteSelected(item, qte=1){
           alert(item)
           alert(qte)
