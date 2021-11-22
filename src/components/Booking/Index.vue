@@ -618,7 +618,7 @@ height: 100vh;
     padding: 50px;
     margin-bottom: 20px;
     position: absolute;
-    top: 40%;
+    top: 50%;
     transform: translate(0, -50%);
 }
 .booking-div{
