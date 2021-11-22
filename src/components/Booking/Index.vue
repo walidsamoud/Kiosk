@@ -50,37 +50,37 @@
                     <img src="/right-chevron.png" alt="">
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==today?'date selected':'date'" @click="selectDate(today)">
+                    <div :class="(selected_date==today?'date selected':'date')+' '+(dayIsOpen(today)?'date-open':'date-closed')" @click="selectDate(today)">
                         <span class="numberr">{{dayNumber(today)}}</span>
                         <span class="name">{{dayName(today)}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==tomorrow?'date selected':'date'" @click="selectDate(tomorrow)">
+                    <div :class="(selected_date==tomorrow?'date selected':'date')+' '+(dayIsOpen(tomorrow)?'date-open':'date-closed')" @click="selectDate(tomorrow)">
                         <span class="numberr">{{dayNumber(tomorrow)}}</span>
                         <span class="name">{{dayName(tomorrow)}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==after_tomorrow?'date selected':'date'" @click="selectDate(after_tomorrow)">
+                    <div :class="(selected_date==after_tomorrow?'date selected':'date')+' '+(dayIsOpen(after_tomorrow)?'date-open':'date-closed')" @click="selectDate(after_tomorrow)">
                         <span class="numberr">{{dayNumber(after_tomorrow)}}</span>
                         <span class="name">{{dayName(after_tomorrow)}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==after_tomorrow2?'date selected':'date'" @click="selectDate(after_tomorrow2)">
+                    <div :class="(selected_date==after_tomorrow2?'date selected':'date')+' '+(dayIsOpen(after_tomorrow2)?'date-open':'date-closed')" @click="selectDate(after_tomorrow2)">
                         <span class="numberr">{{dayNumber(after_tomorrow2)}}</span>
                         <span class="name">{{dayName(after_tomorrow2)}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==after_tomorrow3?'date selected':'date'" @click="selectDate(after_tomorrow3)">
+                    <div :class="(selected_date==after_tomorrow3?'date selected':'date')+' '+(dayIsOpen(after_tomorrow3)?'date-open':'date-closed')" @click="selectDate(after_tomorrow3)">
                         <span class="numberr">{{dayNumber(after_tomorrow3)}}</span>
                         <span class="name">{{dayName(after_tomorrow3)}}</span>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="selected_date==after_tomorrow4?'date selected':'date'" @click="selectDate(after_tomorrow4)">
+                    <div :class="(selected_date==after_tomorrow4?'date selected':'date')+' '+(dayIsOpen(after_tomorrow4)?'date-open':'date-closed')" @click="selectDate(after_tomorrow4)">
                         <span class="numberr">{{dayNumber(after_tomorrow4)}}</span>
                         <span class="name">{{dayName(after_tomorrow4)}}</span>
                     </div>
@@ -292,6 +292,14 @@ export default({
         'long-press': LongPress
     },
     methods:{
+        dayIsOpen(date){
+            if(this.available_dates.length){
+                let dayOfWeek = moment(date, 'DD MMM YYYY').isoWeekday();
+                return this.available_dates[dayOfWeek-1].active
+            }else{
+                return true
+            }
+        },
         refreshLang(){
             this.selected_department_services = this.selected_department_services.map((service)=>{
                 service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
@@ -511,32 +519,33 @@ export default({
             this.after_tomorrow4= moment(this.after_tomorrow4, 'DD MMM YYYY').subtract(1, 'days').format('DD MMM YYYY');
         },
         selectDate(date){
-            this.selected_date= date
-            this.loading_slots= true
-            this.slots= []
-            this.selected_slot= null
-            this.already_have_booking= []
+            if(this.dayIsOpen(date)){
+                this.selected_date= date
+                this.loading_slots= true
+                this.slots= []
+                this.selected_slot= null
+                this.already_have_booking= []
 
-            let data= {
-                // business_id: this.Vendor.id,
-                business_id: this.kiosk.kiosk.business_id,
-                date: moment(this.selected_date, 'DD MMM YYYY').format('YYYY-MM-DD'),
-                department: this.selected_department,
-                selected_member: this.selected_member,
-                user: null,
+                let data= {
+                    // business_id: this.Vendor.id,
+                    business_id: this.kiosk.kiosk.business_id,
+                    date: moment(this.selected_date, 'DD MMM YYYY').format('YYYY-MM-DD'),
+                    department: this.selected_department,
+                    selected_member: this.selected_member,
+                    user: null,
+                }
+                
+                bookingService.getAvailability(data).then(function(data){
+                    console.log(data)
+                    this.slots= data.slots
+                    this.already_have_booking= data.already_have_booking.map((obj)=>{
+                        obj.start_datetime= moment(obj.start_datetime).format('dddd, DD MMMM YYYY à HH:mm')
+                        return obj
+                    })
+                }.bind(this)).finally(function(){
+                    this.loading_slots= false
+                }.bind(this))
             }
-            
-            bookingService.getAvailability(data).then(function(data){
-                console.log(data)
-                this.slots= data.slots
-                this.already_have_booking= data.already_have_booking.map((obj)=>{
-                    obj.start_datetime= moment(obj.start_datetime).format('dddd, DD MMMM YYYY à HH:mm')
-                    return obj
-                })
-            }.bind(this)).finally(function(){
-                this.loading_slots= false
-            }.bind(this))
-            //get slots
         },
         dayNumber(date) {
             return moment(date, 'DD MMM YYYY').format('DD')
@@ -847,6 +856,11 @@ height: 100vh;
         background: linear-gradient(to right, var(--secondary), var(--primary)) ;
         color: var(--font);
     }
+}
+.date-closed{
+    background: rgba(255, 0, 0, 0.05);
+    color: red;
+    border: 1px solid red !important;
 }
 }
 </style>
