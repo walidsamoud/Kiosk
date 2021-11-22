@@ -341,8 +341,10 @@ export default({
             if(this.dep_members.length==1){
                 this.selected_member = this.dep_members[0].id
                 this.step = 1
+                this.selectDate(this.selected_date)
             }else if(this.dep_members.length==0){
                 this.step = 1
+                this.selectDate(this.selected_date)
             }else{
                 this.selecting_member = true
             }
@@ -351,6 +353,7 @@ export default({
             this.selected_member = member_id
             this.selecting_member = false
             this.step = 1
+            this.selectDate(this.selected_date)
 
             this.available_dates = available_dates
         },
@@ -519,7 +522,7 @@ export default({
                 business_id: this.kiosk.kiosk.business_id,
                 date: moment(this.selected_date, 'DD MMM YYYY').format('YYYY-MM-DD'),
                 department: this.selected_department,
-                selected_member: null,
+                selected_member: this.selected_member,
                 user: null,
             }
             
