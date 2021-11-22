@@ -7,16 +7,29 @@
             </div>
         </div>
         <div class="booking-div box departments" v-if="step == 0" style="padding-top: 30px;">
-            <div class="title">
+            <div class="title" v-if="!selecting_member">
                 {{$t('New.ChooseDepartment')}}
             </div>
-            <div class="row">
-                <div class="department" v-for="dep in kiosk.business.departments" :key="'dep'+dep.id" @click="selectDepartment(dep.id, dep.services)">
+            <div class="title" v-else>
+                {{$t('New.ChooseMember')}}
+            </div>
+            <div class="row" v-if="!selecting_member">
+                <div class="department" v-for="dep in kiosk.business.departments" :key="'dep'+dep.id" @click="selectDepartment(dep.id, dep.services, dep.dep_members)">
                     <div class="content">
                         <div class="icon">
                             <font-awesome-icon class="building" :icon="['fas', 'building']" /> 
                         </div>
                         <span>{{dep.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" v-else>
+                <div class="department" v-for="member in dep_members" :key="'member'+member.id" @click="selectMember(member.id, member.booking_days)">
+                    <div class="content">
+                        <div class="icon">
+                            <font-awesome-icon class="building" :icon="['fas', 'building']" /> 
+                        </div>
+                        <span>{{member.fname}} {{member.lname}}</span>
                     </div>
                 </div>
             </div>
@@ -187,18 +200,9 @@
             </div>
         </div>
 
-        <div class="box" id="step_3" v-if="step == 6" style="text-align: center;">
-            <img src="/success-tick-dribbble.gif" alt="" style="width: 150px;margin-top: -40px;">
-            <h1>Merci!</h1>
-            <h3>votre rendez-vous pour <b>{{dayFullName(selected_date)}}, {{dayNumber(selected_date)}} {{fullMonth}} {{year}} a {{selected_slot}}</b>  a été confirmé</h3>
-            <div class="button mt-5">
-                <button class="btn btn-return" style="height: auto;" @click="refresh">page d'accueil</button>
-            </div>
-        </div>
-
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton :name="step>1?$t('Ticket.Return'):''" size="medium" :theme="step>1?'light':'dark'" hover="false" href="#" @click="step>0?step--:'';selected_slot=null" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
+                <LbrxButton :name="step>=0?$t('Ticket.Return'):''" size="medium" :theme="step>1?'light':'dark'" hover="false" href="#" @click="step>0?step--:$router.go();selected_slot=null" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
             </div>
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
@@ -257,6 +261,8 @@ export default({
 
         dep_members: [],
         selected_member: null,
+        selecting_member: false,
+        available_dates: [],
 
         popup: {
             active: false,
@@ -324,13 +330,29 @@ export default({
                 }
             }
         },
-        selectDepartment(dep_id, dep_services){
+        selectDepartment(dep_id, dep_services, dep_members){
             this.selected_department = dep_id
             this.selected_department_services = dep_services.map((service)=>{
                 service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
                 return service;
             })
+
+            this.dep_members = dep_members
+            if(this.dep_members.length==1){
+                this.selected_member = this.dep_members[0].id
+                this.step = 1
+            }else if(this.dep_members.length==0){
+                this.step = 1
+            }else{
+                this.selecting_member = true
+            }
+        },
+        selectMember(member_id, available_dates){
+            this.selected_member = member_id
+            this.selecting_member = false
             this.step = 1
+
+            this.available_dates = available_dates
         },
         showLoading(message){
             this.loading = {

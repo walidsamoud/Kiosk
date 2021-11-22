@@ -71,7 +71,7 @@ export default({
                 .content{
                     text-align: center;
                     height: 100vh;
-                    margin-top: 50%;
+                    margin-top: 40%;
                     transform: translate(0%, -10%);
                     color: #fff;
                     .icon{
