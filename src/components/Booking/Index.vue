@@ -3,7 +3,7 @@
     <div id="Booking">
         <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false' && step<4">
             <div class="col language_select" style="margin: 10px 25px -10px 25px !important;">
-            <LbrxLanguageSelector></LbrxLanguageSelector>
+            <LbrxLanguageSelector @change="refreshLang"></LbrxLanguageSelector>
             </div>
         </div>
         <div class="booking-div box departments" v-if="step == 0" style="padding-top: 30px;">
@@ -120,7 +120,12 @@
                             <div class="col-md-3" v-if="kiosk.business.services.length==1"></div>
                             <div 
                                 :class="kiosk.business.services.length>=6?'col-md-4 service':'col-md-6 service'" 
-                                v-for="(item, key) in selected_department_services.length?selected_department_services:kiosk.business.services" 
+                                v-for="
+                                    (item, key) in selected_department_services.length?selected_department_services:kiosk.business.services.map((service)=>{
+                                        service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
+                                        return service;
+                                    })
+                                " 
                                 :key="key"
                             >
                                 <LbrxService 
@@ -216,6 +221,8 @@
 
 <script>
 import moment from 'moment'
+import 'moment/locale/es'
+
 import {bookingService, kioskService} from '../../_services'
 import LbrxLanguageSelector from '../LanguageSelector/LanguageSelector.vue';
 import LbrxButton from '../buttons/Button.vue';
@@ -225,7 +232,6 @@ import Popup from '../popups/Popup.vue';
 import LoadingPopup from "../popups/Loading";
 import LbrxDialBooking from '../Dial/DialBooking.vue';
 import KeyBoard from '../KeyBoard/Index.vue';
-
 export default({
     data:()=>({
         step: 0,
@@ -280,6 +286,14 @@ export default({
         'long-press': LongPress
     },
     methods:{
+        refreshLang(){
+            this.selected_department_services = this.selected_department_services.map((service)=>{
+                service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
+                return service;
+            })
+
+            moment.locale('fr')
+        },
         reserver(){
             if(this.step==2){
                 this.identify()
@@ -312,7 +326,10 @@ export default({
         },
         selectDepartment(dep_id, dep_services){
             this.selected_department = dep_id
-            this.selected_department_services = dep_services
+            this.selected_department_services = dep_services.map((service)=>{
+                service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
+                return service;
+            })
             this.step = 1
         },
         showLoading(message){
@@ -519,9 +536,13 @@ export default({
         },
     },
     mounted(){
+        moment.locale('fr')
         if(this.kiosk.business.departments.length==1){
             this.selected_department = this.kiosk.business.departments[0].id
-            this.selected_department_services = this.kiosk.business.departments[0].services
+            this.selected_department_services = this.kiosk.business.departments[0].services.map((service)=>{
+                service.title = service.translations?JSON.parse(service.translations)[this.$i18n.locale]:service.title;
+                return service;
+            })
             this.step = 1
             this.selectDate( moment().format('DD MMM YYYY') )
         }
