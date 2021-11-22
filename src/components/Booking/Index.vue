@@ -349,6 +349,7 @@ export default({
             if(this.dep_members.length==1){
                 this.selected_member = this.dep_members[0].id
                 this.step = 1
+                this.available_dates = this.dep_members[0].booking_days
                 this.selectDate(this.selected_date)
             }else if(this.dep_members.length==0){
                 this.step = 1
