@@ -57,7 +57,8 @@ export const ApiConfigs = {
         createCustomer: '/customer/create',
         joinQueue: '/queue/push',
         refresh: '/refresh',
-        createBooking: '/booking/create'
+        createBooking: '/booking/create',
+        getHolidays: '/holiday'
     },
     /* -------------------------------- */
     // BUSINESS

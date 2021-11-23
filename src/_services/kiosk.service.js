@@ -17,9 +17,17 @@ export const kioskService = {
     getQueueById,
     joinQueue,
     refresh,
-    createBooking
+    createBooking,
+    getHolidays
 };
 
+function getHolidays() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authKioskHeader()
+    };
+    return fetch(`${ApiConfigs.base_kiosk_url+ApiConfigs.kiosks.getHolidays}`, requestOptions).then(handleResponse);
+}
 
 function getAll() {
     const requestOptions = {

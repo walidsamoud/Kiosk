@@ -50,39 +50,45 @@
                     <img src="/right-chevron.png" alt="">
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==today?'date selected':'date')+' '+(dayIsOpen(today)?'date-open':'date-closed')" @click="selectDate(today)">
+                    <div :class="(selected_date==today && this.dayIsOpen(this.selected_date)?'date selected':'date')+' '+(dayIsOpen(today)?'date-open':'date-closed')+' '+(dayIsInHoliday(today)?'date-holiday':'')" @click="selectDate(today)">
                         <span class="numberr">{{dayNumber(today)}}</span>
-                        <span class="name">{{dayName(today)}}</span>
+                        <span class="name">{{dayName(today)}}</span><br>
+                        <small v-if="dayIsInHoliday(today)">Congé</small>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==tomorrow?'date selected':'date')+' '+(dayIsOpen(tomorrow)?'date-open':'date-closed')" @click="selectDate(tomorrow)">
+                    <div :class="(selected_date==tomorrow?'date selected':'date')+' '+(dayIsOpen(tomorrow)?'date-open':'date-closed')+' '+(dayIsInHoliday(tomorrow)?'date-holiday':'')" @click="selectDate(tomorrow)">
                         <span class="numberr">{{dayNumber(tomorrow)}}</span>
-                        <span class="name">{{dayName(tomorrow)}}</span>
+                        <span class="name">{{dayName(tomorrow)}}</span><br>
+                        <small v-if="dayIsInHoliday(tomorrow)">Congé</small>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==after_tomorrow?'date selected':'date')+' '+(dayIsOpen(after_tomorrow)?'date-open':'date-closed')" @click="selectDate(after_tomorrow)">
+                    <div :class="(selected_date==after_tomorrow?'date selected':'date')+' '+(dayIsOpen(after_tomorrow)?'date-open':'date-closed')+' '+(dayIsInHoliday(after_tomorrow)?'date-holiday':'')" @click="selectDate(after_tomorrow)">
                         <span class="numberr">{{dayNumber(after_tomorrow)}}</span>
-                        <span class="name">{{dayName(after_tomorrow)}}</span>
+                        <span class="name">{{dayName(after_tomorrow)}}</span><br>
+                        <small v-if="dayIsInHoliday(after_tomorrow)">Congé</small>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==after_tomorrow2?'date selected':'date')+' '+(dayIsOpen(after_tomorrow2)?'date-open':'date-closed')" @click="selectDate(after_tomorrow2)">
+                    <div :class="(selected_date==after_tomorrow2?'date selected':'date')+' '+(dayIsOpen(after_tomorrow2)?'date-open':'date-closed')+' '+(dayIsInHoliday(after_tomorrow2)?'date-holiday':'')" @click="selectDate(after_tomorrow2)">
                         <span class="numberr">{{dayNumber(after_tomorrow2)}}</span>
-                        <span class="name">{{dayName(after_tomorrow2)}}</span>
+                        <span class="name">{{dayName(after_tomorrow2)}}</span><br>
+                        <small v-if="dayIsInHoliday(after_tomorrow2)">Congé</small>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==after_tomorrow3?'date selected':'date')+' '+(dayIsOpen(after_tomorrow3)?'date-open':'date-closed')" @click="selectDate(after_tomorrow3)">
+                    <div :class="(selected_date==after_tomorrow3?'date selected':'date')+' '+(dayIsOpen(after_tomorrow3)?'date-open':'date-closed')+' '+(dayIsInHoliday(after_tomorrow3)?'date-holiday':'')" @click="selectDate(after_tomorrow3)">
                         <span class="numberr">{{dayNumber(after_tomorrow3)}}</span>
-                        <span class="name">{{dayName(after_tomorrow3)}}</span>
+                        <span class="name">{{dayName(after_tomorrow3)}}</span><br>
+                        <small v-if="dayIsInHoliday(after_tomorrow3)">Congé</small>
                     </div>
                 </div>
                 <div class="col-lg-2  col-md-2 col-sm-4">
-                    <div :class="(selected_date==after_tomorrow4?'date selected':'date')+' '+(dayIsOpen(after_tomorrow4)?'date-open':'date-closed')" @click="selectDate(after_tomorrow4)">
+                    <div :class="(selected_date==after_tomorrow4?'date selected':'date')+' '+(dayIsOpen(after_tomorrow4)?'date-open':'date-closed')+' '+(dayIsInHoliday(after_tomorrow4)?'date-holiday':'')" @click="selectDate(after_tomorrow4)">
                         <span class="numberr">{{dayNumber(after_tomorrow4)}}</span>
-                        <span class="name">{{dayName(after_tomorrow4)}}</span>
+                        <span class="name">{{dayName(after_tomorrow4)}}</span><br>
+                        <small v-if="dayIsInHoliday(after_tomorrow4)">Congé</small>
                     </div>
                 </div>
                
@@ -92,7 +98,7 @@
                 <div v-if="already_have_booking && already_have_booking.length" style="text-align: center;width: 100%;">
                     <span class="text-danger" style="font-size: 15px;">Vous avez déja un rendez-vous pour <b>{{already_have_booking[0].start_datetime}}</b></span>
                 </div>
-                <div v-else v-for="slot in slots" :key="slot.id" style="width: 20%;">
+                <div v-else-if="dayIsOpen(selected_date) && !dayIsInHoliday(selected_date)" v-for="slot in slots" :key="slot.id" style="width: 20%;">
                         <div :class="slot.slot==selected_slot?'slot selected':'slot'"  v-if="slot.active" @click="selectSlot(slot.slot)">
                             <span>{{slot.slot}}</span>
                         </div>
@@ -104,7 +110,7 @@
                 <div v-if="!selected_date && slots.length==0 && !loading_slots" style="text-align: center;width: 100%;font-size: 15px;">
                     Choisissez une date
                 </div>
-                <div v-if="selected_date && slots.length==0 && !loading_slots" style="text-align: center;width: 100%;">
+                <div v-if="(selected_date && slots.length==0 && !loading_slots) || !dayIsOpen(selected_date) || dayIsInHoliday(selected_date)" style="text-align: center;width: 100%;">
                     <span style="font-size: 15px;">{{$t('New.NoSlots')}}</span>
                     <!-- <span class="btn btn-danger closed">Fermé</span> -->
                 </div>
@@ -263,6 +269,7 @@ export default({
         selected_member: null,
         selecting_member: false,
         available_dates: [],
+        holidays: [],
 
         popup: {
             active: false,
@@ -298,6 +305,23 @@ export default({
                 return this.available_dates[dayOfWeek-1].active
             }else{
                 return true
+            }
+        },
+        dayIsInHoliday(date){
+            if(this.holidays.length){
+                let day = moment(date, 'DD MMM YYYY').format('YYYY-MM-DD');
+                let isInHoliday = false
+                this.holidays.map((holiday)=>{
+                    if( 
+                        (holiday.department_id==null || holiday.department_id==this.selected_department) 
+                        && (holiday.member_id==null || holiday.member_id==this.selected_member) 
+                    ){
+                        isInHoliday = isInHoliday || ( day>=holiday.start_date && day<=holiday.end_date )
+                    }
+                })
+                return isInHoliday
+            }else{
+                return false
             }
         },
         refreshLang(){
@@ -520,7 +544,7 @@ export default({
             this.after_tomorrow4= moment(this.after_tomorrow4, 'DD MMM YYYY').subtract(1, 'days').format('DD MMM YYYY');
         },
         selectDate(date){
-            if(this.dayIsOpen(date)){
+            if(this.dayIsOpen(date) && !this.dayIsInHoliday(date)){
                 this.selected_date= date
                 this.loading_slots= true
                 this.slots= []
@@ -569,8 +593,14 @@ export default({
         hidePopup(){
             this.popup = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
         },
+        getHolidays(){
+            kioskService.getHolidays().then(function(data){
+                this.holidays = data.holidays
+            }.bind(this))
+        }
     },
     mounted(){
+        this.getHolidays()
         moment.locale('fr')
         if(this.kiosk.business.departments.length==1){
             this.selected_department = this.kiosk.business.departments[0].id
@@ -862,6 +892,11 @@ height: 100vh;
     background: rgba(255, 0, 0, 0.05);
     color: red;
     border: 1px solid red !important;
+}
+.date-holiday{
+    background: rgba(255, 196, 0, 0.05);
+    color: rgb(255, 196, 0);
+    border: 1px solid rgb(255, 196, 0) !important;
 }
 }
 </style>
