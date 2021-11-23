@@ -485,7 +485,7 @@ export default({
                 console.log(data)
 
                 kioskService.createBooking(data).then(function(){
-                    this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('New.BookingSuccessTitle'), this.$t('Popup.BookingSuccess'), this.$t('Popup.Close'), this.hidePopup);
+                    this.showPopup("success",this.$t('Popup.Congratulations'),this.$t('New.BookingSuccessTitle'), this.$t('New.BookingSuccess'), this.$t('Popup.Close'), this.hidePopup);
                     setTimeout(function (){
                         this.$router.go()
                     }.bind(this), 3000);
