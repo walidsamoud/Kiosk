@@ -4,7 +4,7 @@
             <SplittedScreen @optedFor="optedFor"/>
         </div>
         <div v-else-if="(kiosk.allow_booking  && !opted) || opted=='Booking'">
-            <Booking />
+            <Booking  @optedFor="optedFor"/>
         </div>
         <div v-else>
             <div class="row" v-if="kiosk_config.multi_language && kiosk_config.multi_language!='false'">
@@ -38,7 +38,7 @@
 
             <div class="row bottom-btns">
                 <div class="col">
-                    <LbrxButton name="" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
+                    <LbrxButton :name="$t('Ticket.Return')" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart" @click="opted=null"></LbrxButton>
                 </div>
                 <div class="col">
                     <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>

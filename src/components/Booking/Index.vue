@@ -202,7 +202,7 @@
 
         <div class="row bottom-btns">
             <div class="col">
-                <LbrxButton :name="step>=0?$t('Ticket.Return'):''" size="medium" :theme="step>1?'light':'dark'" hover="false" href="#" @click="step>0?step--:$router.go();selected_slot=null" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
+                <LbrxButton :name="step>=0?$t('Ticket.Return'):''" size="medium" :theme="step>1?'dark':'dark'" hover="false" href="#" @click="step>0?step--:$emit('optedFor', null);selected_slot=null" v-long-press="3000" @long-press-start="onLongPressStart"></LbrxButton>
             </div>
             <div class="col">
                 <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>
