@@ -108,6 +108,7 @@ function handleResponse(response) {
         const data = JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
+                localStorage.removeItem('kiosk');
                 // auto logout if 401 response returned from api
                 location.reload(true);
             }
