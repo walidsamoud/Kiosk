@@ -24,8 +24,9 @@
                 </div>
               </div>
               <div :class="(print_allowed)?'col-sm-6 rightSide':'col-sm-12 rightSide'"  v-if="sms_allowed">
-                <div class="container">
-                  <h5 class="right_header" :dir="lang=='ar'?'rtl':'ltr'"  :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''">{{$t('Ticket.Receive')}}</h5>
+                <div class="container" style="text-align: center;">
+                    <h5 class="right_header" :dir="lang=='ar'?'rtl':'ltr'"  :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''">{{$t('Ticket.Receive')}}</h5>
+                    <p class="terms" :dir="lang=='ar'?'rtl':'ltr'" >{{$t('New.TicketTerms')}}</p>
                 </div>
 
                 <div class="dialDiv" style="width: 100%;text-align: center;">
@@ -410,6 +411,14 @@ export default {
 }
 </script>
 <style scoped> 
+    .right_header{
+    }
+    .terms{
+        color: #fff;
+        padding-top: 0px !important;
+        font-size: 12px;
+        text-align: center;
+    }
     @media screen and (max-width:575px){
         .leftSide{
             display: none;

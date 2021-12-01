@@ -15,7 +15,8 @@
 		"BookingSuccessTitle": "Appointment Booked",
 		"BookingSuccess": "Congrats, your appointment has been booked successfully",
 		"BookingFailure": "An error occurred, please try again",
-		"Book": "Book"
+		"Book": "Book",
+		"TicketTerms": "By clicking on the send button, you accept the terms of use available on liberrex.com"
 	},
 	"Auth": {
 		"AcceptTerms": "I accept all Terms and Conditions of use.",

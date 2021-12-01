@@ -1,5 +1,5 @@
 <template>
-    <div class="loading-wrapper" v-if="isActive">
+    <div id="PopupQte" class="loading-wrapper" v-if="isActive">
         <div :class="'loading-popup popup-' + type">
             <div class="close" style="padding: 20px;" @click="close()">
                 <font-awesome-icon class="caret_left" :icon="['fas', 'times']" />
@@ -75,7 +75,8 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+#PopupQte{
     .loading-wrapper{
         background: rgba(0, 0, 0, 0.70);
         position: fixed;
@@ -91,9 +92,9 @@
         width: 60%;
         min-width: 320px;
         max-width: 500px;
-        height: auto !important;
         background: #ffffff;
         border-radius: 20px;
+        height: auto !important;
 
         position: absolute;
         top: 50%;
@@ -227,5 +228,5 @@
         background: #72b53a;
         color: #fff;
     }
-
+}
 </style>

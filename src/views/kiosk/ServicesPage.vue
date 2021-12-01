@@ -147,7 +147,13 @@ export default {
       loadQueues(){
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           this.services = [];
-          this.showLoading("Veuillez patienter, nous chargeons les services disponibles");
+            if(localStorage.getItem('Language')=='en'){
+                this.showLoading("Please wait, we are loading the available services");
+            }else if(localStorage.getItem('Language')=='ar'){
+                this.showLoading("يرجى الانتظار ، جاري تحميل الخدمات المتاحة");
+            }else{
+                this.showLoading("Veuillez patienter, nous chargeons les services disponibles");
+            }
           queues.forEach(id => {
               kioskService.getQueueById(id).then(function (data) {
                   data.services.forEach(function (obj) {

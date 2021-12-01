@@ -50,7 +50,7 @@
                 </div>
             </div>
              <div class="row envoyer_sms">
-                <div class="col-12">
+                <div class="col">
                     <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')" :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''" :dir="lang=='ar'?'rtl':'ltr'"></DialButton>
                 </div>
                 <div class="col-12 mt-2" v-if="printAllowed">
