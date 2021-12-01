@@ -194,7 +194,13 @@ export default {
               localStorage.setItem("selectedServices", JSON.stringify(this.selectedServices));
               this.$router.push({name: "Ticket"}).catch();
           }else{
-              this.showPopup("danger", "Ouups!", "Un problème est survenu", "Veuillez sélectionner au moins un service pour continuer", "Fermer", this.hidePopup);
+            if(localStorage.getItem('Language')=='en'){
+                this.showPopup("danger", "Ouups!", "Something went wrong", "Please select at least one service to continue", "Close", this.hidePopup);
+            }else if(localStorage.getItem('Language')=='ar'){
+                this.showPopup("danger", "خطأ", "هناك خطأ ما", "الرجاء تحديد خدمة واحدة على الأقل للمتابعة", "اغلاق", this.hidePopup);
+            }else{
+                this.showPopup("danger", "Ouups!", "Un problème est survenu", "Veuillez sélectionner au moins un service pour continuer", "Fermer", this.hidePopup);
+            }
           }
           
       },

@@ -11,10 +11,10 @@
         <h1 class="p-2 text-center">
           <span style="float: left;">{{$t('Auth.Login')}}</span>
           <div @click="selectServer('ci')" style="float: right;cursor: pointer;">
-              <country-flag country='ci' size='normal' v-if="server=='tn'"/>
+              <country-flag country='ci' size='normal' v-if="server=='ci'"/>
           </div>
           <div @click="selectServer('tn')" style="float: right;cursor: pointer;">
-              <country-flag country='tn' size='normal' v-if="server=='ci'"/>
+              <country-flag country='tn' size='normal' v-if="server=='tn'"/>
           </div>
         </h1>
         <div class="container pt-4">

@@ -7,10 +7,11 @@
             v-on:click="checkService(value.id)" 
             :class="'btn theme-'+theme+' size-'+size+' hover-'+hover"
             style="font-size: 100%;height: 100%;"
+            :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;font-size: 20px;':''"
         > 
-                <span style="top: 50%;left: 50%;transform: translate(-50%, -50%);width: 80%;height: 100%;">{{ name }}<small :class="'qte'+value.id" style="display: none;" >(x{{qte}}) </small></span>
+                <span style="top: 50%;left: 50%;transform: translate(-50%, -50%);width: 80%;height: 100%;">{{ name }}<small :class="'qte'+value.id" style="display: none;" >&nbsp;(x{{qte}}) &nbsp;</small></span>
         </label>
-        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+'8f;width: 50px;height: 63px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 15px;'">
+        <div :class="'plus'+value.id" @click="openQtePopup(value)" class="pluss" :style="'background: '+secondary+'8f;cursor:pointer;width: 50px;height: 70px;text-align: center;font-size: 30px;color: #fff;position: absolute;display:none;right: 15px;'">
             <span style="position:absolute;top:50%;transform: translate(-50%, -50%);">+</span>
         </div>
 
@@ -28,6 +29,7 @@
         name: 'ServiceSelector',
         data:()=>({
             config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config ),
+            lang: localStorage.getItem('Language'),
             secondary:'#6c757d',
             popup_qte: {
             item: {},

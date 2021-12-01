@@ -14,7 +14,7 @@ import { store } from './_store';
 
 //Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBuilding, faCaretLeft } from '@fortawesome/free-solid-svg-icons'
+import { faBuilding, faCaretLeft , faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -22,6 +22,7 @@ library.add(faCaretLeft);
 library.add(faCaretRight);
 library.add(faTimes);
 library.add(faBuilding);
+library.add(faChevronDown);
 // i18n
 import i18n from './i18n/i18n.js'
 if(!localStorage.getItem('Language')) { localStorage.setItem('Language', 'en') }
