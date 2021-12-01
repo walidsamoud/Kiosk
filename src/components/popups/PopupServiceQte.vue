@@ -23,6 +23,8 @@
                         <span>{{index}}</span>
                     </div>
                 </div>
+
+                <div class="space" style="height: 50px;"></div>
                 <!-- <div class="text-center mt-4 mb-4">
                     <input 
                         type="number"
@@ -89,7 +91,7 @@
         width: 60%;
         min-width: 320px;
         max-width: 500px;
-        height: 300px;
+        height: auto !important;
         background: #ffffff;
         border-radius: 20px;
 

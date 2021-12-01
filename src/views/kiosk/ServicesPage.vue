@@ -14,7 +14,7 @@
             </div>
             <div class="row"  :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'margin-top: 40px;margin-bottom: 20px;'">
                 <div class="col">
-                <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 20px;':'font-size: 20px;'">
+                <h2 class="service_h"  :style="kiosk_language=='ar'?'letter-spacing: 0 !important;font-size: 35px;letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':'font-size: 20px;'">
                     {{$t('Services.Message')}}
                 </h2>
                 </div>
@@ -35,10 +35,9 @@
             </form>
 
             <LoadingPopup :active="loading.active" :message="loading.message"></LoadingPopup>
-
             <div class="row bottom-btns">
                 <div class="col">
-                    <LbrxButton :name="$t('Ticket.Return')" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart" @click="opted=null"></LbrxButton>
+                    <LbrxButton :name="(this.kiosk.allow_queue && this.kiosk.allow_booking)?$t('Ticket.Return'):''" size="medium" theme="dark" hover="false" href="#" v-long-press="3000" @long-press-start="onLongPressStart" @click="opted=null"></LbrxButton>
                 </div>
                 <div class="col">
                     <LbrxButton name="" size="medium" theme="dark" hover="false" href="#"></LbrxButton>

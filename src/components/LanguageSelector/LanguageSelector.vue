@@ -1,7 +1,7 @@
 <template>
     <div class="languages row" id="LanguageSelector">
         <span class="language active selected" id="frSpan" >
-            <img class="country_flag" :src="selectedLanguage.flag" alt=""> <span class="language-name"> {{selectedLanguage.label}} </span>
+            <img class="country_flag" :src="selectedLanguage.flag" alt=""> <span class="language-name" :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''"> {{selectedLanguage.label}} </span>
             <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" /> 
             <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" /> 
         </span>
@@ -9,7 +9,7 @@
         <span v-for="(item, index) in selectableLanguages" :key="index">
             <span class="separator">|</span>
             <span  class="language" id="enSpan" @click="selectLanguageCallback(item.code)">
-                <img class="country_flag" :src="item.flag" alt=""> <span class="language-name"> {{item.label}} </span>
+                <img class="country_flag" :src="item.flag" alt=""> <span class="language-name" :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''"> {{item.label}} </span>
                 <font-awesome-icon class="caret_left" :icon="['fas', 'caret-left']" />
                 <font-awesome-icon class="caret_right" :icon="['fas', 'caret-right']" />
             </span>
@@ -26,6 +26,7 @@
     export default {
         name: 'LanguageSelector',
         data:()=>({
+            lang: localStorage.getItem('Language'),
             languageSelectorVisible: false,
             languages: [
                 {label: "English", flag: flagEn, code: "en", selected: false},

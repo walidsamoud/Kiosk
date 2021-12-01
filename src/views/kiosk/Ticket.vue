@@ -4,11 +4,13 @@
             <div class="row ticketDiv">
               <div :class="(sms_allowed)?'col-sm-6 leftSide':'col-sm-12 leftSide'"  v-if="print_allowed"  :style="'text-align:'+left_text_align">
                 <div class="container" style="max-width: 400px;">
-                  <p>{{$t('Ticket.Message1')}}</p>
-                  <div class="small" :style="'text-align:'+left_text_align">
-                    <small>{{$t('Ticket.Message2')}}</small><br>
-                    <small class="msg3">{{$t('Ticket.Message3')}}</small>
+                  <p :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;text-align: right;':''">{{$t('Ticket.Message1')}}</p>
+
+                  <div class="small" :style="lang=='ar'?'text-align: right;':'text-align:'+left_text_align">
+                    <small :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;text-align: right;':''">{{$t('Ticket.Message2')}}</small><br>
+                    <small class="msg3" :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;text-align: right;':''">{{$t('Ticket.Message3')}}</small>
                   </div>
+
                   <div class="imageDiv">
                     <img class="image" src="../../assets/images/green-city.gif" alt="" :style="'width:'+left_img_width">
                   </div>
@@ -23,7 +25,7 @@
               </div>
               <div :class="(print_allowed)?'col-sm-6 rightSide':'col-sm-12 rightSide'"  v-if="sms_allowed">
                 <div class="container">
-                  <h5 class="right_header">{{$t('Ticket.Receive')}}</h5>
+                  <h5 class="right_header" :dir="lang=='ar'?'rtl':'ltr'"  :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''">{{$t('Ticket.Receive')}}</h5>
                 </div>
 
                 <div class="dialDiv" style="width: 100%;text-align: center;">
@@ -165,6 +167,7 @@ import QrcodeVue from 'qrcode.vue';
 export default {
   name: 'Ticket',
   data:()=>({
+    lang: localStorage.getItem('Language'),
     msg:"Ticket",
     key:'',
     secret:'',
@@ -244,7 +247,7 @@ export default {
               customer_id: -1,
               member_id: -1,
               anonymous: this.kiosk_info.kiosk.collected_details,
-              kiosk_language: localStorage.getItem('Language')
+              kiosk_language: localStorage.getItem('Language'),
           }
 
           switch(this.kiosk_info.kiosk.pseudo){

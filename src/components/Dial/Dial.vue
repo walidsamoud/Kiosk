@@ -51,7 +51,7 @@
             </div>
              <div class="row envoyer_sms">
                 <div class="col-12">
-                    <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')"></DialButton>
+                    <DialButton :name="$t('Ticket.SendSms')" theme="outline" size="medium" font="large" hover="true" @click="$emit('submit')" :style="lang=='ar'?'letter-spacing: 0 !important;font-family: Noto Sans Arabic, sans-serif;':''" :dir="lang=='ar'?'rtl':'ltr'"></DialButton>
                 </div>
                 <div class="col-12 mt-2" v-if="printAllowed">
                     <DialButton class="right-print-button" :name="$t('Ticket.PrintTicket')" theme="default" size="medium" font="large" hover="true" @click="$emit('print')"></DialButton>
@@ -76,7 +76,8 @@ export default defineComponent({
         DialButton,
     },
     data:()=>({
-        phoneNumber: ""
+        phoneNumber: "",
+        lang: localStorage.getItem('Language'),
     }),
     methods: {
         dialNumber(number){

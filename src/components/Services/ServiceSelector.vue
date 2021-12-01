@@ -87,7 +87,13 @@
                 this.popup_qte = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
             },
             openQtePopup(item) {
-                this.showPopupQte(item, "success", "Confirmation", "", "Combien de fois voulez-vous faire ce service", "Selectionner", this.hidePopupQte);
+                if(localStorage.getItem('Language')=='en'){
+                    this.showPopupQte(item, "success", "Confirmation", "", "How many times do you want to do this service", "Confirm", this.hidePopupQte);
+                }else if(localStorage.getItem('Language')=='ar'){
+                    this.showPopupQte(item, "success", "تأكيد", "", "كم مرة تريد القيام بهذه الخدمة", "تحديد", this.hidePopupQte);
+                }else{
+                    this.showPopupQte(item, "success", "Confirmation", "", "Combien de fois voulez-vous faire ce service", "Confirmer", this.hidePopupQte);
+                }
             },
             closeQtePopup(){
                 this.hidePopupQte()
