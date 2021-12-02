@@ -285,7 +285,7 @@ export default {
           }.bind(this))
       },
       optedForSms(){
-
+        if(this.phone_number.length>=8){
           if(this.customer.id == null){
               this.findCustomerByPhoneNumber();
           } else {
@@ -316,7 +316,7 @@ export default {
                   this.hideLoading();
               }.bind(this))
           }
-
+        }
 
       },
       showPopup(type, title, message, hint, confirmation, callback, rank = 0){

@@ -22,10 +22,15 @@
             <form id="servicesForm" class="container services_container" method="GET" action="Ticket" :style="(kiosk_config.multi_language && kiosk_config.multi_language!='false')?'':'max-height: 65vh !important;'">
                 <div class="row">
                     <div class="col-md-3" v-if="services.length==1"></div>
-                    <div :class="services.length>=6?'col-md-4 service':'col-md-6 service'" v-for="(item, key) in services" :key="key">
+                    <div 
+                        :class="services.length>=6?'col-md-4 service':'col-md-6 service'" 
+                        v-for="(item, key) in services" 
+                        :key="key" 
+                        :style="(!queueTargetedForServices || queueTargetedForServices==item.queue_id)?'':'pointer-events: none;opacity: .5;'"
+                    >
                         <LbrxService 
                                     :name="item.title" size="small" theme="small" hover="false"
-                                    :value="item" @checked="addSelection" @unchecked="removeSelection(item)" 
+                                    :value="item" @checked="addSelection" @unchecked="removeSelection(item)"
                         >
                         </LbrxService>
                         <!-- v-long-press="3000" @long-press-start="openQtePopup(item)" -->
@@ -78,6 +83,7 @@ import Booking from '/src/components/Booking/Index.vue';
 export default {
   name: 'ServicesPage',
   data:()=>({
+    queueTargetedForServices: null,
       secondary:'#6c757d',
     msg:"ServicesPage",
     key:'',
@@ -180,7 +186,7 @@ export default {
           item.qte= qte
           console.log(item)
           this.selectedServices.push(item);
-
+          this.queueTargetedForServices = item.queue_id
         //   if(fromPopup){
         //       var checkBox = $(":checkbox[value="+item.id+"]");
         //       checkBox.prop('checked', true)
@@ -193,6 +199,9 @@ export default {
               return obj.id != item.id;
           });
           this.selectedServices = filteredServices;
+          if(!this.selectedServices.length){
+            this.queueTargetedForServices = null
+          }
       },
       submitSelectedServices(){
           if(this.selectedServices.length){
