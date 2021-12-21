@@ -231,7 +231,8 @@
 
 <script>
 import moment from 'moment'
-import 'moment/locale/es'
+import 'moment/locale/fr'
+moment.locale('fr')
 
 import {bookingService, kioskService} from '../../_services'
 import LbrxLanguageSelector from '../LanguageSelector/LanguageSelector.vue';
@@ -247,7 +248,7 @@ export default({
         step: 0,
         selected_date: moment().format('DD MMM YYYY'),
         today_fixed: moment().format('DD MMM YYYY'),
-        today: moment().format('DD MMM YYYY'),
+        today: null,
         tomorrow: moment().add(1, 'days').format('DD MMM YYYY'),
         after_tomorrow: moment().add(2, 'days').format('DD MMM YYYY'),
         after_tomorrow2: moment().add(3, 'days').format('DD MMM YYYY'),
@@ -330,7 +331,7 @@ export default({
                 return service;
             })
 
-            moment.locale('fr')
+            // moment.locale('fr')
         },
         reserver(){
             if(this.step==2){
@@ -550,7 +551,7 @@ export default({
                 this.slots= []
                 this.selected_slot= null
                 this.already_have_booking= []
-
+                
                 let data= {
                     // business_id: this.Vendor.id,
                     business_id: this.kiosk.kiosk.business_id,
@@ -599,9 +600,13 @@ export default({
             }.bind(this))
         }
     },
-    mounted(){
-        this.getHolidays()
+    beforeMount(){
         moment.locale('fr')
+    },
+    mounted(){
+        this.today = moment().format('DD MMM YYYY')
+        this.getHolidays()
+        // moment.locale('fr')
         if(this.kiosk.business.departments.length==1){
             this.selected_department = this.kiosk.business.departments[0].id
             this.selected_department_services = this.kiosk.business.departments[0].services.map((service)=>{
@@ -614,13 +619,25 @@ export default({
     },
     computed: {
         year: function () {
-            return moment(this.selected_date, 'DD MMM YYYY').format('YYYY')
+            if(this.today){
+                return moment(this.today, 'DD MMM YYYY').format('YYYY')
+            }else{
+                return moment().format('YYYY')
+            }
         },
         month: function () {
-            return moment(this.selected_date, 'DD MMM YYYY').format('MMM')
+            if(this.today){
+                return moment(this.today, 'DD MMM YYYY').format('MMM')
+            }else{
+                return moment().format('YYYY')
+            }
         },
         fullMonth: function () {
-            return moment(this.selected_date, 'DD MMM YYYY').format('MMMM')
+            if(this.today){
+                return moment(this.today, 'DD MMM YYYY').format('MMMM')
+            }else{
+                return moment().format('YYYY')
+            }
         },
     },
     components:{
@@ -889,7 +906,7 @@ height: 100vh;
     }
 }
 .date-closed{
-    background: rgba(255, 0, 0, 0.05);
+    background: rgba(255, 0, 0, 0.2);
     color: red;
     border: 1px solid red !important;
 }

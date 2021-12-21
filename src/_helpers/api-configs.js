@@ -1,5 +1,6 @@
 function server(){
     // return 'http://localhost:8003/v1'
+    // return 'https://api.liberrex.tn/v1'
     switch (localStorage.getItem('server')) {
         case 'tn': return process.env.VUE_APP_API_URL_TN;
         case 'ci': return process.env.VUE_APP_API_URL_CI;

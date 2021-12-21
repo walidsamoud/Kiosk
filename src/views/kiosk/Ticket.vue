@@ -164,7 +164,8 @@ import LoadingPopup from "../../components/popups/Loading";
 import Popup from '../../components/popups/Popup.vue';
 import QrcodeVue from 'qrcode.vue';
 
-//import $ from "jquery"
+// import $ from "jquery"
+
 export default {
   name: 'Ticket',
   data:()=>({
@@ -370,6 +371,17 @@ export default {
             this.hideLoading();
           }.bind(this))
       },
+      redirectionHandler(){
+        clearTimeout(this._setTimeout)
+        console.log('_timeOut Cleared!')
+        
+        this._setTimeout = setTimeout(function(){
+            console.log('_timeOut Fired!')
+            if(this.phone_number.length<8){
+                this.optedForTicket()
+            }
+        }.bind(this), 10000)
+      }
   },
   computed: {
       ...mapState({
@@ -390,7 +402,10 @@ export default {
       },
   },
   created () {
-
+    // this.redirectionHandler()
+    // $(window.document).on('click, keyup, scroll, touchstart, mousemove, mousedown', function(){
+    //     this.redirectionHandler()
+    // }.bind(this))
   },
   mounted(){
       if(!this.Config.kiosk.allow_print_ticket){

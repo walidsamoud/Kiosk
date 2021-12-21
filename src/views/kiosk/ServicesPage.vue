@@ -78,7 +78,7 @@ import PopupQte from '../../components/popups/PopupServiceQte.vue';
 import LongPress from 'vue-directive-long-press';
 import SplittedScreen from '/src/components/buttons/SplittedScreen.vue';
 import Booking from '/src/components/Booking/Index.vue';
-// import $ from 'jquery'
+import $ from 'jquery'
 
 export default {
   name: 'ServicesPage',
@@ -120,7 +120,9 @@ export default {
     kiosk: JSON.parse(localStorage.getItem('kiosk')).kiosk,
     kiosk_config: JSON.parse( JSON.parse(localStorage.getItem('kiosk')).kiosk.config ),
 
-    opted: null
+    opted: null,
+    _setTimeout: null,
+    _setTimeoutRedirected: false
   }),
   components: {
     LoadingPopup,
@@ -151,6 +153,7 @@ export default {
           this.$router.push('/login')
       },
       loadQueues(){
+          this.queueTargetedForServices = null
           let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
           this.services = [];
             if(localStorage.getItem('Language')=='en'){
@@ -187,12 +190,6 @@ export default {
           console.log(item)
           this.selectedServices.push(item);
           this.queueTargetedForServices = item.queue_id
-        //   if(fromPopup){
-        //       var checkBox = $(":checkbox[value="+item.id+"]");
-        //       checkBox.prop('checked', true)
-        //       $('#label'+item.id).css("border-left", "15px solid rgba(22, 214, 22, 0.7)");
-        //       this.$emit("checked");
-        //   }
       },
       removeSelection(item){
           let filteredServices = this.selectedServices.filter(function (obj) {
@@ -235,6 +232,18 @@ export default {
       hidePopupQte(){
           this.popup_qte = {active: false, title: "", message: "", hint: "", type: "", confirmation: "", callback: null };
       },
+      redirectionHandler(){
+        clearTimeout(this._setTimeout)
+        console.log('_timeOut Cleared!')
+        
+        this._setTimeout = setTimeout(function(){
+            console.log('_timeOut Fired!')
+            if(this.selectedServices.length && !this._setTimeoutRedirected){
+                this.submitSelectedServices()
+                this._setTimeoutRedirected = true
+            }
+        }.bind(this), 10000)
+      }
   },  
   computed: {
       ...mapState({
@@ -247,6 +256,10 @@ export default {
   },
   mounted(){
     this.loadQueues();
+
+    $(window.document).on('click, keyup, scroll, touchstart, mousemove, mousedown', function(){
+        this.redirectionHandler()
+    }.bind(this))
   },
   beforeMount(){
     if(this.kiosk_config.default_language){
