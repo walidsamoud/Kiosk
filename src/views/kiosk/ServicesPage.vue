@@ -257,9 +257,9 @@ export default {
   mounted(){
     this.loadQueues();
 
-    $(window.document).on('click, keyup, scroll, touchstart, mousemove, mousedown', function(){
-        this.redirectionHandler()
-    }.bind(this))
+    //$(window.document).on('click, keyup, scroll, touchstart, mousemove, mousedown', function(){
+    //    this.redirectionHandler()
+    //}.bind(this))
   },
   beforeMount(){
     if(this.kiosk_config.default_language){
