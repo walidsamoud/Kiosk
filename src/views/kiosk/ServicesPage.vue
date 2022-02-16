@@ -78,7 +78,7 @@ import PopupQte from '../../components/popups/PopupServiceQte.vue';
 import LongPress from 'vue-directive-long-press';
 import SplittedScreen from '/src/components/buttons/SplittedScreen.vue';
 import Booking from '/src/components/Booking/Index.vue';
-import $ from 'jquery'
+// import $ from 'jquery'
 
 export default {
   name: 'ServicesPage',
@@ -154,7 +154,10 @@ export default {
       },
       loadQueues(){
           this.queueTargetedForServices = null
-          let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
+          let kio = JSON.parse(localStorage.getItem('kiosk') ).kiosk
+          let conf = JSON.parse(kio.config)
+        //   let queues = JSON.parse(this.kiosk_info.kiosk.config).queues.toString().split(',');
+          let queues = conf.queues.toString().split(',');
           this.services = [];
             if(localStorage.getItem('Language')=='en'){
                 this.showLoading("Please wait, we are loading the available services");

@@ -408,6 +408,12 @@ export default {
     // }.bind(this))
   },
   mounted(){
+      if(localStorage.getItem('server') == 'ci'){
+          this.countryPrefix = '+225'
+      }else if(localStorage.getItem('server') == 'gb'){
+          this.countryPrefix = '+44'
+      }
+
       if(!this.Config.kiosk.allow_print_ticket){
           this.print_allowed= false;
       }
